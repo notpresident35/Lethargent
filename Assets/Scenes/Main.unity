@@ -11123,7 +11123,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 692649668}
-  - component: {fileID: 692649667}
   - component: {fileID: 692649666}
   m_Layer: 0
   m_Name: Dialogue Controller (option 1)
@@ -11141,26 +11140,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 692649665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce0d8573e1b2ff42af74cb80f3e5ece, type: 3}
+  m_Script: {fileID: 11500000, guid: fed3685a11dc19645a092dc4715c6010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 27
---- !u!114 &692649667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692649665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66e957d58a4584a8894329531ec0b096, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inkJSONAsset: {fileID: 4900000, guid: 08c0ab197b419fc47b78e9a8030f0a4c, type: 3}
-  canvas: {fileID: 780943821}
-  textPrefab: {fileID: 11456674, guid: 1aab6ef84d87c416f8f0b3e1ef3d77d2, type: 3}
-  buttonPrefab: {fileID: 11455116, guid: 37c108a6c38964f79a6621eccb33ddc1, type: 3}
+  inkJSONAsset: {fileID: 4900000, guid: a935ce239ab06a8419dd35076ab1f0b6, type: 3}
+  dialogueRoot: {fileID: 780943825}
+  textPrefab: {fileID: 7681418088588475773, guid: 9aa6945c3090bf0429ef229357acbf2f,
+    type: 3}
+  buttonPrefab: {fileID: 4296053041453163846, guid: a4e05a18e96e9b640a273b311edcba39,
+    type: 3}
 --- !u!4 &692649668
 Transform:
   m_ObjectHideFlags: 0
@@ -14059,7 +14047,6 @@ GameObject:
   m_Component:
   - component: {fileID: 914772813}
   - component: {fileID: 914772812}
-  - component: {fileID: 914772811}
   m_Layer: 0
   m_Name: Dialogue Controller (option 2)
   m_TagString: Untagged
@@ -14067,19 +14054,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &914772811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 914772810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce0d8573e1b2ff42af74cb80f3e5ece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key: 27
 --- !u!114 &914772812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14092,10 +14066,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed3685a11dc19645a092dc4715c6010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkJSONAsset: {fileID: 4900000, guid: 08c0ab197b419fc47b78e9a8030f0a4c, type: 3}
+  inkJSONAsset: {fileID: 4900000, guid: a935ce239ab06a8419dd35076ab1f0b6, type: 3}
   dialogueRoot: {fileID: 432460874}
-  textPrefab: {fileID: 11456674, guid: 1aab6ef84d87c416f8f0b3e1ef3d77d2, type: 3}
-  buttonPrefab: {fileID: 11455116, guid: 37c108a6c38964f79a6621eccb33ddc1, type: 3}
+  textPrefab: {fileID: 7681418088588475773, guid: 9aa6945c3090bf0429ef229357acbf2f,
+    type: 3}
+  buttonPrefab: {fileID: 4296053041453163846, guid: a4e05a18e96e9b640a273b311edcba39,
+    type: 3}
 --- !u!4 &914772813
 Transform:
   m_ObjectHideFlags: 0
@@ -23497,7 +23473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 2
+  m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0

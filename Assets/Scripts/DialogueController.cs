@@ -28,11 +28,11 @@ public class DialogueController : MonoBehaviour {
 	}
 
 	void Start() {
-        story = new Story (inkJSONAsset.text);
+        //story = new Story (inkJSONAsset.text);
+		/*
 		Debug.Log (GetVariable ("has_cigar"));
 		SetVariable ("has_cigar", true);
 		Debug.Log (GetVariable ("has_cigar"));
-		/*
 		Debug.Log (story.variablesState ["has_cigar"]);
 		story.variablesState ["has_cigar"] = true;
 		Debug.Log (story.variablesState["has_cigar"]);*/
