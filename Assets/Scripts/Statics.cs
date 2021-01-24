@@ -13,6 +13,4 @@ public class Statics {
     // Ambience also includes music
     public static string AmbienceVolumePlayerPrefName = "AmbienceVolume";
     public static string SFXVolumePlayerPrefName = "SFXVolume";
-
-    // Hello Github!
 }
