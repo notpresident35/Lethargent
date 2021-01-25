@@ -18,15 +18,8 @@ public class PlayerMechanics : MonoBehaviour
 
     [Header("Horizontal Movement")]
     [SerializeField] float normalSpeed = 3f;
-    [SerializeField] float crouchMod;
+    [SerializeField] float crouchMod = 0.5f;
     [SerializeField] float currentSpeed;
-
-    [Space]
-
-    [Header("Camera")]
-    [SerializeField] float cameraSensitivity = 1f;
-    [SerializeField] float xRotation = 0.0f;
-    [SerializeField] float yRotation = 0.0f;
 
     [Space]
 
@@ -63,17 +56,8 @@ public class PlayerMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //CameraMovement();
         Walk();
         Jump();
-    }
-
-    void CameraMovement()
-    {
-        yRotation += control.horizontalAim;
-        xRotation -= control.verticalAim;
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
-        cam.transform.eulerAngles = new Vector3(xRotation, yRotation, 0.0f);
     }
 
     void Walk()
