@@ -37,6 +37,7 @@ public class EntityBehavior : MonoBehaviour {
     [SerializeField] State currentState = State.Idle;
     [SerializeField] int currentBehaviorIndex;
     [SerializeField] TimedBehavior[] behaviors;
+    bool behaviorDelayed;
 
     [Header ("Detection")]
     [SerializeField] Transform eyes;
@@ -49,7 +50,6 @@ public class EntityBehavior : MonoBehaviour {
     [SerializeField] float preferredAttackRange;
     [SerializeField] float maxAttackRange;
     [SerializeField] bool alerted;
-    [SerializeField] bool behaviorDelayed;
     [SerializeField] bool visionTargetHostile;
 
     NavMeshAgent agent;
