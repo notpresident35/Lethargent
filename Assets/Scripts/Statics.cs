@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Statics {
 
+    //** Categorization
+
+    public static string PlayerTagName = "Player";
+
     //** Audio
 
     public static float SFXRange;

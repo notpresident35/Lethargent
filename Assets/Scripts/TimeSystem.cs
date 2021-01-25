@@ -9,9 +9,9 @@ public class TimeSystem : MonoBehaviour {
     
     static TimeSystem Singleton;
 
-    // Needs to run first, because other scripts depend on it
+    // Needs to run before other scripts on game start, because other scripts depend on the time
     [ContextMenu ("Start game")]
-    void OnGameStart () {
+    void StartGame () {
         // TODO: Load time from save
         currentTime = 0;
         isTimeProgressing = true;
@@ -35,6 +35,7 @@ public class TimeSystem : MonoBehaviour {
             Debug.LogWarning ("Only one instance of the TimeSystem should be used; remove all duplicates!");
             Destroy (this);
         }
+        StartGame ();
     }
 
     private void Update () {
