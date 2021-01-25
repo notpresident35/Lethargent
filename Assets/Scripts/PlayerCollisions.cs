@@ -70,7 +70,7 @@ public class PlayerCollisions : MonoBehaviour
 
       if(interactable != null)
       {
-         //TODO
+            interactable[0].GetComponent<GenericInteractable> ().InteractEvent ();
       }
   }
 
