@@ -58,6 +58,7 @@ public class PlayerMechanics : MonoBehaviour
     {
         Walk();
         Jump();
+        SaveNLoad();
     }
 
     void Walk()
@@ -99,6 +100,36 @@ public class PlayerMechanics : MonoBehaviour
         {
             hasJumped = 0;
             isLanding = true;
+        }
+    }
+
+    void SaveNLoad()
+    {
+        if(control.save)
+        {
+          Scene scene = SceneManager.GetActiveScene();
+          LevelManager.current.playerData.sceneID = scene.buildIndex;
+          LevelManager.current.playerData.playerPosX = transform.position.x;
+          LevelManager.current.playerData.playerPosY = transform.position.y;
+          LevelManager.current.playerData.playerPosZ = transform.position.z;
+
+          SaveLoad.Save();
+        }
+
+        //-----------------------------------------------------------------
+
+        if(control.load)
+        {
+          SaveLoad.Load();
+          LevelManager.current.isSceneBeingLoaded = true;
+          int whichScene = LevelManager.current.playerData.sceneID;
+          SceneManager.LoadScene(whichScene);
+
+          float t_x = LevelManager.current.playerData.playerPosX;
+          float t_y = LevelManager.current.playerData.playerPosY;
+          float t_z = LevelManager.current.playerData.playerPosZ;
+
+          transform.position = new Vector3(t_x, t_y, t_z);
         }
     }
 
