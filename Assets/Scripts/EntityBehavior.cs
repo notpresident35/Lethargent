@@ -11,7 +11,7 @@ public class EntityBehavior : MonoBehaviour {
         FollowingPath,
         // Wandering an area (within the boundary of 4 set waypoints)
         WanderingArea,
-        // Using/interacting with something/someone
+        // Walking to then using/interacting with something/someone
         Interacting,
         // Running after target's current or last seen location
         Chasing,
@@ -28,6 +28,8 @@ public class EntityBehavior : MonoBehaviour {
         public bool _interruptibleByDialogue;
         public bool _interruptibleByNextBehavior;
         public State _state;
+        public Transform _visionTarget;
+        public bool _visionTargetHostile;
         public Vector3 [] _waypoints;
     }
 
@@ -41,16 +43,18 @@ public class EntityBehavior : MonoBehaviour {
 
     [Header ("Detection")]
     [SerializeField] Transform eyes;
-    [SerializeField] Transform visionTarget;
     [SerializeField] LayerMask visionMask;
     [SerializeField] float visionRange;
     [SerializeField] float visionAlertTime;
     [SerializeField] float chasingVisionBreakTime;
     [SerializeField] float searchTime;
-    [SerializeField] float preferredAttackRange;
-    [SerializeField] float maxAttackRange;
     [SerializeField] bool alerted;
-    [SerializeField] bool visionTargetHostile;
+    Transform visionTarget;
+    bool visionTargetHostile;
+
+    [Header ("Interaction")]
+    [SerializeField] float maxAttackRange;
+    [SerializeField] float preferredAttackRange;
 
     NavMeshAgent agent;
     List<Vector3> waypoints = new List<Vector3>();
@@ -134,7 +138,20 @@ public class EntityBehavior : MonoBehaviour {
                 }
                 break;
             case State.Interacting:
-                // TODO: Interaction
+                if (NavMeshHasReachedDestination ()) {
+                    // TODO: Interaction
+                    // if (interactionIsComplete) {
+                        // Typically, item interactions will not be interruptible by the next behavior, but they can sometimes be interrupted by dialogue/combat
+                        // This can lead to weird situations where the NPC will never get to pick up an item but will still attempt to use it later
+                        // Try to avoid this scenario by either making the interaction ignore all interrupts or making its result not important to the flow of the game 
+                        if (behaviorDelayed) {
+                            behaviorDelayed = false;
+                            SetupBehavior ();
+                        } else {
+
+                        }
+                    // }
+                }
                 break;
             case State.Chasing:
                 if (TargetIsVisible ()) {
@@ -249,16 +266,22 @@ public class EntityBehavior : MonoBehaviour {
 
         currentState = newBehavior._state;
 
+        // Waypoints
         ClearWaypoints ();
         AddWaypoints (newBehavior._waypoints);
         currentWaypointIndex = 0;
 
-        // Wandering state has waypoints, but ignores them for pathfinding
+        // Vision
+        visionTarget = newBehavior._visionTarget;
+        visionTargetHostile = newBehavior._visionTargetHostile;
+
+        // Wandering state ignores normal pathfinding
         if (currentState == State.WanderingArea) {
             agent.destination = transform.position;
             return;
         }
 
+        // Start pathfinding
         if (waypoints.Count > 0) {
             agent.destination = waypoints [currentWaypointIndex];
         }
