@@ -33,7 +33,7 @@ public class PlayerMechanics : MonoBehaviour
 
 
     GameObject cam; //Camera
-    Text restartText; //Restart again text
+    //Text restartText; //Restart again text
     Rigidbody rb; //Player's rigidbody
 
     CapsuleCollider playerCol; //The collider of the player
@@ -42,8 +42,8 @@ public class PlayerMechanics : MonoBehaviour
 
     void Awake()
     {
-        cam = GameObject.FindGameObjectWithTag("MainCamera");
-        restartText = GameObject.Find("RestartText").GetComponent<Text>();
+        cam = Camera.main.gameObject;
+        //restartText = GameObject.Find("RestartText").GetComponent<Text>();
         rb = GetComponent<Rigidbody>();
         playerCol = GetComponent<CapsuleCollider>();
         control = GetComponent<PlayerControlMapping>();
@@ -52,7 +52,7 @@ public class PlayerMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        restartText.gameObject.SetActive(false);
+        //restartText.gameObject.SetActive(false);
         currentSpeed = normalSpeed;
     }
 
@@ -127,7 +127,7 @@ public class PlayerMechanics : MonoBehaviour
             SaveLoad.Load();
             if(LevelManager.current.playerData.finishedGame)
             {
-                restartText.gameObject.SetActive(true);
+                //restartText.gameObject.SetActive(true);
                 if(control.load)
                 {
                     goto loading;

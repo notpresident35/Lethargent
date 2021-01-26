@@ -20,29 +20,21 @@ public class PlayerCollisions : MonoBehaviour
   [SerializeField] bool inAir;
   [SerializeField] Transform groundTransform;
 
-  [Space]
-
-  [Header("Layers")]
-  [SerializeField] LayerMask groundLayer;
-  [SerializeField] LayerMask interactLayer;
-
   Rigidbody rb;
-  Text interactText;
+  //Text interactText;
   PlayerMechanics mechanics;
 
   void Awake()
   {
     rb = GetComponent<Rigidbody>();
-    interactText = GameObject.Find("InteractText").GetComponent<Text>();
+    //interactText = GameObject.Find("InteractText").GetComponent<Text>();
     mechanics = GetComponent<PlayerMechanics>();
-    groundLayer = LayerMask.GetMask("Ground");
-    interactLayer = LayerMask.GetMask("Interactable");
   }
 
   void Start()
   {
       groundTransform = transform.Find("GroundTransform");
-      interactText.gameObject.SetActive(false);
+      //interactText.gameObject.SetActive(false);
   }
 
   void Update()
@@ -53,7 +45,7 @@ public class PlayerCollisions : MonoBehaviour
 
   void CheckGround()
   {
-      onGround = Physics.OverlapSphere(groundTransform.position, collisionRadius, groundLayer);
+      onGround = Physics.OverlapSphere(groundTransform.position, collisionRadius, 1 << Statics.GroundLayer);
 
       if(onGround.Length != 0) //If the player is standing on ground
       {
@@ -68,15 +60,16 @@ public class PlayerCollisions : MonoBehaviour
 
   void CheckInteract()
   {
-      interactable = Physics.OverlapSphere(transform.position, interactRadius, interactLayer);
+      interactable = Physics.OverlapSphere(transform.position, interactRadius, 1 << Statics.InteractableLayer);
 
       if(interactable.Length != 0)
       {
-         interactText.gameObject.SetActive(true);
+            interactable [0].GetComponent<GenericInteractable> ().InteractEvent ();
+         //interactText.gameObject.SetActive(true);
       }
       else
       {
-          interactText.gameObject.SetActive(false);
+          //interactText.gameObject.SetActive(false);
       }
   }
 
