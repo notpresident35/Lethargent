@@ -10,6 +10,7 @@ public class PlayerControlMapping : MonoBehaviour
     [SerializeField] float m_vMove;
     [SerializeField] float m_horizontalAim;
     [SerializeField] float m_verticalAim;
+    [SerializeField] float m_scroll;
     [SerializeField] bool m_jumpOn;
     [SerializeField] bool m_crouching;
     [SerializeField] bool m_enter;
@@ -28,6 +29,7 @@ public class PlayerControlMapping : MonoBehaviour
          m_vMove = Input.GetAxis("Vertical");
          m_horizontalAim = Input.GetAxis("Mouse X");
          m_verticalAim = Input.GetAxis("Mouse Y");
+         m_scroll = Input.mouseScrollDelta.y;
          m_jumpOn = Input.GetButtonDown("Jump");
          m_crouching = Input.GetButton("Crouch");
          m_enter = Input.GetButtonDown("Submit");
@@ -46,6 +48,7 @@ public class PlayerControlMapping : MonoBehaviour
             m_vMove = Input.GetAxis("Vertical");
             m_horizontalAim = Input.GetAxis("Mouse X");
             m_verticalAim = Input.GetAxis("Mouse Y");
+            m_scroll = Input.mouseScrollDelta.y;
             m_jumpOn = Input.GetButtonDown("Jump");
             m_crouching = Input.GetButton("Crouch");
             m_enter = Input.GetButtonDown("Submit");
@@ -60,6 +63,7 @@ public class PlayerControlMapping : MonoBehaviour
             m_vMove = 0;
             m_horizontalAim = 0;
             m_verticalAim = 0;
+            m_scroll = 0;
             m_jumpOn = false;
             m_crouching = false;
             m_enter = false;
@@ -102,6 +106,10 @@ public class PlayerControlMapping : MonoBehaviour
     public float verticalAim
     {
         get{return m_verticalAim;}
+    }
+    public float scroll
+    {
+        get{return m_scroll;}
     }
     public bool jumpOn
     {

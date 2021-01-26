@@ -76,7 +76,7 @@ public class CameraScript : MonoBehaviour
     {
         if(control.scroll != 0)
         {
-            zoom += control.scroll * zoomAmount;
+            zoom += control.scroll * zoomAmount; 
         }
 
         zoom = Mathf.Clamp(zoom, -7f, -1.5f);
