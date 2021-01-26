@@ -51,23 +51,22 @@ public class CameraScript : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -30, 30);
 
         rotation = Quaternion.Euler(-xRotation, yRotation, 0);
-        //transform.eulerAngles = new Vector3(-xRotation,
-        //transform.eulerAngles.y + yRotation, 0.0f);
     }
 
     void ColliderCheck()
     {
-        Debug.DrawRay(camTransform.transform.position, player.transform.position);
+        Vector3 normPos = player.transform.position + rotation * offset;
+        Debug.DrawRay(normPos, player.transform.position);
 
-        if(Physics.Raycast(camTransform.transform.position, camTransform.transform.forward, out ray,
-        -camTransform.transform.localPosition.z - 0.5f, obstacleLayer))
+        if(Physics.Raycast(normPos, player.transform.position - normPos,
+        out ray, (player.transform.position - normPos).magnitude, obstacleLayer))
         {
-            transform.position = ray.point;
+            transform.position = (ray.point - player.transform.position) * 0.8f + player.transform.position;
             Debug.Log("hit");
         }
         else
         {
-            transform.position = player.transform.position + rotation * offset;
+            transform.position = normPos;
         }
         transform.LookAt(player.transform.position);
     }
@@ -76,7 +75,7 @@ public class CameraScript : MonoBehaviour
     {
         if(control.scroll != 0)
         {
-            zoom += control.scroll * zoomAmount; 
+            zoom += control.scroll * zoomAmount;
         }
 
         zoom = Mathf.Clamp(zoom, -7f, -1.5f);
