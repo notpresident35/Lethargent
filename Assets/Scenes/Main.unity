@@ -12115,12 +12115,12 @@ PrefabInstance:
     - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
       propertyPath: verticalRotationMax
-      value: 100
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
       propertyPath: verticalRotationMin
-      value: -25
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 2672950021914325684, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}

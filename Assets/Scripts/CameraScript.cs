@@ -83,9 +83,10 @@ public class CameraScript : MonoBehaviour
         Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
 
         // Raycasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
-        if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position,
-        out ray, -zoom, 1 << Statics.ObstacleLayer))
-        {
+        // HACKY SOLUTION:
+        // Uses a spherecast to smoothly detect obstacles and a raycast because the spherecast really doesn't like terrain
+        if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position, out ray, -zoom, 1 << Statics.ObstacleLayer) || 
+           Physics.Raycast (target.transform.position, normPos - target.transform.position, out ray, -zoom, 1 << Statics.ObstacleLayer)) {
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
             // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
