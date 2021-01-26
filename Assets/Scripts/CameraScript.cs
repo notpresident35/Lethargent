@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CameraScript : MonoBehaviour
 {
     GameObject player;
+    Transform target;
 
     [Header("Camera Coordinates")]
 
@@ -14,9 +15,11 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float minY;
     [SerializeField] float maxY;
     [SerializeField] Vector3 offset = new Vector3(0, 1, -3);
+    [SerializeField] Vector3 defaultRotation;
 
     [Header ("Rotation")]
 
+    [SerializeField] bool invertYAxis;
     [SerializeField] float cameraSensitivity = 3f;
     [SerializeField] float verticalRotationMax;
     [SerializeField] float verticalRotationMin;
@@ -29,6 +32,11 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float zoom = -3f;
     [SerializeField] float zoomAmount = 0.2f;
 
+    [Header ("Collision")]
+
+    [SerializeField] float detectionRadius = 1.5f;
+    [SerializeField] float cameraDistanceBuffer = 0.2f;
+
     PlayerControlMapping control;
     SceneData sData;
     Transform camTransform;
@@ -38,13 +46,17 @@ public class CameraScript : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        target = player.transform.Find ("Vision Target");
         camTransform = transform.Find ("ObstacleCheck");
         //obstacleLayer = LayerMask.GetMask("Obstacle");
-        offset = transform.position - player.transform.position;
+        //offset = transform.position - player.transform.position;
         control = player.GetComponent<PlayerControlMapping>();
         sData = FindObjectOfType<SceneData> ();// GameObject.FindGameObjectWithTag("Canvas").GetComponent<SceneData>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        transform.position = offset;
+        xRotation = defaultRotation.x;
+        yRotation = defaultRotation.y;
     }
 
     // Update is called once per frame
@@ -58,28 +70,34 @@ public class CameraScript : MonoBehaviour
     void Rotate()
     {
         yRotation += control.horizontalAim * cameraSensitivity; //Capture horizontal mouse movement
-        xRotation += control.verticalAim * cameraSensitivity; //Capture vertical mouse movement
-        xRotation = Mathf.Clamp(xRotation, -30, 30); //Clamp vertical movement to certain angles
+        xRotation += (invertYAxis ? -1 : 1) * control.verticalAim * cameraSensitivity; //Capture vertical mouse movement
+        xRotation = Mathf.Clamp(xRotation, verticalRotationMin, verticalRotationMax); //Clamp vertical movement to certain angles
 
         rotation = Quaternion.Euler(-xRotation, yRotation, 0);
     }
 
     void ColliderCheck()
     {
-        Vector3 normPos = player.transform.position + rotation * offset; //Regualr camera position if no obstruction is there
-        //Debug.DrawRay(normPos, player.transform.position);
+        Vector3 normPos = target.transform.position + rotation * offset; //Regualr camera position if no obstruction is there
+        //Debug.DrawLine(normPos, target.transform.position, Color.red, 2);
 
-        if(Physics.Raycast(normPos, player.transform.position - normPos,
-        out ray, (player.transform.position - normPos).magnitude, 1 << Statics.ObstacleLayer))
+        // Raycasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
+        if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position,
+        out ray, (target.transform.position - normPos).magnitude, 1 << Statics.ObstacleLayer))
         {
-            transform.position = (ray.point - player.transform.position) * 0.8f + player.transform.position; //Get camera closer in case obstruction between camera and player
-            Debug.Log("hit");
+            // Repositions the camera in front of the obstacle
+            // Places the camera at the distance of the rayuast impact along the original line,
+            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
+            transform.position = (normPos - target.transform.position).normalized * 
+                                 (ray.point - target.transform.position).magnitude * 
+                                 (1 - cameraDistanceBuffer) + target.transform.position;
+            //Debug.Log("hit");
         }
         else
         {
             transform.position = normPos; //In case no obstruction, use normal position
         }
-        transform.LookAt(player.transform.position); //Continue to look at the player
+        transform.LookAt(target.transform.position); //Continue to look at the player
     }
 
     void Zoom()

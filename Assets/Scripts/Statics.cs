@@ -20,4 +20,7 @@ public class Statics {
     // Ambience also includes music
     public static string AmbienceVolumePlayerPrefName = "AmbienceVolume";
     public static string SFXVolumePlayerPrefName = "SFXVolume";
+
+    //** Other
+    public static float DayLength = 12f; // Day/night cycle length, measured in seconds
 }

@@ -25,18 +25,7 @@ public class PlayerControlMapping : MonoBehaviour
     void Awake()
     {
          rb = GetComponent<Rigidbody>();
-         m_xMove = Input.GetAxis("Horizontal");
-         m_vMove = Input.GetAxis("Vertical");
-         m_horizontalAim = Input.GetAxis("Mouse X");
-         m_verticalAim = Input.GetAxis("Mouse Y");
-         m_scroll = Input.mouseScrollDelta.y;
-         m_jumpOn = Input.GetButtonDown("Jump");
-         m_crouching = Input.GetButton("Crouch");
-         m_enter = Input.GetButtonDown("Submit");
-         m_pause = Input.GetButtonDown("Pause");
-
-         m_save = Input.GetKeyDown(KeyCode.F5);
-         m_load = Input.GetKeyDown(KeyCode.F6);
+        CaptureInput ();
     }
 
     // Update is called once per frame
@@ -44,33 +33,11 @@ public class PlayerControlMapping : MonoBehaviour
     {
         if(m_inputting)
         {
-            m_xMove = Input.GetAxis("Horizontal");
-            m_vMove = Input.GetAxis("Vertical");
-            m_horizontalAim = Input.GetAxis("Mouse X");
-            m_verticalAim = Input.GetAxis("Mouse Y");
-            m_scroll = Input.mouseScrollDelta.y;
-            m_jumpOn = Input.GetButtonDown("Jump");
-            m_crouching = Input.GetButton("Crouch");
-            m_enter = Input.GetButtonDown("Submit");
-            m_pause = Input.GetButtonDown("Pause");
-
-            m_save = Input.GetKeyDown(KeyCode.F5);
-            m_load = Input.GetKeyDown(KeyCode.F6);
+            CaptureInput ();
         }
         else
         {
-            m_xMove = 0;
-            m_vMove = 0;
-            m_horizontalAim = 0;
-            m_verticalAim = 0;
-            m_scroll = 0;
-            m_jumpOn = false;
-            m_crouching = false;
-            m_enter = false;
-            m_pause = false;
-
-            m_save = false;
-            m_load = false;
+            CaptureDummyInput ();
         }
     }
 
@@ -83,11 +50,41 @@ public class PlayerControlMapping : MonoBehaviour
         m_inputting = true; //Turns on input for player
     }
 
-    public IEnumerator ToggleInput(float delay) //Toggles input for delay amount
+    public IEnumerator PauseInput(float delay) //Toggles input for delay amount
     {
         NoInput();
         yield return new WaitForSeconds(delay);
         StartInput();
+    }
+
+    void CaptureInput () {
+        m_xMove = Input.GetAxis ("Horizontal");
+        m_vMove = Input.GetAxis ("Vertical");
+        m_horizontalAim = Input.GetAxis ("Mouse X");
+        m_verticalAim = Input.GetAxis ("Mouse Y");
+        m_scroll = Input.mouseScrollDelta.y;
+        m_jumpOn = Input.GetButtonDown ("Jump");
+        m_crouching = Input.GetButton ("Crouch");
+        m_enter = Input.GetButtonDown ("Submit");
+        m_pause = Input.GetButtonDown ("Pause");
+
+        m_save = Input.GetKeyDown (KeyCode.F5);
+        m_load = Input.GetKeyDown (KeyCode.F6);
+    }
+
+    void CaptureDummyInput () {
+        m_xMove = 0;
+        m_vMove = 0;
+        m_horizontalAim = 0;
+        m_verticalAim = 0;
+        m_scroll = 0;
+        m_jumpOn = false;
+        m_crouching = false;
+        m_enter = false;
+        m_pause = false;
+
+        m_save = false;
+        m_load = false;
     }
 
     //Public accessors
