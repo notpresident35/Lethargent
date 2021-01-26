@@ -3,40 +3,41 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Canvas
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  -
   - Water
   - UI
-  - 
-  - 
-  - IgnoreEntityVision
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  -
+  -
+  - Ground
+  - Interactable
+  - Obstacle
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
   m_SortingLayers:
   - name: Default
     uniqueID: 0
