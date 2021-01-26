@@ -16,6 +16,7 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float maxY;
     [SerializeField] Vector3 offset = new Vector3(0, 1, -3);
     [SerializeField] Vector3 defaultRotation;
+    float offsetMagnitude;
 
     [Header ("Rotation")]
 
@@ -30,6 +31,8 @@ public class CameraScript : MonoBehaviour
     [Header ("Zoom")]
 
     [SerializeField] float zoom = -3f;
+    [SerializeField] float zoomOffsetMax = 7f;
+    [SerializeField] float zoomOffsetMin = 1.5f;
     [SerializeField] float zoomAmount = 0.2f;
 
     [Header ("Collision")]
@@ -40,6 +43,7 @@ public class CameraScript : MonoBehaviour
     PlayerControlMapping control;
     SceneData sData;
     Transform camTransform;
+    Vector3 camTargetPosition;
     //LayerMask obstacleLayer;
     RaycastHit ray;
 
@@ -48,8 +52,6 @@ public class CameraScript : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         target = player.transform.Find ("Vision Target");
         camTransform = transform.Find ("ObstacleCheck");
-        //obstacleLayer = LayerMask.GetMask("Obstacle");
-        //offset = transform.position - player.transform.position;
         control = player.GetComponent<PlayerControlMapping>();
         sData = FindObjectOfType<SceneData> ();// GameObject.FindGameObjectWithTag("Canvas").GetComponent<SceneData>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -57,14 +59,17 @@ public class CameraScript : MonoBehaviour
         transform.position = offset;
         xRotation = defaultRotation.x;
         yRotation = defaultRotation.y;
+        zoom = offset.magnitude;
+        offset = offset.normalized;
     }
 
     // Update is called once per frame
     void Update()
     {
         Rotate();
-        ColliderCheck();
-        Zoom();
+        Zoom ();
+        DetectCollisions ();
+        transform.position = camTargetPosition;
     }
 
     void Rotate()
@@ -76,9 +81,9 @@ public class CameraScript : MonoBehaviour
         rotation = Quaternion.Euler(-xRotation, yRotation, 0);
     }
 
-    void ColliderCheck()
+    void DetectCollisions()
     {
-        Vector3 normPos = target.transform.position + rotation * offset; //Regualr camera position if no obstruction is there
+        Vector3 normPos = target.transform.position + Quaternion.Euler (offset) * transform.forward * zoom; //Regualr camera position if no obstruction is there
         //Debug.DrawLine(normPos, target.transform.position, Color.red, 2);
 
         // Raycasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
@@ -88,14 +93,14 @@ public class CameraScript : MonoBehaviour
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
             // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
-            transform.position = (normPos - target.transform.position).normalized * 
+            camTargetPosition = (normPos - target.transform.position).normalized * 
                                  (ray.point - target.transform.position).magnitude * 
                                  (1 - cameraDistanceBuffer) + target.transform.position;
             //Debug.Log("hit");
         }
         else
         {
-            transform.position = normPos; //In case no obstruction, use normal position
+            camTargetPosition = normPos; //In case no obstruction, use normal position
         }
         transform.LookAt(target.transform.position); //Continue to look at the player
     }
@@ -107,7 +112,6 @@ public class CameraScript : MonoBehaviour
             zoom += control.scroll * zoomAmount; //Scroll is +1 or -1
         }
 
-        zoom = Mathf.Clamp(zoom, -7f, -1.5f); //Clamp the zoom allowed
-        offset.z = zoom; //Update offset with zoom
+        zoom = Mathf.Clamp(zoom, -zoomOffsetMax, -zoomOffsetMin); //Clamp the zoom allowed
     }
 }
