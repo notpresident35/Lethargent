@@ -31,6 +31,11 @@ public class PlayerMechanics : MonoBehaviour
     public bool isIdle;
     public bool isLanding;
 
+    [Space]
+
+    [Header("Camera Roation")]
+
+
     GameObject cam; //Camera
 
     Rigidbody rb; //Player's rigidbody
@@ -50,7 +55,7 @@ public class PlayerMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        currentSpeed = normalSpeed;
     }
 
     // Update is called once per frame
@@ -65,14 +70,16 @@ public class PlayerMechanics : MonoBehaviour
     {
         if(!control.crouching)
         {
-          rb.velocity = new Vector3(control.xMove*normalSpeed,
-          rb.velocity.y, control.vMove*normalSpeed);
+            currentSpeed = normalSpeed;
         }
         else
         {
-          rb.velocity = new Vector3(control.xMove*normalSpeed*crouchMod,
-          rb.velocity.y, control.vMove*normalSpeed*crouchMod);
+            currentSpeed = normalSpeed * crouchMod;
         }
+
+        Vector3 dir = new Vector3(control.xMove, 0.0f, control.vMove);
+        dir = cam.transform.rotation * dir; //Change direction based on where camera is facing
+        rb.AddForce(dir * currentSpeed);
     }
 
     void Jump()
