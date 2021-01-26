@@ -9,7 +9,7 @@ public class LevelManager //Is started by Main Menu or when game is started
 
     public PlayerStats playerData; //Holds the current player data
 
-    public float time; // Stores TimeSystem.currentTime (TODO: Send this to TimeSystem on game start!)
+    public float time; // Stores TimeSystem.currentTime 
 
     public bool isSceneBeingLoaded = false; //Checks if a scene is being loaded
 

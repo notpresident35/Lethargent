@@ -13,6 +13,8 @@ public class PlayerStats
 
     int m_sceneID = 0; //Default scene
 
+    bool m_finishedGame = false;
+
     // Collectibles dictionary with {collectible_id (String) : collected (Bool)}
     private Dictionary<string, bool> m_collectibles = new Dictionary<string, bool>();
 
@@ -35,6 +37,11 @@ public class PlayerStats
     {
       get{return m_sceneID;}
       set{m_sceneID = value;}
+    }
+    public bool finishedGame
+    {
+      get{return m_finishedGame;}
+      set{m_finishedGame = value;}
     }
     public Dictionary<string, bool> collectibles
     {

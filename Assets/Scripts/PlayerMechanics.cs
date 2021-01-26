@@ -31,13 +31,9 @@ public class PlayerMechanics : MonoBehaviour
     public bool isIdle;
     public bool isLanding;
 
-    [Space]
-
-    [Header("Camera Roation")]
-
 
     GameObject cam; //Camera
-
+    Text restartText; //Restart again text
     Rigidbody rb; //Player's rigidbody
 
     CapsuleCollider playerCol; //The collider of the player
@@ -47,6 +43,7 @@ public class PlayerMechanics : MonoBehaviour
     void Awake()
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera");
+        restartText = GameObject.Find("RestartText").GetComponent<Text>();
         rb = GetComponent<Rigidbody>();
         playerCol = GetComponent<CapsuleCollider>();
         control = GetComponent<PlayerControlMapping>();
@@ -55,6 +52,7 @@ public class PlayerMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        restartText.gameObject.SetActive(false);
         currentSpeed = normalSpeed;
     }
 
@@ -114,29 +112,41 @@ public class PlayerMechanics : MonoBehaviour
     {
         if(control.save)
         {
-          Scene scene = SceneManager.GetActiveScene();
-          LevelManager.current.playerData.sceneID = scene.buildIndex;
-          LevelManager.current.playerData.playerPosX = transform.position.x;
-          LevelManager.current.playerData.playerPosY = transform.position.y;
-          LevelManager.current.playerData.playerPosZ = transform.position.z;
-
-          SaveLoad.Save();
+            Scene scene = SceneManager.GetActiveScene();
+            LevelManager.current.playerData.sceneID = scene.buildIndex;
+            LevelManager.current.playerData.playerPosX = transform.position.x;
+            LevelManager.current.playerData.playerPosY = transform.position.y;
+            LevelManager.current.playerData.playerPosZ = transform.position.z;
+            SaveLoad.Save();
         }
 
         //-----------------------------------------------------------------
 
         if(control.load)
         {
-          SaveLoad.Load();
-          LevelManager.current.isSceneBeingLoaded = true;
-          int whichScene = LevelManager.current.playerData.sceneID;
-          SceneManager.LoadScene(whichScene);
+            SaveLoad.Load();
+            if(LevelManager.current.playerData.finishedGame)
+            {
+                restartText.gameObject.SetActive(true);
+                if(control.load)
+                {
+                    goto loading;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            loading:
+                LevelManager.current.isSceneBeingLoaded = true;
+                int whichScene = LevelManager.current.playerData.sceneID;
+                SceneManager.LoadScene(whichScene);
 
-          float t_x = LevelManager.current.playerData.playerPosX;
-          float t_y = LevelManager.current.playerData.playerPosY;
-          float t_z = LevelManager.current.playerData.playerPosZ;
+                float t_x = LevelManager.current.playerData.playerPosX;
+                float t_y = LevelManager.current.playerData.playerPosY;
+                float t_z = LevelManager.current.playerData.playerPosZ;
 
-          transform.position = new Vector3(t_x, t_y, t_z);
+                transform.position = new Vector3(t_x, t_y, t_z);
         }
     }
 
