@@ -43,7 +43,6 @@ public class CameraScript : MonoBehaviour
     PlayerControlMapping control;
     SceneData sData;
     Transform camTransform;
-    Vector3 camTargetPosition;
     //LayerMask obstacleLayer;
     RaycastHit ray;
 
@@ -59,8 +58,6 @@ public class CameraScript : MonoBehaviour
         transform.position = offset;
         xRotation = defaultRotation.x;
         yRotation = defaultRotation.y;
-        zoom = offset.magnitude;
-        offset = offset.normalized;
     }
 
     // Update is called once per frame
@@ -69,7 +66,6 @@ public class CameraScript : MonoBehaviour
         Rotate();
         Zoom ();
         DetectCollisions ();
-        transform.position = camTargetPosition;
     }
 
     void Rotate()
@@ -83,24 +79,24 @@ public class CameraScript : MonoBehaviour
 
     void DetectCollisions()
     {
-        Vector3 normPos = target.transform.position + Quaternion.Euler (offset) * transform.forward * zoom; //Regualr camera position if no obstruction is there
-        //Debug.DrawLine(normPos, target.transform.position, Color.red, 2);
+        Vector3 normPos = target.transform.position + rotation * offset.normalized * -zoom; //Regualr camera position if no obstruction is there
+        Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
 
         // Raycasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
         if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position,
-        out ray, (target.transform.position - normPos).magnitude, 1 << Statics.ObstacleLayer))
+        out ray, -zoom, 1 << Statics.ObstacleLayer))
         {
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
             // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
-            camTargetPosition = (normPos - target.transform.position).normalized * 
+            transform.position = (normPos - target.transform.position).normalized * 
                                  (ray.point - target.transform.position).magnitude * 
                                  (1 - cameraDistanceBuffer) + target.transform.position;
             //Debug.Log("hit");
         }
         else
         {
-            camTargetPosition = normPos; //In case no obstruction, use normal position
+            transform.position = normPos; //In case no obstruction, use normal position
         }
         transform.LookAt(target.transform.position); //Continue to look at the player
     }

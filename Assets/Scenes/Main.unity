@@ -12059,6 +12059,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
+      propertyPath: zoom
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
+        type: 3}
       propertyPath: offset.y
       value: 6
       objectReference: {fileID: 0}
@@ -12069,8 +12074,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
+      propertyPath: zoomAmount
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
+        type: 3}
       propertyPath: invertYAxis
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
+        type: 3}
+      propertyPath: zoomOffsetMax
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
+        type: 3}
+      propertyPath: zoomOffsetMin
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
@@ -12095,12 +12115,12 @@ PrefabInstance:
     - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
       propertyPath: verticalRotationMax
-      value: 30
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
       propertyPath: verticalRotationMin
-      value: -30
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 2672950021914325684, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
