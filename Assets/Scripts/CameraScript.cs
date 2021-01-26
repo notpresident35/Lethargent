@@ -46,39 +46,39 @@ public class CameraScript : MonoBehaviour
 
     void Rotate()
     {
-        yRotation += control.horizontalAim * cameraSensitivity;
-        xRotation += control.verticalAim * cameraSensitivity;
-        xRotation = Mathf.Clamp(xRotation, -30, 30);
+        yRotation += control.horizontalAim * cameraSensitivity; //Capture horizontal mouse movement
+        xRotation += control.verticalAim * cameraSensitivity; //Capture vertical mouse movement
+        xRotation = Mathf.Clamp(xRotation, -30, 30); //Clamp vertical movement to certain angles
 
         rotation = Quaternion.Euler(-xRotation, yRotation, 0);
     }
 
     void ColliderCheck()
     {
-        Vector3 normPos = player.transform.position + rotation * offset;
-        Debug.DrawRay(normPos, player.transform.position);
+        Vector3 normPos = player.transform.position + rotation * offset; //Regualr camera position if no obstruction is there
+        //Debug.DrawRay(normPos, player.transform.position);
 
         if(Physics.Raycast(normPos, player.transform.position - normPos,
         out ray, (player.transform.position - normPos).magnitude, obstacleLayer))
         {
-            transform.position = (ray.point - player.transform.position) * 0.8f + player.transform.position;
+            transform.position = (ray.point - player.transform.position) * 0.8f + player.transform.position; //Get camera closer in case obstruction between camera and player
             Debug.Log("hit");
         }
         else
         {
-            transform.position = normPos;
+            transform.position = normPos; //In case no obstruction, use normal position
         }
-        transform.LookAt(player.transform.position);
+        transform.LookAt(player.transform.position); //Continue to look at the player
     }
 
     void Zoom()
     {
-        if(control.scroll != 0)
+        if(control.scroll != 0) //If player is scrolling
         {
-            zoom += control.scroll * zoomAmount;
+            zoom += control.scroll * zoomAmount; //Scroll is +1 or -1
         }
 
-        zoom = Mathf.Clamp(zoom, -7f, -1.5f);
-        offset.z = zoom;
+        zoom = Mathf.Clamp(zoom, -7f, -1.5f); //Clamp the zoom allowed
+        offset.z = zoom; //Update offset with zoom
     }
 }
