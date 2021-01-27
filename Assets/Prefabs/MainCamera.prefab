@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2672950021914325685}
   - component: {fileID: 2672950021914325680}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,13 +101,21 @@ MonoBehaviour:
   maxX: 0
   minY: 0
   maxY: 0
-  offset: {x: 0, y: 1, z: -3}
-  cameraSensitivity: 3
+  offset: {x: 0, y: 6, z: -10}
+  defaultRotation: {x: 25, y: 180, z: 0}
+  invertYAxis: 1
+  cameraSensitivity: 0.5
+  verticalRotationMax: 70
+  verticalRotationMin: -25
   xRotation: 0
   yRotation: 0
   rotation: {x: 0, y: 0, z: 0, w: 0}
-  zoom: -3
-  zoomAmount: 0.2
+  zoom: -7
+  zoomOffsetMax: 11
+  zoomOffsetMin: 3
+  zoomAmount: 0.5
+  detectionRadius: 1
+  cameraDistanceBuffer: 0.2
 --- !u!1 &2672950022349766672
 GameObject:
   m_ObjectHideFlags: 0

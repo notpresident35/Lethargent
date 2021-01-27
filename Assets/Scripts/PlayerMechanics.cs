@@ -18,6 +18,7 @@ public class PlayerMechanics : MonoBehaviour
 
     [Header("Horizontal Movement")]
     [SerializeField] float normalSpeed = 3f;
+    [SerializeField] float turnSpeed = 0.1f;
     [SerializeField] float crouchMod = 0.5f;
     [SerializeField] float currentSpeed;
 
@@ -39,6 +40,10 @@ public class PlayerMechanics : MonoBehaviour
     CapsuleCollider playerCol; //The collider of the player
     PlayerCollisions collisions; //Controls collision interactions
     PlayerControlMapping control; //The control map of the player
+    CharacterController controller;
+    Transform model;
+
+    float smoothTime;
 
     void Awake()
     {
@@ -48,6 +53,8 @@ public class PlayerMechanics : MonoBehaviour
         playerCol = GetComponent<CapsuleCollider>();
         control = GetComponent<PlayerControlMapping>();
         collisions = GetComponent<PlayerCollisions>();
+        controller = GetComponent<CharacterController> ();
+        model = transform.Find ("Model");
     }
     // Start is called before the first frame update
     void Start()
@@ -75,11 +82,22 @@ public class PlayerMechanics : MonoBehaviour
             currentSpeed = normalSpeed * crouchMod;
         }
 
+        // Movement
         Vector3 dir = new Vector3(control.xMove, 0.0f, control.vMove);
         Vector3 camRot = cam.transform.rotation.eulerAngles;
-        camRot.x = 0;
+        camRot.x = 0; // Ignore vertical camera rotation
         dir = Quaternion.Euler (camRot) * dir; //Change direction based on where camera is facing
-        rb.AddForce(dir * currentSpeed);
+        Vector3 movement = rb.velocity;
+        movement.x = dir.x * currentSpeed;
+        movement.z = dir.z * currentSpeed;
+        rb.velocity = movement;
+
+        // Rotate smoothly to face movement
+        if (dir.magnitude > Mathf.Epsilon) {
+            float angle = Mathf.Atan2 (dir.x, dir.z) * Mathf.Rad2Deg;
+            angle = Mathf.SmoothDampAngle (transform.eulerAngles.y, angle, ref smoothTime, turnSpeed);
+            transform.rotation = Quaternion.Euler (0, angle, 0);
+        }
     }
 
     void Jump()
