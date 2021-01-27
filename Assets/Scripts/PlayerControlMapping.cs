@@ -58,10 +58,10 @@ public class PlayerControlMapping : MonoBehaviour
     }
 
     void CaptureInput () {
-        m_xMove = Input.GetAxis ("Horizontal");
-        m_vMove = Input.GetAxis ("Vertical");
-        m_horizontalAim = Input.GetAxis ("Mouse X");
-        m_verticalAim = Input.GetAxis ("Mouse Y");
+        m_xMove = Input.GetAxisRaw ("Horizontal");
+        m_vMove = Input.GetAxisRaw ("Vertical");
+        m_horizontalAim = Input.GetAxisRaw ("Mouse X");
+        m_verticalAim = Input.GetAxisRaw ("Mouse Y");
         m_scroll = Input.mouseScrollDelta.y;
         m_jumpOn = Input.GetButtonDown ("Jump");
         m_crouching = Input.GetButton ("Crouch");

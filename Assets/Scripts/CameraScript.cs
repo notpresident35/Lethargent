@@ -49,7 +49,7 @@ public class CameraScript : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        target = player.transform.Find ("Vision Target");
+        target = player.transform.Find ("CameraTarget");
         camTransform = transform.Find ("ObstacleCheck");
         control = player.GetComponent<PlayerControlMapping>();
         sData = FindObjectOfType<SceneData> ();// GameObject.FindGameObjectWithTag("Canvas").GetComponent<SceneData>();
@@ -82,11 +82,8 @@ public class CameraScript : MonoBehaviour
         Vector3 normPos = target.transform.position + rotation * offset.normalized * -zoom; //Regualr camera position if no obstruction is there
         Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
 
-        // Raycasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
-        // HACKY SOLUTION:
-        // Uses a spherecast to smoothly detect obstacles and a raycast because the spherecast really doesn't like terrain
-        if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position, out ray, -zoom, 1 << Statics.ObstacleLayer) || 
-           Physics.Raycast (target.transform.position, normPos - target.transform.position, out ray, -zoom, 1 << Statics.ObstacleLayer)) {
+        // SphereCasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
+        if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position, out ray, -zoom, 1 << Statics.ObstacleLayer)) {
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
             // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 

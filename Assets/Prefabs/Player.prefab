@@ -66,6 +66,7 @@ Transform:
   - {fileID: 2124246992292982450}
   - {fileID: 2124246991241499733}
   - {fileID: 7887102397523243011}
+  - {fileID: 221670220218080333}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -92,7 +93,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124246991558546147}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1376693cabbcc9540b4fc8d84a55cef2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -167,12 +168,6 @@ MonoBehaviour:
   interactable: []
   inAir: 0
   groundTransform: {fileID: 2124246991241499733}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  interactLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &2124246991838850570
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,12 +295,20 @@ MonoBehaviour:
   minY: 0
   maxY: 0
   offset: {x: 0, y: 1, z: -3}
+  defaultRotation: {x: 0, y: 0, z: 0}
+  invertYAxis: 0
   cameraSensitivity: 3
+  verticalRotationMax: 0
+  verticalRotationMin: 0
   xRotation: 0
   yRotation: 0
   rotation: {x: 0, y: 0, z: 0, w: 0}
   zoom: -3
+  zoomOffsetMax: 7
+  zoomOffsetMin: 1.5
   zoomAmount: 0.2
+  detectionRadius: 1.5
+  cameraDistanceBuffer: 0.2
 --- !u!1 &5147181364717700944
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,4 +338,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2124246991558546153}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8882405711447708880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 221670220218080333}
+  m_Layer: 0
+  m_Name: CameraTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &221670220218080333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8882405711447708880}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2124246991558546153}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

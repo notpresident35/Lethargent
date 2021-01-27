@@ -76,7 +76,9 @@ public class PlayerMechanics : MonoBehaviour
         }
 
         Vector3 dir = new Vector3(control.xMove, 0.0f, control.vMove);
-        dir = cam.transform.rotation * dir; //Change direction based on where camera is facing
+        Vector3 camRot = cam.transform.rotation.eulerAngles;
+        camRot.x = 0;
+        dir = Quaternion.Euler (camRot) * dir; //Change direction based on where camera is facing
         rb.AddForce(dir * currentSpeed);
     }
 
@@ -89,19 +91,21 @@ public class PlayerMechanics : MonoBehaviour
             isJumping = true;
             hasJumped += 1;
         }
-        if(rb.velocity.y < 0) //If player is falling
+        if(rb.velocity.y < Mathf.Epsilon) //If player is falling
         {
             rb.velocity += jumpDir * Physics.gravity.y * (fallingMod - 1) * Time.deltaTime;
             isJumping = false;
             isFalling = true;
         }
-        else if(rb.velocity.y > 0 && !control.jumpOn) //If the player is in the air and jumps again
+        else if(rb.velocity.y > Mathf.Epsilon) //If the player is in the air and jumps again
         {
-            rb.velocity += jumpDir * Physics.gravity.y * (smallJumpMod - 1) * Time.deltaTime;
-            isFalling = false;
-            isJumping = true;
+            if (!control.jumpOn) {
+                rb.velocity += jumpDir * Physics.gravity.y * (smallJumpMod - 1) * Time.deltaTime;
+                isFalling = false;
+                isJumping = true;
+            }
         }
-        if(rb.velocity.y == 0)
+        else
         {
             hasJumped = 0;
             isLanding = true;
