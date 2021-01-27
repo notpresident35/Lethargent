@@ -23,4 +23,5 @@ public class Statics {
 
     //** Other
     public static float DayLength = 12f; // Day/night cycle length, measured in seconds
+    public static float Sqrt2 = 1.4142136f; // Approximation of the square root of 2
 }

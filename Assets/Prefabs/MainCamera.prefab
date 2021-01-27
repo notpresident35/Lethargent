@@ -110,6 +110,10 @@ MonoBehaviour:
   xRotation: 0
   yRotation: 0
   rotation: {x: 0, y: 0, z: 0, w: 0}
+  shakeFrequency: 30
+  shakeAmplitude: 0.25
+  shakeAmount: 1
+  shakeDamp: 5
   zoom: -7
   zoomOffsetMax: 11
   zoomOffsetMin: 3

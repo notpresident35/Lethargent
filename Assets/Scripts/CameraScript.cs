@@ -28,6 +28,15 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float yRotation = 0.0f;
     [SerializeField] Quaternion rotation;
 
+    [Header ("Screen Shake")]
+
+    [SerializeField] float shakeFrequency;
+    [SerializeField] float shakeAmplitude;
+    [Range (0, 1)]
+    [SerializeField] float shakeAmount;
+    [SerializeField] float shakeDamp;
+    [SerializeField] bool dampShake = true;
+
     [Header ("Zoom")]
 
     [SerializeField] float zoom = -3f;
@@ -66,6 +75,7 @@ public class CameraScript : MonoBehaviour
         Rotate();
         Zoom ();
         DetectCollisions ();
+        ShakeScreen ();
     }
 
     void Rotate()
@@ -80,7 +90,7 @@ public class CameraScript : MonoBehaviour
     void DetectCollisions()
     {
         Vector3 normPos = target.transform.position + rotation * offset.normalized * -zoom; //Regualr camera position if no obstruction is there
-        Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
+        //Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
 
         // SphereCasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
         if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position, out ray, -zoom, 1 << Statics.ObstacleLayer)) {
@@ -107,5 +117,31 @@ public class CameraScript : MonoBehaviour
         }
 
         zoom = Mathf.Clamp(zoom, -zoomOffsetMax, -zoomOffsetMin); //Clamp the zoom allowed
+    }
+
+    void ShakeScreen () {
+
+        // Normalized noise vector with x and y values ranging from -1 to 1
+        Vector3 shakeOffset = new Vector3 (Mathf.PerlinNoise (Time.time * shakeFrequency, 0) * 2 - 1, Mathf.PerlinNoise (0, Time.time * shakeFrequency) * 2 - 1, 0).normalized;
+        // Randomizes amplitude then scales it by shakeAmplitude and shakeAmount
+        shakeOffset *= Mathf.PerlinNoise (Time.time * shakeFrequency / Statics.Sqrt2, Time.time * shakeFrequency / Statics.Sqrt2) * shakeAmplitude * shakeAmount;
+        // Translates the camera along its local x and y axes. Ignores z axis
+        transform.position += transform.TransformVector (shakeOffset);
+
+        //Debug.DrawRay (transform.position, shakeOffset * 5, Color.red, 2);
+        //Debug.DrawRay (transform.TransformVector (transform.position), shakeOffset * 5, Color.blue, 2);
+
+        if (!dampShake) { return; }
+
+        // Sets shakeAmount to 0 when it gets low to make sure that screen shake completely stops
+        if (shakeAmount > 0) {
+            shakeAmount -= Time.deltaTime * shakeDamp;
+        } else {
+            shakeAmount = 0;
+        }
+    }
+
+    public void AddScreenShake (float shakeIncrease) {
+        shakeAmount = Mathf.Clamp01 (shakeAmount + shakeIncrease);
     }
 }
