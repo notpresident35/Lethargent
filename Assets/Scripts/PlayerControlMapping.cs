@@ -13,6 +13,9 @@ public class PlayerControlMapping : MonoBehaviour
     [SerializeField] float m_scroll;
     [SerializeField] bool m_jumpOn;
     [SerializeField] bool m_crouching;
+    [SerializeField] bool m_freeLooking;
+    [SerializeField] bool m_aiming;
+    [SerializeField] bool m_swapShoulders;
     [SerializeField] bool m_enter;
     [SerializeField] bool m_pause;
     [SerializeField] bool m_save;
@@ -25,7 +28,7 @@ public class PlayerControlMapping : MonoBehaviour
     void Awake()
     {
          rb = GetComponent<Rigidbody>();
-        CaptureInput ();
+        CaptureDummyInput ();
     }
 
     // Update is called once per frame
@@ -65,6 +68,9 @@ public class PlayerControlMapping : MonoBehaviour
         m_scroll = Input.mouseScrollDelta.y;
         m_jumpOn = Input.GetButtonDown ("Jump");
         m_crouching = Input.GetButton ("Crouch");
+        m_freeLooking = Input.GetKey (KeyCode.F);
+        m_aiming = Input.GetMouseButton (1);
+        m_swapShoulders = Input.GetKeyDown (KeyCode.Tab);
         m_enter = Input.GetButtonDown ("Submit");
         m_pause = Input.GetButtonDown ("Pause");
 
@@ -80,6 +86,9 @@ public class PlayerControlMapping : MonoBehaviour
         m_scroll = 0;
         m_jumpOn = false;
         m_crouching = false;
+        m_freeLooking = false;
+        m_aiming = false;
+        m_swapShoulders = false;
         m_enter = false;
         m_pause = false;
 
@@ -115,6 +124,15 @@ public class PlayerControlMapping : MonoBehaviour
     public bool crouching
     {
         get{return m_crouching;}
+    }
+    public bool aiming {
+        get { return m_aiming; }
+    }
+    public bool freeLooking {
+        get { return m_freeLooking; }
+    }
+    public bool swapShoulders {
+        get { return m_swapShoulders; }
     }
     public bool enter
     {

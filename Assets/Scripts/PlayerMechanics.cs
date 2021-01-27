@@ -21,6 +21,7 @@ public class PlayerMechanics : MonoBehaviour
     [SerializeField] float turnSpeed = 0.1f;
     [SerializeField] float crouchMod = 0.5f;
     [SerializeField] float currentSpeed;
+    [SerializeField] float aimRotationSpeed;
 
     [Space]
 
@@ -42,12 +43,18 @@ public class PlayerMechanics : MonoBehaviour
     PlayerControlMapping control; //The control map of the player
     CharacterController controller;
     Transform model;
+    Transform camCacheX;
+    Transform camCacheY;
+    Vector2 controlCache;
+    Vector3 movement = Vector3.zero;
 
     float smoothTime;
 
     void Awake()
     {
         cam = Camera.main.gameObject;
+        camCacheX = new GameObject ("CameraCacheX").transform;
+        camCacheY = new GameObject ("CameraCacheY").transform;
         //restartText = GameObject.Find("RestartText").GetComponent<Text>();
         rb = GetComponent<Rigidbody>();
         playerCol = GetComponent<CapsuleCollider>();
@@ -71,32 +78,59 @@ public class PlayerMechanics : MonoBehaviour
         SaveNLoad();
     }
 
-    void Walk()
-    {
-        if(!control.crouching)
-        {
+    void Walk () {
+        if (!control.crouching) {
             currentSpeed = normalSpeed;
-        }
-        else
-        {
+        } else {
             currentSpeed = normalSpeed * crouchMod;
         }
 
         // Movement
-        Vector3 dir = new Vector3(control.xMove, 0.0f, control.vMove);
-        Vector3 camRot = cam.transform.rotation.eulerAngles;
-        camRot.x = 0; // Ignore vertical camera rotation
-        dir = Quaternion.Euler (camRot) * dir; //Change direction based on where camera is facing
-        Vector3 movement = rb.velocity;
-        movement.x = dir.x * currentSpeed;
-        movement.z = dir.z * currentSpeed;
+        Vector3 dir = new Vector3 (control.xMove, 0.0f, control.vMove);
+
+        // Only updates the reference angle for the camera's rotation if the player stops moving
+        // This allows the player to hold s and move in one direction while the camera rotates 180 degrees
+        // Each input axis needs to have its own unique reference angle, or it doesn't feel intuitive
+        // Hence, spaghetti code
+        if (control.xMove != controlCache.x) {
+            controlCache.x = control.xMove;
+            camCacheX.position = cam.transform.position;
+            camCacheX.rotation = cam.transform.rotation;
+            controlCache.y = control.vMove;
+            camCacheY.position = cam.transform.position;
+            camCacheY.rotation = cam.transform.rotation;
+        }
+        if (control.vMove != controlCache.y) {
+            controlCache.y = control.vMove;
+            camCacheY.position = cam.transform.position;
+            camCacheY.rotation = cam.transform.rotation;
+        }
+        Vector3 xCamRot = camCacheX.rotation.eulerAngles;
+        Vector3 yCamRot = camCacheY.rotation.eulerAngles;
+        xCamRot.x = 0; // Ignore vertical camera rotation
+        yCamRot.x = 0;
+        Vector3 xDir = dir; //Change direction based on where camera is facing
+        xDir.z = 0;
+        xDir = Quaternion.Euler (xCamRot) * xDir;
+        Vector3 yDir = dir; //Change direction based on where camera is facing
+        yDir.x = 0;
+        yDir = Quaternion.Euler (yCamRot) * yDir;
+        dir = (xDir + yDir).normalized;
+
+        movement = dir * currentSpeed;
+        movement.y = rb.velocity.y;
         rb.velocity = movement;
 
-        // Rotate smoothly to face movement
-        if (dir.magnitude > Mathf.Epsilon) {
-            float angle = Mathf.Atan2 (dir.x, dir.z) * Mathf.Rad2Deg;
-            angle = Mathf.SmoothDampAngle (transform.eulerAngles.y, angle, ref smoothTime, turnSpeed);
-            transform.rotation = Quaternion.Euler (0, angle, 0);
+        if (control.aiming) {
+            // Rotate with mouse movement
+            transform.Rotate (0, control.horizontalAim * aimRotationSpeed, 0);
+        } else {
+            // Rotate smoothly to face movement
+            if (dir.magnitude > Mathf.Epsilon) {
+                float angle = Mathf.Atan2 (dir.x, dir.z) * Mathf.Rad2Deg;
+                angle = Mathf.SmoothDampAngle (transform.eulerAngles.y, angle, ref smoothTime, turnSpeed);
+                transform.rotation = Quaternion.Euler (0, angle, 0);
+            }
         }
     }
 
