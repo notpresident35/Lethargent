@@ -17,7 +17,7 @@ public class Statics {
 
     //** Player Prefs
 
-    // Ambience also includes music
+    // Ambient noise and music are lumped into one "Ambience" category
     public static string AmbienceVolumePlayerPrefName = "AmbienceVolume";
     public static string SFXVolumePlayerPrefName = "SFXVolume";
 
