@@ -90,6 +90,7 @@ public class CameraScript : MonoBehaviour
         transform.position = offset;
         xRotation = defaultRotation.x;
         yRotation = defaultRotation.y;
+        freeLookReturnIterator = freeLookReturnDelay;
     }
 
     // Update is called once per frame
@@ -129,11 +130,13 @@ public class CameraScript : MonoBehaviour
             rotation = Quaternion.Euler (-xRotation, yRotation, 0);
         }
 
-        if (!control.freeLooking) {
+        if (control.freeLooking) {
+            freeLookReturnIterator = 0;
+        } else if (control.aiming) {
+            freeLookReturnIterator = freeLookReturnDelay;
+        } else {
             freeLookReturnIterator += Time.deltaTime;
             freeLookReturnIterator = Mathf.Clamp (freeLookReturnIterator, 0, freeLookReturnDelay);
-        } else {
-            freeLookReturnIterator = 0;
         }
     }
 
