@@ -43,9 +43,7 @@ public class PlayerMechanics : MonoBehaviour
     PlayerControlMapping control; //The control map of the player
     CharacterController controller;
     Transform model;
-    Transform camCacheX;
-    Transform camCacheY;
-    Vector2 controlCache;
+    Transform camCache;
     Vector3 movement = Vector3.zero;
 
     float smoothTime;
@@ -53,8 +51,7 @@ public class PlayerMechanics : MonoBehaviour
     void Awake()
     {
         cam = Camera.main.gameObject;
-        camCacheX = new GameObject ("CameraCacheX").transform;
-        camCacheY = new GameObject ("CameraCacheY").transform;
+        camCache = new GameObject ("CameraCache").transform;
         //restartText = GameObject.Find("RestartText").GetComponent<Text>();
         rb = GetComponent<Rigidbody>();
         playerCol = GetComponent<CapsuleCollider>();
@@ -89,22 +86,13 @@ public class PlayerMechanics : MonoBehaviour
         Vector3 dir = new Vector3 (control.xMove, 0.0f, control.vMove);
 
         // Only updates the reference angle for the camera's rotation if the player stops moving
-        // This allows the player to hold s and move in one direction while the camera rotates 180 degrees
-        // Each input axis needs to have its own unique reference angle, or it doesn't feel intuitive
-        // Hence, spaghetti code
-        if (control.xMove != controlCache.x) {
-            controlCache.x = control.xMove;
-            camCacheX.position = cam.transform.position;
-            camCacheX.rotation = cam.transform.rotation;
-            controlCache.y = control.vMove;
-            camCacheY.position = cam.transform.position;
-            camCacheY.rotation = cam.transform.rotation;
+        // This allows the player to hold s to move straight in one direction while the camera rotates 180 degrees
+        // This also allows the player to intuitively move in, say, a circle
+        if (dir.magnitude < Mathf.Epsilon) {
+            camCache.position = cam.transform.position;
+            camCache.rotation = cam.transform.rotation;
         }
-        if (control.vMove != controlCache.y) {
-            controlCache.y = control.vMove;
-            camCacheY.position = cam.transform.position;
-            camCacheY.rotation = cam.transform.rotation;
-        }
+        /*
         Vector3 xCamRot = camCacheX.rotation.eulerAngles;
         Vector3 yCamRot = camCacheY.rotation.eulerAngles;
         xCamRot.x = 0; // Ignore vertical camera rotation
@@ -115,7 +103,12 @@ public class PlayerMechanics : MonoBehaviour
         Vector3 yDir = dir; //Change direction based on where camera is facing
         yDir.x = 0;
         yDir = Quaternion.Euler (yCamRot) * yDir;
-        dir = (xDir + yDir).normalized;
+        dir = (xDir + yDir).normalized;*/
+
+        // Change direction based on camera angle
+        Vector3 camRot = camCache.rotation.eulerAngles;
+        camRot.x = 0; // Ignore vertical camera rotation
+        dir = (Quaternion.Euler (camRot) * dir).normalized;
 
         movement = dir * currentSpeed;
         movement.y = rb.velocity.y;
@@ -133,6 +126,15 @@ public class PlayerMechanics : MonoBehaviour
             }
         }
     }
+
+    
+    /*private void OnDrawGizmos () {
+        if (!Application.isPlaying) { return; }
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere (camCacheX.position, 0.5f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere (camCacheY.position, 0.5f);
+    }*/
 
     void Jump()
     {
