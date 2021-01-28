@@ -185,9 +185,6 @@ public class EntityController : MonoBehaviour {
         // 1. There is a current behavior and it is uninterruptable and incomplete,
         // 2. The entity is alerted and the new behavior is interruptable by searches, or
         // 3. The entity is in dialogue and the new behavior is interruptable by dialogue
-        print (behaviorComplete);
-        print (currentBehavior.Equals (default (Behavior)));
-        print (currentBehavior._interruptibleByNewBehavior);
         if ((!behaviorComplete && !currentBehavior.Equals (default (Behavior)) && !currentBehavior._interruptibleByNewBehavior) || 
             (alerted && newBehavior._interruptibleBySearch) || 
             (talking && newBehavior._interruptibleByDialogue)) {
