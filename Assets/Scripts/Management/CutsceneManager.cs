@@ -5,5 +5,5 @@ using UnityEngine.Timeline;
 
 public class CutsceneManager : MonoBehaviour {
 
-    
+    public static bool active;
 }

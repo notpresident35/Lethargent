@@ -4909,6 +4909,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 1929719300927068010, guid: 9306f1b8755754a4799e178084df7bbe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: behaviors.Array.size
@@ -13717,6 +13722,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884717211}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &886010179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2124246991558546147, guid: 1472a4824660ac841a2a8cb467544736,
+    type: 3}
+  m_PrefabInstance: {fileID: 655800719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &886010180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886010179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: fa9444991c2137f498b94abb63f65c6b, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 886010179}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &889788212
 GameObject:
   m_ObjectHideFlags: 0
@@ -22344,6 +22384,10 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: -5937149241376838206, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
     value: {fileID: 1415245183}
+  - key: {fileID: 4894872374074822963, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
+    value: {fileID: 1986013727}
+  - key: {fileID: 2502425315225317750, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
+    value: {fileID: 886010180}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1415245185
@@ -30611,6 +30655,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1984449926}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1986013726 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1929719300927068010, guid: 9306f1b8755754a4799e178084df7bbe,
+    type: 3}
+  m_PrefabInstance: {fileID: 329241399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1986013727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986013726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: fa9444991c2137f498b94abb63f65c6b, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1986013726}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1995258752
 GameObject:
   m_ObjectHideFlags: 0

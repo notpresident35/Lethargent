@@ -58,7 +58,11 @@ public class CameraScript : MonoBehaviour
     float freeLookReturnIterator;
     [SerializeField] float movementInterpolationSpeed = 0.05f;
     [SerializeField] float maxMovementSpeed = 1;
+    /*[SerializeField] float currentMovementSpeed;
+    [SerializeField] float movementAcceleration;*/
     [SerializeField] float rotationInterpolationFactor = 0.2f;
+    bool wasFreeLooking;
+    bool wasAiming;
 
     [Header ("Collision")]
 
@@ -96,6 +100,7 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CutsceneManager.active) { return; }
         GetRotationInput();
         Zoom ();
         if (control.aiming) {
@@ -124,11 +129,18 @@ public class CameraScript : MonoBehaviour
                 xRotation += rotationDelta.x; //Capture vertical mouse movement
                 xRotation = Mathf.Clamp (xRotation, verticalRotationMin, verticalRotationMax); //Clamp vertical movement to certain angles
             } else {
+                if (wasFreeLooking || wasAiming) {
+                    //print ("Reset vertical rotation");
+                    xRotation = defaultRotation.x;
+                }
                 yRotation = player.transform.rotation.eulerAngles.y;// * Mathf.Rad2Deg;
             }
             
             rotation = Quaternion.Euler (-xRotation, yRotation, 0);
         }
+
+        wasFreeLooking = freeLookReturnIterator < freeLookReturnDelay;
+        wasAiming = control.aiming;
 
         if (control.freeLooking) {
             freeLookReturnIterator = 0;
