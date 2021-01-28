@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using static EntityController;
 
 [RequireComponent (typeof (EntityController))]
@@ -18,15 +17,16 @@ public class EntityBehavior : MonoBehaviour {
     [Header ("State")]
     [SerializeField] int currentBehaviorIndex;
     [SerializeField] TimedBehavior[] behaviors;
-    bool behaviorDelayed;
 
     EntityController entity;
+
+    private void Awake () {
+        entity = GetComponent<EntityController> ();
+    }
 
     // TODO: Called by OnGameStart
     [ContextMenu ("Start game")]
     void SetupBehavior () {
-
-        entity = GetComponent<EntityController> ();
         currentBehaviorIndex = 0;
 
         for (int i = 0; i < behaviors.Length; i++) {
@@ -47,7 +47,11 @@ public class EntityBehavior : MonoBehaviour {
     }
 
     private void Update () {
-        if (behaviors [currentBehaviorIndex + 1]._time < TimeSystem.currentTime) {
+
+        if (!active) { return; }
+
+        // If the next state is due and the current state is interruptible, switch to the next state
+        if (currentBehaviorIndex < behaviors.Length - 1 && behaviors [currentBehaviorIndex]._behavior._interruptibleByNewBehavior && TimeSystem.currentTime > behaviors [currentBehaviorIndex + 1]._time) {
             currentBehaviorIndex++;
             entity.SetBehavior (behaviors [currentBehaviorIndex]._behavior);
         }

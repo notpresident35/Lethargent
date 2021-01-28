@@ -32,6 +32,9 @@ public class EntityController : MonoBehaviour {
         public Vector3 [] _waypoints;
     }
 
+    public bool active;
+    public bool alerted { get; private set; }
+
     [SerializeField] State currentState = State.Idle;
 
     [Header ("Detection")]
@@ -42,13 +45,15 @@ public class EntityController : MonoBehaviour {
     [SerializeField] float visionAlertTime;
     [SerializeField] float chasingVisionBreakTime;
     [SerializeField] float searchTime;
-    [SerializeField] bool alerted;
     [SerializeField] bool visionTargetHostile;
 
     [Header ("Interaction")]
     [SerializeField] float maxAttackRange;
     [SerializeField] float preferredAttackRange;
 
+    Behavior nextBehavior;
+    Behavior currentBehavior;
+    bool behaviorComplete;
     NavMeshAgent agent;
     List<Vector3> waypoints = new List<Vector3> ();
     int currentWaypointIndex = 0;
@@ -63,13 +68,18 @@ public class EntityController : MonoBehaviour {
 
         if (!active) return;
 
-        // TODO: Refactor so it doesn't use one massive switch/case? Not necessary, but might be nice
+        if (!nextBehavior.Equals (default (Behavior)) && behaviorComplete) {
+            SetBehavior (nextBehavior);
+            nextBehavior = default (Behavior);
+        }
+
         switch (currentState) {
             case State.FollowingPath:
                 if (NavMeshHasReachedDestination ()) {
                     currentWaypointIndex++;
                     if (currentWaypointIndex > waypoints.Count - 1) {
                         currentState = State.Idle;
+                        behaviorComplete = true;
                     } else {
                         agent.destination = waypoints [currentWaypointIndex];
                     }
@@ -78,6 +88,7 @@ public class EntityController : MonoBehaviour {
             case State.WanderingArea:
                 if (NavMeshHasReachedDestination ()) {
                     PickWanderDestination ();
+                    behaviorComplete = true;
                 }
                 break;
             case State.Interacting:
@@ -87,12 +98,7 @@ public class EntityController : MonoBehaviour {
                     // Typically, item interactions will not be interruptible by the next behavior, but they can sometimes be interrupted by dialogue/combat
                     // This can lead to weird situations where the NPC will never get to pick up an item but will still attempt to use it later
                     // Try to avoid this scenario by either making the interaction ignore all interrupts or making its result not important to the flow of the game 
-                    if (behaviorDelayed) {
-                        behaviorDelayed = false;
-                        SetupBehavior ();
-                    } else {
-
-                    }
+                        behaviorComplete = true;
                     // }
                 }
                 break;
@@ -130,13 +136,10 @@ public class EntityController : MonoBehaviour {
                     searchIterator += Time.deltaTime;
                     if (searchIterator > searchTime) {
                         // Entity lost target; give up the search and go back to previous behavior
-                        currentState = behaviors [currentBehaviorIndex]._state;
                         searchIterator = 0;
                         alerted = false;
-                        if (behaviorDelayed) {
-                            SetBehavior (behaviors [currentBehaviorIndex]);
-                            behaviorDelayed = false;
-                        }
+                        behaviorComplete = true;
+                        currentState = currentBehavior._state;
                     }
                 }
                 break;
@@ -155,7 +158,7 @@ public class EntityController : MonoBehaviour {
 
         // If the NPC can see their target, alert them!
         if (TargetIsVisible () && !alerted) {
-            if (!behaviors [currentBehaviorIndex]._interruptibleBySearch) {
+            if (!currentBehavior._interruptibleBySearch) {
                 Debug.LogWarning ("Why is this entity searching for an object if its current state is not interruptible? Set visionTarget to null or let this behavior be interrupted!");
                 return;
             }
@@ -163,22 +166,11 @@ public class EntityController : MonoBehaviour {
             if (visionAlertIterator > visionAlertTime) {
                 alerted = true;
                 currentState = State.Chasing;
+                behaviorComplete = false;
                 visionAlertIterator = 0;
             }
         } else {
             visionAlertIterator = 0;
-        }
-
-        // If the next state is due and the current state is interruptible, switch to the next state
-        if (currentBehaviorIndex < behaviors.Length - 1 && behaviors [currentBehaviorIndex]._interruptibleByNextBehavior && TimeSystem.currentTime > behaviors [currentBehaviorIndex + 1]._time) {
-            currentBehaviorIndex++;
-            // Don't actually set the state of the entity if they are searching/chasing/attacking something unless the new behavior is uninterruptible. 
-            if (alerted && behaviors [currentBehaviorIndex]._interruptibleBySearch) {
-                behaviorDelayed = true;
-                return;
-            } else {
-                SetBehavior (behaviors [currentBehaviorIndex]);
-            }
         }
     }
 
@@ -211,17 +203,27 @@ public class EntityController : MonoBehaviour {
 
     bool TargetIsVisible () {
         if (!visionTarget) { return false; }
+
         Vector3 dist = visionTarget.position - eyes.position;
         if (dist.magnitude > visionRange) { return false; }
-        Debug.DrawRay (eyes.position, dist.normalized * visionRange, Color.red, 1);
+
+        //Debug.DrawRay (eyes.position, dist.normalized * visionRange, Color.red, 1);
         RaycastHit hit;
         Physics.Raycast (eyes.position, dist.normalized, out hit, visionRange, visionMask, QueryTriggerInteraction.Ignore);
+
         if (hit.transform == null) { return false; }
         return hit.transform.tag == Statics.PlayerTagName;
     }
 
     public void SetBehavior (Behavior newBehavior) {
 
+        // Queue up new behavior rather than applying it if the current behavior is uninterruptable and incomplete
+        if (!behaviorComplete && !currentBehavior.Equals (default (Behavior)) && !currentBehavior._interruptibleByNewBehavior) {
+            nextBehavior = newBehavior;
+            return;
+        }
+
+        behaviorComplete = false;
         currentState = newBehavior._state;
 
         // Waypoints
