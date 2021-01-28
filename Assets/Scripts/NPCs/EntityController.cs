@@ -32,8 +32,9 @@ public class EntityController : MonoBehaviour {
         public Vector3 [] _waypoints;
     }
 
-    public bool active;
-    public bool alerted { get; private set; }
+    public bool active = false;
+    public bool alerted;/* { get; private set; }*/
+    public bool talking;
 
     [SerializeField] State currentState = State.Idle;
 
@@ -51,27 +52,30 @@ public class EntityController : MonoBehaviour {
     [SerializeField] float maxAttackRange;
     [SerializeField] float preferredAttackRange;
 
-    Behavior nextBehavior;
-    Behavior currentBehavior;
-    bool behaviorComplete;
+    [Header ("Behavior")]
+
+    [SerializeField] Behavior nextBehavior;
+    [SerializeField] Behavior currentBehavior;
+    [SerializeField] bool behaviorComplete = true;
+    [SerializeField] List<Vector3> waypoints = new List<Vector3> ();
+    [SerializeField] int currentWaypointIndex = 0;
+
     NavMeshAgent agent;
-    List<Vector3> waypoints = new List<Vector3> ();
-    int currentWaypointIndex = 0;
     float visionAlertIterator;
     float searchIterator;
 
     private void Awake () {
         agent = GetComponent<NavMeshAgent> ();
+        nextBehavior = default (Behavior);
+        currentBehavior = default (Behavior);
+        behaviorComplete = true;
     }
 
     private void Update () {
 
         if (!active) return;
 
-        if (!nextBehavior.Equals (default (Behavior)) && behaviorComplete) {
-            SetBehavior (nextBehavior);
-            nextBehavior = default (Behavior);
-        }
+        HandleQueuedBehavior ();
 
         switch (currentState) {
             case State.FollowingPath:
@@ -138,7 +142,6 @@ public class EntityController : MonoBehaviour {
                         // Entity lost target; give up the search and go back to previous behavior
                         searchIterator = 0;
                         alerted = false;
-                        behaviorComplete = true;
                         currentState = currentBehavior._state;
                     }
                 }
@@ -154,6 +157,9 @@ public class EntityController : MonoBehaviour {
                     agent.destination = transform.position;
                 }
                 break;
+            case State.Idle:
+                behaviorComplete = true;
+                break;
         }
 
         // If the NPC can see their target, alert them!
@@ -166,12 +172,69 @@ public class EntityController : MonoBehaviour {
             if (visionAlertIterator > visionAlertTime) {
                 alerted = true;
                 currentState = State.Chasing;
-                behaviorComplete = false;
                 visionAlertIterator = 0;
             }
         } else {
             visionAlertIterator = 0;
         }
+    }
+
+    public void SetBehavior (Behavior newBehavior) {
+
+        // Queue up new behavior rather than applying it immmediately if:
+        // 1. There is a current behavior and it is uninterruptable and incomplete,
+        // 2. The entity is alerted and the new behavior is interruptable by searches, or
+        // 3. The entity is in dialogue and the new behavior is interruptable by dialogue
+        print (behaviorComplete);
+        print (currentBehavior.Equals (default (Behavior)));
+        print (currentBehavior._interruptibleByNewBehavior);
+        if ((!behaviorComplete && !currentBehavior.Equals (default (Behavior)) && !currentBehavior._interruptibleByNewBehavior) || 
+            (alerted && newBehavior._interruptibleBySearch) || 
+            (talking && newBehavior._interruptibleByDialogue)) {
+
+            nextBehavior = newBehavior;
+            return;
+        }
+
+        behaviorComplete = false;
+        currentBehavior = newBehavior;
+        currentState = newBehavior._state;
+
+        // Waypoints
+        ClearWaypoints ();
+        AddWaypoints (newBehavior._waypoints);
+        currentWaypointIndex = 0;
+
+        // Vision
+        visionTarget = newBehavior._visionTarget;
+        visionTargetHostile = newBehavior._visionTargetHostile;
+
+        // Wandering state ignores normal pathfinding
+        if (currentState == State.WanderingArea) {
+            agent.destination = transform.position;
+            return;
+        }
+
+        // Start pathfinding
+        if (waypoints.Count > 0) {
+            agent.destination = waypoints [currentWaypointIndex];
+        }
+    }
+
+    // Applies a queued behavior if none of the queue conditions are met
+    void HandleQueuedBehavior () {
+
+        if (nextBehavior.Equals (default (Behavior)) || currentBehavior.Equals (default (Behavior))) { return; }
+
+        // Inverse of the if statement in SetBehavior
+        if (!(!behaviorComplete && !currentBehavior._interruptibleByNewBehavior) &&
+            !(alerted && nextBehavior._interruptibleBySearch) &&
+            !(talking && nextBehavior._interruptibleByDialogue)) {
+
+            SetBehavior (nextBehavior);
+            nextBehavior = default (Behavior);
+        }
+
     }
 
     // Picks a random location on the navmesh inside a boundary
@@ -207,44 +270,12 @@ public class EntityController : MonoBehaviour {
         Vector3 dist = visionTarget.position - eyes.position;
         if (dist.magnitude > visionRange) { return false; }
 
-        //Debug.DrawRay (eyes.position, dist.normalized * visionRange, Color.red, 1);
+        Debug.DrawRay (eyes.position, dist.normalized * visionRange, Color.red, 1);
         RaycastHit hit;
         Physics.Raycast (eyes.position, dist.normalized, out hit, visionRange, visionMask, QueryTriggerInteraction.Ignore);
 
         if (hit.transform == null) { return false; }
         return hit.transform.tag == Statics.PlayerTagName;
-    }
-
-    public void SetBehavior (Behavior newBehavior) {
-
-        // Queue up new behavior rather than applying it if the current behavior is uninterruptable and incomplete
-        if (!behaviorComplete && !currentBehavior.Equals (default (Behavior)) && !currentBehavior._interruptibleByNewBehavior) {
-            nextBehavior = newBehavior;
-            return;
-        }
-
-        behaviorComplete = false;
-        currentState = newBehavior._state;
-
-        // Waypoints
-        ClearWaypoints ();
-        AddWaypoints (newBehavior._waypoints);
-        currentWaypointIndex = 0;
-
-        // Vision
-        visionTarget = newBehavior._visionTarget;
-        visionTargetHostile = newBehavior._visionTargetHostile;
-
-        // Wandering state ignores normal pathfinding
-        if (currentState == State.WanderingArea) {
-            agent.destination = transform.position;
-            return;
-        }
-
-        // Start pathfinding
-        if (waypoints.Count > 0) {
-            agent.destination = waypoints [currentWaypointIndex];
-        }
     }
 
     // Adds a new waypoint to a patrol path. Useful for cutscenes

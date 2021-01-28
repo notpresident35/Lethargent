@@ -4927,12 +4927,12 @@ PrefabInstance:
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: behaviors.Array.data[1]._time
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: behaviors.Array.data[2]._time
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
@@ -4964,6 +4964,11 @@ PrefabInstance:
       propertyPath: behaviors.Array.data[3]._interruptibleBySearch
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
+        type: 3}
+      propertyPath: behaviors.Array.data[0]._behavior._visionTarget
+      value: 
+      objectReference: {fileID: 655800722}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: behaviors.Array.data[1]._behavior._visionTarget
@@ -5016,8 +5021,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
-      propertyPath: behaviors.Array.data[1]._behavior._visionTargetHostile
+      propertyPath: behaviors.Array.data[0]._behavior._visionTargetHostile
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
+        type: 3}
+      propertyPath: behaviors.Array.data[1]._behavior._visionTargetHostile
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
@@ -5028,6 +5038,11 @@ PrefabInstance:
         type: 3}
       propertyPath: behaviors.Array.data[2]._behavior._waypoints.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
+        type: 3}
+      propertyPath: behaviors.Array.data[0]._behavior._interruptibleBySearch
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
@@ -5042,6 +5057,16 @@ PrefabInstance:
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: behaviors.Array.data[0]._behavior._interruptibleByDialogue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
+        type: 3}
+      propertyPath: behaviors.Array.data[1]._behavior._interruptibleByDialogue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
+        type: 3}
+      propertyPath: behaviors.Array.data[2]._behavior._interruptibleByDialogue
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
@@ -5102,12 +5127,12 @@ PrefabInstance:
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: behaviors.Array.data[0]._behavior._interruptibleByNewBehavior
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: behaviors.Array.data[1]._behavior._interruptibleByNewBehavior
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1929719300927068012, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
@@ -30850,6 +30875,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
+  alerted: 0
+  talking: 0
   currentState: 0
   eyes: {fileID: 1661036878}
   visionTarget: {fileID: 0}
@@ -30863,6 +30890,25 @@ MonoBehaviour:
   visionTargetHostile: 0
   maxAttackRange: 12
   preferredAttackRange: 7
+  nextBehavior:
+    _interruptibleBySearch: 0
+    _interruptibleByDialogue: 0
+    _interruptibleByNewBehavior: 0
+    _state: 0
+    _visionTarget: {fileID: 0}
+    _visionTargetHostile: 0
+    _waypoints: []
+  currentBehavior:
+    _interruptibleBySearch: 0
+    _interruptibleByDialogue: 0
+    _interruptibleByNewBehavior: 0
+    _state: 0
+    _visionTarget: {fileID: 0}
+    _visionTargetHostile: 0
+    _waypoints: []
+  behaviorComplete: 1
+  waypoints: []
+  currentWaypointIndex: 0
 --- !u!1 &1995258752
 GameObject:
   m_ObjectHideFlags: 0
