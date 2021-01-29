@@ -57,4 +57,13 @@ public class EntityBehavior : MonoBehaviour {
             entity.SetBehavior (behaviors [currentBehaviorIndex]._behavior);
         }
     }
+
+    public void StartCutscene () {
+        active = false;
+    }
+
+    public void StopCutscene () {
+        active = true;
+        entity.SetBehavior (behaviors [currentBehaviorIndex]._behavior);
+    }
 }

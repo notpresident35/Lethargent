@@ -13909,7 +13909,35 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: fa9444991c2137f498b94abb63f65c6b, type: 2}
+    - {fileID: 11400000, guid: 8bd0a29cbccea9145b4f0ebf0ea05c81, type: 2}
+    - {fileID: 11400000, guid: ac4dc7b3034eb9d478a61fb6ecdcdb45, type: 2}
     m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 886010179}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 886010179}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 886010179}
@@ -22507,6 +22535,8 @@ GameObject:
   - component: {fileID: 1415245185}
   - component: {fileID: 1415245184}
   - component: {fileID: 1415245183}
+  - component: {fileID: 1415245186}
+  - component: {fileID: 1415245187}
   m_Layer: 0
   m_Name: CutsceneManager
   m_TagString: Untagged
@@ -22543,7 +22573,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -22554,6 +22584,8 @@ PlayableDirector:
     value: {fileID: 1986013727}
   - key: {fileID: 2502425315225317750, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
     value: {fileID: 886010180}
+  - key: {fileID: 3754564667877377658, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
+    value: {fileID: 1415245187}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1415245185
@@ -22570,6 +22602,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1415245186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415245182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6695671a3822f4d885c512754b5728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ContinueInput: 101
+--- !u!114 &1415245187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415245182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: c269bd5b0210bf04c9cfd686c67a8323, type: 2}
+    - {fileID: 11400000, guid: 8bd0a29cbccea9145b4f0ebf0ea05c81, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1415245186}
+          m_MethodName: SetContinueFlag
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1415245186}
+          m_MethodName: SetCutsceneEnd
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1420298345
 GameObject:
   m_ObjectHideFlags: 0
@@ -30842,7 +30930,35 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: fa9444991c2137f498b94abb63f65c6b, type: 2}
+    - {fileID: 11400000, guid: ac4dc7b3034eb9d478a61fb6ecdcdb45, type: 2}
+    - {fileID: 11400000, guid: 8bd0a29cbccea9145b4f0ebf0ea05c81, type: 2}
     m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1986013726}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1986013726}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1986013726}

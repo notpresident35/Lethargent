@@ -26,6 +26,14 @@ public class EntityCutsceneBehavior : MonoBehaviour {
         iterator += Time.deltaTime;
     }
 
+    public void StartCutscene () {
+        active = true;
+        behaviorIndex = 0;
+        currentBehavior = behaviors [CutsceneManager.CutsceneID].behaviors [0];
+        entity.active = currentBehavior.entityControllerActive;
+        entity.SetBehaviorOverrideQueue (currentBehavior.behavior);
+    }
+
     public void Continue () {
 
         if (!active) { return; }
@@ -34,5 +42,10 @@ public class EntityCutsceneBehavior : MonoBehaviour {
         currentBehavior = behaviors [CutsceneManager.CutsceneID].behaviors [behaviorIndex];
         entity.active = currentBehavior.entityControllerActive;
         entity.SetBehaviorOverrideQueue (currentBehavior.behavior);
+    }
+
+    public void EndCutscene () {
+        active = false;
+        entity.active = currentBehavior.entityControllerActive;
     }
 }

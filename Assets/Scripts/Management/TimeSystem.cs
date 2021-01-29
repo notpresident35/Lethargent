@@ -5,8 +5,8 @@ using UnityEngine;
 public class TimeSystem : MonoBehaviour {
 
     public static float currentTime { get; private set; }
-    public static bool isTimeProgressing = false;
-    
+    public static bool isTimeProgressing { get; private set; } = false;
+
     static TimeSystem Singleton;
 
     // Needs to run before other scripts on game start, because other scripts depend on the time
@@ -43,4 +43,23 @@ public class TimeSystem : MonoBehaviour {
             currentTime += Time.deltaTime;
         }
     }
+
+    public static void StopTime () {
+        isTimeProgressing = false;
+    }
+
+    public static void StartTime () {
+        isTimeProgressing = true;
+    }
+
+    public static void PauseTime (float time) {
+        isTimeProgressing = false;
+        Singleton.StartCoroutine (Singleton.ResumeTime (time));
+    }
+
+    IEnumerator ResumeTime (float time) {
+        yield return new WaitForSeconds (time);
+        isTimeProgressing = true;
+    }
 }
+

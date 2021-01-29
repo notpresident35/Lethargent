@@ -63,6 +63,7 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float rotationInterpolationFactor = 0.2f;
     bool wasFreeLooking;
     bool wasAiming;
+    bool wasInCutscene;
 
     [Header ("Collision")]
 
@@ -100,7 +101,7 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CutsceneManager.Active) { return; }
+        if (CutsceneManager.Active) { wasInCutscene = true; return; }
         GetRotationInput();
         Zoom ();
         if (control.aiming) {
@@ -111,6 +112,7 @@ public class CameraScript : MonoBehaviour
         TargetRotation ();
         ApplyTransform ();
         ShakeScreen ();
+        wasInCutscene = false;
     }
 
     void GetRotationInput()
@@ -218,9 +220,14 @@ public class CameraScript : MonoBehaviour
     }
 
     void ApplyTransform () {
-        Vector3 newPos = Vector3.Lerp (transform.position, targetPosition, movementInterpolationSpeed);
-        transform.position += (newPos - transform.position).normalized * Mathf.Clamp ((newPos - transform.position).magnitude, 0f, maxMovementSpeed);
-        transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, rotationInterpolationFactor);
+        if (wasInCutscene) {
+            transform.position = targetPosition;
+            transform.rotation = targetRotation;
+        } else {
+            Vector3 newPos = Vector3.Lerp (transform.position, targetPosition, movementInterpolationSpeed);
+            transform.position += (newPos - transform.position).normalized * Mathf.Clamp ((newPos - transform.position).magnitude, 0f, maxMovementSpeed);
+            transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, rotationInterpolationFactor);
+        }
     }
 
     void ShakeScreen () {

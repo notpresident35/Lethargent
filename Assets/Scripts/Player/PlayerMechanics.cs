@@ -71,7 +71,8 @@ public class PlayerMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Walk();
+        if (CutsceneManager.Active) { return; }
+        Walk ();
         Jump();
         SaveNLoad();
     }
@@ -211,5 +212,4 @@ public class PlayerMechanics : MonoBehaviour
                 transform.position = new Vector3(t_x, t_y, t_z);
         }
     }
-
 }
