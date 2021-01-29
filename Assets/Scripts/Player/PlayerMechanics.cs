@@ -32,6 +32,7 @@ public class PlayerMechanics : MonoBehaviour
     public bool isFalling;
     public bool isIdle;
     public bool isLanding;
+    public bool joystickControls;
 
 
     GameObject cam; //Camera
@@ -84,14 +85,22 @@ public class PlayerMechanics : MonoBehaviour
 
         // Movement
         Vector3 dir = new Vector3 (control.xMove, 0.0f, control.vMove);
+        Vector3 camRot = cam.transform.rotation.eulerAngles;
 
-        // Only updates the reference angle for the camera's rotation if the player stops moving
-        // This allows the player to hold s to move straight in one direction while the camera rotates 180 degrees
-        // This also allows the player to intuitively move in, say, a circle
-        if (dir.magnitude < Mathf.Epsilon) {
-            camCache.position = cam.transform.position;
-            camCache.rotation = cam.transform.rotation;
+        // Change direction based on camera angle
+        if (joystickControls) {
+            // Only updates the reference angle for the camera's rotation if the player stops moving
+            // This allows the player to hold s to move straight in one direction while the camera rotates 180 degrees
+            // This also allows the player to intuitively move in, say, a circle while using a joystick
+            if (dir.magnitude < Mathf.Epsilon) {
+                camCache.position = cam.transform.position;
+                camCache.rotation = cam.transform.rotation;
+            }
+            camRot = camCache.rotation.eulerAngles;
         }
+
+        camRot.x = 0; // Ignore vertical camera rotation
+        dir = (Quaternion.Euler (camRot) * dir).normalized;
         /*
         Vector3 xCamRot = camCacheX.rotation.eulerAngles;
         Vector3 yCamRot = camCacheY.rotation.eulerAngles;
@@ -104,11 +113,6 @@ public class PlayerMechanics : MonoBehaviour
         yDir.x = 0;
         yDir = Quaternion.Euler (yCamRot) * yDir;
         dir = (xDir + yDir).normalized;*/
-
-        // Change direction based on camera angle
-        Vector3 camRot = camCache.rotation.eulerAngles;
-        camRot.x = 0; // Ignore vertical camera rotation
-        dir = (Quaternion.Euler (camRot) * dir).normalized;
 
         movement = dir * currentSpeed;
         movement.y = rb.velocity.y;

@@ -119,7 +119,7 @@ MonoBehaviour:
   hasJumped: 0
   jumpDir: {x: 0, y: 1, z: 0}
   normalSpeed: 5
-  turnSpeed: 0.1
+  turnSpeed: 0.2
   crouchMod: 0
   currentSpeed: 0
   aimRotationSpeed: 0.2
@@ -129,6 +129,7 @@ MonoBehaviour:
   isFalling: 0
   isIdle: 0
   isLanding: 0
+  joystickControls: 0
 --- !u!114 &2124246991558546149
 MonoBehaviour:
   m_ObjectHideFlags: 0
