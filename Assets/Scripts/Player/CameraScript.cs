@@ -100,7 +100,7 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CutsceneManager.active) { return; }
+        if (CutsceneManager.Active) { return; }
         GetRotationInput();
         Zoom ();
         if (control.aiming) {

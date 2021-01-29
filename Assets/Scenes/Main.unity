@@ -25668,12 +25668,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1661006675}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1661036878 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1929719299480640208, guid: 9306f1b8755754a4799e178084df7bbe,
-    type: 3}
-  m_PrefabInstance: {fileID: 329241399}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1671525587
 GameObject:
   m_ObjectHideFlags: 0
@@ -30871,44 +30865,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1986013726}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e36ec09b4defe14fb363f10741653c1, type: 3}
+  m_Script: {fileID: 11500000, guid: beb18889fa3f86342af139e7591b1d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  alerted: 0
-  talking: 0
-  currentState: 0
-  eyes: {fileID: 1661036878}
-  visionTarget: {fileID: 0}
-  visionMask:
-    serializedVersion: 2
-    m_Bits: 1843
-  visionRange: 20
-  visionAlertTime: 1.5
-  chasingVisionBreakTime: 5
-  searchTime: 18
-  visionTargetHostile: 0
-  maxAttackRange: 12
-  preferredAttackRange: 7
-  nextBehavior:
-    _interruptibleBySearch: 0
-    _interruptibleByDialogue: 0
-    _interruptibleByNewBehavior: 0
-    _state: 0
-    _visionTarget: {fileID: 0}
-    _visionTargetHostile: 0
-    _waypoints: []
-  currentBehavior:
-    _interruptibleBySearch: 0
-    _interruptibleByDialogue: 0
-    _interruptibleByNewBehavior: 0
-    _state: 0
-    _visionTarget: {fileID: 0}
-    _visionTargetHostile: 0
-    _waypoints: []
-  behaviorComplete: 1
-  waypoints: []
-  currentWaypointIndex: 0
+  active: 0
+  behaviors:
+  - {fileID: 11400000, guid: 67697894ffbb0844fa1a75ec8fdd7d83, type: 2}
+  - {fileID: 11400000, guid: 9042b2b20dff1fb4e963733c4c2da8b3, type: 2}
+  - {fileID: 11400000, guid: 22a08576eab93de4180c76eca4c27f09, type: 2}
 --- !u!1 &1995258752
 GameObject:
   m_ObjectHideFlags: 0

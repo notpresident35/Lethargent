@@ -218,6 +218,35 @@ public class EntityController : MonoBehaviour {
         }
     }
 
+    // Overrides the current behavior, no matter what it is or what it should be interrupted by
+    // Super immersion breaking if, say, the player is in combat and the hostile NPC just stops fighting, so avoid using this in gameplay
+    public void SetBehaviorOverrideQueue (Behavior newBehavior) {
+
+        behaviorComplete = false;
+        currentBehavior = newBehavior;
+        currentState = newBehavior._state;
+
+        // Waypoints
+        ClearWaypoints ();
+        AddWaypoints (newBehavior._waypoints);
+        currentWaypointIndex = 0;
+
+        // Vision
+        visionTarget = newBehavior._visionTarget;
+        visionTargetHostile = newBehavior._visionTargetHostile;
+
+        // Wandering state ignores normal pathfinding
+        if (currentState == State.WanderingArea) {
+            agent.destination = transform.position;
+            return;
+        }
+
+        // Start pathfinding
+        if (waypoints.Count > 0) {
+            agent.destination = waypoints [currentWaypointIndex];
+        }
+    }
+
     // Applies a queued behavior if none of the queue conditions are met
     void HandleQueuedBehavior () {
 
