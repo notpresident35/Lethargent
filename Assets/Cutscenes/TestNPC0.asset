@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af73f3318db5abe4e8e0c654d0527bad, type: 3}
+  m_Name: TestNPC0
+  m_EditorClassIdentifier: 
+  behaviors:
+  - entityControllerActive: 0
+    waitForContinue: 0
+    unskippableLength: 0
+    behavior:
+      _interruptibleBySearch: 0
+      _interruptibleByDialogue: 0
+      _interruptibleByNewBehavior: 0
+      _state: 0
+      _visionTarget: {fileID: 0}
+      _visionTargetHostile: 0
+      _waypoints: []
+  - entityControllerActive: 0
+    waitForContinue: 0
+    unskippableLength: 0
+    behavior:
+      _interruptibleBySearch: 0
+      _interruptibleByDialogue: 0
+      _interruptibleByNewBehavior: 0
+      _state: 0
+      _visionTarget: {fileID: 0}
+      _visionTargetHostile: 0
+      _waypoints: []

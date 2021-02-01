@@ -19,12 +19,13 @@ public class EntityBehavior : MonoBehaviour {
     [SerializeField] TimedBehavior[] behaviors;
 
     EntityController entity;
+    bool wasActiveBeforeCutscene;
 
     private void Awake () {
         entity = GetComponent<EntityController> ();
     }
 
-    // TODO: Called by OnGameStart
+    // TODO: Call this from OnGameStart, not Start
     [ContextMenu ("Start game")]
     void SetupBehavior () {
         currentBehaviorIndex = 0;
@@ -58,12 +59,25 @@ public class EntityBehavior : MonoBehaviour {
         }
     }
 
+    private void OnEnable () {
+        CutsceneManager.CutsceneStart += StartCutscene;
+        CutsceneManager.CutsceneStop += StopCutscene;
+    }
+
+    private void OnDisable () {
+        CutsceneManager.CutsceneStart -= StartCutscene;
+        CutsceneManager.CutsceneStop -= StopCutscene;
+    }
+
     public void StartCutscene () {
+        wasActiveBeforeCutscene = active;
         active = false;
     }
 
     public void StopCutscene () {
-        active = true;
-        entity.SetBehavior (behaviors [currentBehaviorIndex]._behavior);
+        active = wasActiveBeforeCutscene;
+        if (active) {
+            entity.SetBehavior (behaviors [currentBehaviorIndex]._behavior);
+        }
     }
 }

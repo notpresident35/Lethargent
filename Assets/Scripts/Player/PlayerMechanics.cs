@@ -7,6 +7,9 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PlayerMechanics : MonoBehaviour
 {
+    // The only thing that can set this to false is a cutscene
+    [SerializeField] bool active = true;
+
     [Header("Vertical Movement")]
     [SerializeField] float jumpSpeed = 7f;
     [SerializeField] float smallJumpMod = 3f; //For double jump
@@ -71,7 +74,7 @@ public class PlayerMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CutsceneManager.Active) { return; }
+        if (!active) { return; }
         Walk ();
         Jump();
         SaveNLoad();
@@ -211,5 +214,23 @@ public class PlayerMechanics : MonoBehaviour
 
                 transform.position = new Vector3(t_x, t_y, t_z);
         }
+    }
+
+    private void OnEnable () {
+        CutsceneManager.CutsceneStart += StartCutscene;
+        CutsceneManager.CutsceneStop += StopCutscene;
+    }
+
+    private void OnDisable () {
+        CutsceneManager.CutsceneStart -= StartCutscene;
+        CutsceneManager.CutsceneStop -= StopCutscene;
+    }
+
+    public void StartCutscene () {
+        active = false;
+    }
+
+    public void StopCutscene () {
+        active = true;
     }
 }

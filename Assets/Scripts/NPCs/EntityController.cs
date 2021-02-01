@@ -63,6 +63,7 @@ public class EntityController : MonoBehaviour {
     NavMeshAgent agent;
     float visionAlertIterator;
     float searchIterator;
+    bool wasActiveBeforeCutscene;
 
     private void Awake () {
         agent = GetComponent<NavMeshAgent> ();
@@ -79,7 +80,7 @@ public class EntityController : MonoBehaviour {
 
         switch (currentState) {
             case State.FollowingPath:
-                if (NavMeshHasReachedDestination ()) {
+                if (NavMeshAgentHasReachedDestination ()) {
                     currentWaypointIndex++;
                     if (currentWaypointIndex > waypoints.Count - 1) {
                         currentState = State.Idle;
@@ -90,13 +91,13 @@ public class EntityController : MonoBehaviour {
                 }
                 break;
             case State.WanderingArea:
-                if (NavMeshHasReachedDestination ()) {
+                if (NavMeshAgentHasReachedDestination ()) {
                     PickWanderDestination ();
                     behaviorComplete = true;
                 }
                 break;
             case State.Interacting:
-                if (NavMeshHasReachedDestination ()) {
+                if (NavMeshAgentHasReachedDestination ()) {
                     // TODO: Interaction
                     // if (interactionIsComplete) {
                     // Typically, item interactions will not be interruptible by the next behavior, but they can sometimes be interrupted by dialogue/combat
@@ -134,7 +135,7 @@ public class EntityController : MonoBehaviour {
                         agent.destination = visionTarget.position;
                     }
                 } else {
-                    if (NavMeshHasReachedDestination ()) {
+                    if (NavMeshAgentHasReachedDestination ()) {
                         PickRandomDestination ();
                     }
                     searchIterator += Time.deltaTime;
@@ -179,6 +180,7 @@ public class EntityController : MonoBehaviour {
         }
     }
 
+    // Sets the current behavior, queueing the new behavior for later if certain interrupt conditions are met
     public void SetBehavior (Behavior newBehavior) {
 
         // Queue up new behavior rather than applying it immmediately if:
@@ -286,10 +288,12 @@ public class EntityController : MonoBehaviour {
         agent.destination = navHit.position;
     }
 
-    bool NavMeshHasReachedDestination () {
+    // Ensures that the agent is close to its destination and that it isn't already calculating a new path
+    bool NavMeshAgentHasReachedDestination () {
         return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f);
     }
 
+    // Raycasts to the target, checking both range and LOS
     bool TargetIsVisible () {
         if (!visionTarget) { return false; }
 
@@ -316,8 +320,28 @@ public class EntityController : MonoBehaviour {
         }
     }
 
+    // Removes all waypoints
     public void ClearWaypoints () {
         waypoints.Clear ();
+    }
+
+    private void OnEnable () {
+        CutsceneManager.CutsceneStart += StartCutscene;
+        CutsceneManager.CutsceneStop += StopCutscene;
+    }
+
+    private void OnDisable () {
+        CutsceneManager.CutsceneStart -= StartCutscene;
+        CutsceneManager.CutsceneStop -= StopCutscene;
+    }
+
+    public void StartCutscene () {
+        wasActiveBeforeCutscene = active;
+        active = false;
+    }
+
+    public void StopCutscene () {
+        active = wasActiveBeforeCutscene;
     }
 
     /*private void OnDrawGizmos () {

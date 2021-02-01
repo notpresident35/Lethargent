@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -6,12 +7,41 @@ using UnityEngine.Timeline;
 
 public class CutsceneManager : MonoBehaviour {
 
-    public static bool Active;
-    public static bool CanContinue;
-    public static int CutsceneID;
+    /* A list of cutscenes and their IDs in order:
+     * 
+     * Act 1
+     * 
+     * 0  Opening shot
+     * 1  Caught by guard
+     * 2  Dragged back to the barracks
+     * 3  Returning to the office
+     * 4  The big announcement
+     * 5  The confrontation
+     * 
+     * Act 3
+     * 
+     * 6  Interrogated by spies
+     * 7  Confronted by the caretaker
+     * 8  Train destroyed by turrets
+     * 9  Train destroyed by allied forces
+     * 10 Train called off - failure
+     * 11 Train called off - success
+     * 12 Train reaches the station
+     * 13 Execution of a traitor
+     * 14 Execution of a rebel
+     * 15 𝔈𝔫𝔠𝔬𝔲𝔫𝔱𝔢𝔯 𝔴𝔦𝔱𝔥 𝔞𝔫 𝔲𝔫𝔨𝔫𝔬𝔴𝔞𝔟𝔩𝔢 𝔢𝔫𝔱𝔦𝔱𝔶
+     */
 
-    // TODO: Refactor kinda hacky debug code to use the interaction button
+    public static bool Active;
+    public static bool WaitingForContinue;
+    public static int CutsceneID;
+    public static event Action CutsceneStart;
+    public static event Action CutsceneContinue;
+    public static event Action CutsceneStop;
+
+    // TODO: Refactor to use the interaction button
     public KeyCode ContinueInput;
+    public TimelineAsset[] Cutscenes;
 
     PlayableDirector director;
 
@@ -21,30 +51,37 @@ public class CutsceneManager : MonoBehaviour {
 
     [ContextMenu ("Start Test Cutscene")]
     public void StartTestCutscene () {
-        Active = true;
-        CanContinue = false;
-        TimeSystem.StopTime ();
-        director.Play ();
+        StartCutscene (0);
     }
 
     private void Update () {
-        if (Input.GetKeyDown (ContinueInput) && Active && CanContinue) {
+        if (Input.GetKeyDown (ContinueInput) && Active && WaitingForContinue) {
             Continue ();
         }
     }
 
     public void Continue () {
         director.playableGraph.GetRootPlayable (0).SetSpeed (1);
-        CanContinue = false;
+        WaitingForContinue = false;
+        CutsceneContinue ();
     }
 
     public void SetContinueFlag () {
         director.playableGraph.GetRootPlayable (0).SetSpeed (0);
-        TimeSystem.StartTime ();
-        CanContinue = true;
+        WaitingForContinue = true;
+    }
+
+    public void StartCutscene (int ID) {
+        Active = true;
+        WaitingForContinue = false;
+        TimeSystem.StopTime ();
+        CutsceneStart ();
+        director.Play (Cutscenes[ID]);
     }
 
     public void SetCutsceneEnd () {
         Active = false;
+        CutsceneStop ();
+        TimeSystem.StartTime ();
     }
 }

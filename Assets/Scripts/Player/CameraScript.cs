@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CameraScript : MonoBehaviour
 {
+    [SerializeField] bool active;
     GameObject player;
     Transform target;
 
@@ -63,7 +64,6 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float rotationInterpolationFactor = 0.2f;
     bool wasFreeLooking;
     bool wasAiming;
-    bool wasInCutscene;
 
     [Header ("Collision")]
 
@@ -101,18 +101,22 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CutsceneManager.Active) { wasInCutscene = true; return; }
+        // Input
         GetRotationInput();
         Zoom ();
+
+        // Calculate target position and rotation
         if (control.aiming) {
             TargetShoulderPositions ();
         } else {
             TargetStandardPosition ();
         }
         TargetRotation ();
+
+        // Actually move and rotate the camera
+        if (!active) { return; } // Camera updates its target transform during cutscenes so it can cut to them when they finish
         ApplyTransform ();
-        ShakeScreen ();
-        wasInCutscene = false;
+        ShakeScreen (); // TODO: allow screenshake in cutscenes, or fake it
     }
 
     void GetRotationInput()
@@ -152,6 +156,15 @@ public class CameraScript : MonoBehaviour
             freeLookReturnIterator += Time.deltaTime;
             freeLookReturnIterator = Mathf.Clamp (freeLookReturnIterator, 0, freeLookReturnDelay);
         }
+    }
+
+    void Zoom () {
+        if (control.scroll != 0) //If player is scrolling
+        {
+            zoom += control.scroll * zoomAmount; //Scroll is +1 or -1
+        }
+
+        zoom = Mathf.Clamp (zoom, -zoomOffsetMax, -zoomOffsetMin); //Clamp the zoom allowed
     }
 
     void TargetShoulderPositions () {
@@ -194,6 +207,7 @@ public class CameraScript : MonoBehaviour
             targetPosition = normPos; //In case no obstruction, use normal position
         }
     }
+    
     void TargetRotation () {
         if (control.aiming) {
             // Y-axis rotation should directly control the player's rotation, not the camera's
@@ -209,25 +223,10 @@ public class CameraScript : MonoBehaviour
         }
     }
 
-    void Zoom()
-    {
-        if(control.scroll != 0) //If player is scrolling
-        {
-            zoom += control.scroll * zoomAmount; //Scroll is +1 or -1
-        }
-
-        zoom = Mathf.Clamp(zoom, -zoomOffsetMax, -zoomOffsetMin); //Clamp the zoom allowed
-    }
-
     void ApplyTransform () {
-        if (wasInCutscene) {
-            transform.position = targetPosition;
-            transform.rotation = targetRotation;
-        } else {
-            Vector3 newPos = Vector3.Lerp (transform.position, targetPosition, movementInterpolationSpeed);
-            transform.position += (newPos - transform.position).normalized * Mathf.Clamp ((newPos - transform.position).magnitude, 0f, maxMovementSpeed);
-            transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, rotationInterpolationFactor);
-        }
+        Vector3 newPos = Vector3.Lerp (transform.position, targetPosition, movementInterpolationSpeed);
+        transform.position += (newPos - transform.position).normalized * Mathf.Clamp ((newPos - transform.position).magnitude, 0f, maxMovementSpeed);
+        transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, rotationInterpolationFactor);
     }
 
     void ShakeScreen () {
@@ -254,5 +253,25 @@ public class CameraScript : MonoBehaviour
 
     public void AddScreenShake (float shakeIncrease) {
         shakeAmount = Mathf.Clamp01 (shakeAmount + shakeIncrease);
+    }
+
+    private void OnEnable () {
+        CutsceneManager.CutsceneStart += StartCutscene;
+        CutsceneManager.CutsceneStop += StopCutscene;
+    }
+
+    private void OnDisable () {
+        CutsceneManager.CutsceneStart -= StartCutscene;
+        CutsceneManager.CutsceneStop -= StopCutscene;
+    }
+
+    public void StartCutscene () {
+        active = false;
+    }
+
+    public void StopCutscene () {
+        active = true;
+        transform.position = targetPosition;
+        transform.rotation = targetRotation;
     }
 }

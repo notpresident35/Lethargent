@@ -8,6 +8,7 @@ public class EntityCutsceneBehavior : MonoBehaviour {
     [SerializeField] bool active;
 
     [Header ("Behaviors")]
+    // One entry for every cutscene (must be ordered correctly)
     [SerializeField] EntityCutsceneBehaviorSO [] behaviors;
 
     EntityController entity;
@@ -15,9 +16,18 @@ public class EntityCutsceneBehavior : MonoBehaviour {
     float iterator;
     CutsceneBehavior currentBehavior;
 
+    private void OnEnable () {
+        CutsceneManager.CutsceneContinue += Continue;
+    }
+
+    private void OnDisable () {
+        CutsceneManager.CutsceneContinue -= Continue;
+    }
+
+    // This runs parallel to the CutsceneContinue event because some cutscenes will have shots where the NPC does multiple things in one shot
     private void Update () {
 
-        if (!active) { return; }
+        if (!active) { iterator = 0; return; }
 
         if (!currentBehavior.waitForContinue && iterator > currentBehavior.unskippableLength) {
             Continue ();

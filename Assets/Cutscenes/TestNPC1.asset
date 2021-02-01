@@ -10,16 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af73f3318db5abe4e8e0c654d0527bad, type: 3}
-  m_Name: TestCutsceneBehavior 0
+  m_Name: TestNPC1
   m_EditorClassIdentifier: 
-  waitForContinue: 0
-  unskippableLength: 5
-  behavior:
-    _interruptibleBySearch: 0
-    _interruptibleByDialogue: 0
-    _interruptibleByNewBehavior: 0
-    _state: 1
-    _visionTarget: {fileID: 0}
-    _visionTargetHostile: 0
-    _waypoints:
-    - {x: 0, y: 0, z: 0}
+  behaviors: []
