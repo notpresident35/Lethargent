@@ -337,11 +337,13 @@ public class EntityController : MonoBehaviour {
 
     public void StartCutscene () {
         wasActiveBeforeCutscene = active;
+        agent.isStopped = true;
         active = false;
     }
 
     public void StopCutscene () {
         active = wasActiveBeforeCutscene;
+        agent.isStopped = false;
     }
 
     /*private void OnDrawGizmos () {
