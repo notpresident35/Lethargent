@@ -10217,6 +10217,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2124246991838850574, guid: 1472a4824660ac841a2a8cb467544736,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124246991838850574, guid: 1472a4824660ac841a2a8cb467544736,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124246991838850574, guid: 1472a4824660ac841a2a8cb467544736,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5147181364717700944, guid: 1472a4824660ac841a2a8cb467544736,
         type: 3}
       propertyPath: m_Name
@@ -13609,9 +13624,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Events:
     m_Signals:
-    - {fileID: 11400000, guid: fa9444991c2137f498b94abb63f65c6b, type: 2}
     - {fileID: 11400000, guid: 8bd0a29cbccea9145b4f0ebf0ea05c81, type: 2}
     - {fileID: 11400000, guid: ac4dc7b3034eb9d478a61fb6ecdcdb45, type: 2}
+    - {fileID: 11400000, guid: c269bd5b0210bf04c9cfd686c67a8323, type: 2}
+    - {fileID: 11400000, guid: ef587110f99b98d4dbf39ff296592d7e, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -13641,17 +13657,49 @@ MonoBehaviour:
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 886010179}
-          m_MethodName: 
-          m_Mode: 1
+        - m_Target: {fileID: 886010187}
+          m_MethodName: SetTrigger
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: StartLoopingAnimations
             m_BoolArgument: 0
           m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 886010187}
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: StopLoopingAnimations
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!95 &886010187
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886010179}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a52106efdf40bfe4fb88b2fd386627ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &889788212
 GameObject:
   m_ObjectHideFlags: 0
@@ -22287,6 +22335,8 @@ PlayableDirector:
     value: {fileID: 886010180}
   - key: {fileID: 3754564667877377658, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
     value: {fileID: 1415245187}
+  - key: {fileID: 545491505877253596, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
+    value: {fileID: 886010187}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1415245185
@@ -22316,6 +22366,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ContinueInput: 101
+  Cutscenes:
+  - {fileID: 11400000, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
 --- !u!114 &1415245187
 MonoBehaviour:
   m_ObjectHideFlags: 0

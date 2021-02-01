@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField] bool active;
+    [SerializeField] bool active = true;
     GameObject player;
     Transform target;
 

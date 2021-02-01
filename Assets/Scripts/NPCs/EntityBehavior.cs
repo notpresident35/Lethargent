@@ -12,7 +12,7 @@ public class EntityBehavior : MonoBehaviour {
         public Behavior _behavior;
     }
 
-    [SerializeField] bool active;
+    [SerializeField] bool active = false;
 
     [Header ("State")]
     [SerializeField] int currentBehaviorIndex;

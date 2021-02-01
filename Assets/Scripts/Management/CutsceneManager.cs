@@ -61,13 +61,17 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     public void Continue () {
-        director.playableGraph.GetRootPlayable (0).SetSpeed (1);
+        director.Resume ();
+        //director.playableGraph.GetRootPlayable (0).SetSpeed (1);
         WaitingForContinue = false;
-        CutsceneContinue ();
+        if (CutsceneContinue != null) {
+            CutsceneContinue ();
+        }
     }
 
     public void SetContinueFlag () {
-        director.playableGraph.GetRootPlayable (0).SetSpeed (0);
+        director.Pause ();
+        //director.playableGraph.GetRootPlayable (0).SetSpeed (0);
         WaitingForContinue = true;
     }
 
