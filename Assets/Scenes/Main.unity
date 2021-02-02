@@ -10162,6 +10162,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2124246991558546148, guid: 1472a4824660ac841a2a8cb467544736,
+        type: 3}
+      propertyPath: smallJumpMod
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124246991558546151, guid: 1472a4824660ac841a2a8cb467544736,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2124246991558546153, guid: 1472a4824660ac841a2a8cb467544736,
         type: 3}
       propertyPath: m_RootOrder
@@ -10252,7 +10262,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraTargetC
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2124246991558546150, guid: 1472a4824660ac841a2a8cb467544736, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1472a4824660ac841a2a8cb467544736, type: 3}
 --- !u!4 &655800720 stripped
 Transform:

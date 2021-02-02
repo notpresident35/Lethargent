@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 2124246991558546146}
   - component: {fileID: 6865905904183607184}
   - component: {fileID: 1616094223562396504}
+  - component: {fileID: 1654365656751208432}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -116,10 +117,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  jumpSpeed: 7
-  smallJumpMod: 3
-  fallingMod: 4
-  hasJumped: 0
+  jumpSpeed: 12
+  jumpingGravityMod: 3
+  fallingGravityMod: 8
+  maxJumps: 1
+  jumpCount: 0
   jumpDir: {x: 0, y: 1, z: 0}
   normalSpeed: 5
   turnSpeed: 0.2
@@ -131,7 +133,6 @@ MonoBehaviour:
   isJumping: 0
   isFalling: 0
   isIdle: 0
-  isLanding: 0
   joystickControls: 0
 --- !u!114 &2124246991558546149
 MonoBehaviour:
@@ -150,9 +151,11 @@ MonoBehaviour:
   m_horizontalAim: 0
   m_verticalAim: 0
   m_scroll: 0
+  m_jumping: 0
   m_jumpOn: 0
   m_crouching: 0
-  m_freeLooking: 0
+  m_freeMouse: 0
+  m_click: 0
   m_aiming: 0
   m_swapShoulders: 0
   m_enter: 0
@@ -172,11 +175,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef6deb7886a31842a9b2fe3648d292b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionRadius: 0.11
-  interactRadius: 1
-  onGround: []
-  interactable: []
-  inAir: 0
+  collisionRadius: 0.7
+  interactRadius: 6
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 1280
+  interactionMask:
+    serializedVersion: 2
+    m_Bits: 512
   groundTransform: {fileID: 2124246991241499733}
 --- !u!95 &6865905904183607184
 Animator:
@@ -296,6 +302,24 @@ MonoBehaviour:
             m_StringArgument: Base Layer.ThinkingIdle
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!143 &1654365656751208432
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124246991558546147}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2124246991838850570
 GameObject:
   m_ObjectHideFlags: 0

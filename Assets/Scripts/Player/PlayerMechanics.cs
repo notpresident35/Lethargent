@@ -12,9 +12,10 @@ public class PlayerMechanics : MonoBehaviour
 
     [Header("Vertical Movement")]
     [SerializeField] float jumpSpeed = 7f;
-    [SerializeField] float smallJumpMod = 3f; //For double jump
-    [SerializeField] float fallingMod = 4f; //Speed of falling
-    [SerializeField] int hasJumped = 0;
+    [SerializeField] float jumpingGravityMod = 3f; //For double jump
+    [SerializeField] float fallingGravityMod = 4f; //Speed of falling
+    [SerializeField] int maxJumps = 1;
+    [SerializeField] int jumpCount = 0;
     [SerializeField] Vector3 jumpDir = Vector3.up;
 
     [Space]
@@ -34,7 +35,6 @@ public class PlayerMechanics : MonoBehaviour
     public bool isJumping;
     public bool isFalling;
     public bool isIdle;
-    public bool isLanding;
     public bool joystickControls;
 
 
@@ -45,11 +45,13 @@ public class PlayerMechanics : MonoBehaviour
     CapsuleCollider playerCol; //The collider of the player
     PlayerCollisions collisions; //Controls collision interactions
     PlayerControlMapping control; //The control map of the player
+    CharacterController controller;
     Transform model;
     Transform camCache;
     Vector3 movement = Vector3.zero;
 
     float smoothTime;
+    Vector3 jumpVelocity = Vector3.zero;
 
     void Awake()
     {
@@ -59,6 +61,7 @@ public class PlayerMechanics : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerCol = GetComponent<CapsuleCollider>();
         control = GetComponent<PlayerControlMapping>();
+        controller = GetComponent<CharacterController> ();
         collisions = GetComponent<PlayerCollisions>();
         model = transform.Find ("Model");
     }
@@ -117,8 +120,7 @@ public class PlayerMechanics : MonoBehaviour
         dir = (xDir + yDir).normalized;*/
 
         movement = dir * currentSpeed;
-        movement.y = rb.velocity.y;
-        rb.AddForce(movement);
+        controller.Move (movement * Time.deltaTime);
 
         if (control.aiming) {
             // Rotate with mouse movement
@@ -133,43 +135,33 @@ public class PlayerMechanics : MonoBehaviour
         }
     }
 
-
-    /*private void OnDrawGizmos () {
-        if (!Application.isPlaying) { return; }
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere (camCacheX.position, 0.5f);
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere (camCacheY.position, 0.5f);
-    }*/
-
     void Jump()
     {
-        if(control.jumpOn && hasJumped < 2) //If player presses up
+        if(control.jumpOn && jumpCount < maxJumps) //If player presses up
         {
-            //rb.AddForce(jumpDir*jumpSpeed, ForceMode2D.Impulse);
-            rb.velocity = jumpDir*jumpSpeed;
+            jumpVelocity = jumpDir.normalized * jumpSpeed;
             isJumping = true;
-            hasJumped += 1;
+            jumpCount++;
         }
-        if(rb.velocity.y < Mathf.Epsilon) //If player is falling
+
+        if (jumpVelocity.y > Mathf.Epsilon) // Player is jumping up; fall slower if still holding the jump button
         {
-            rb.velocity += jumpDir * Physics.gravity.y * (fallingMod - 1) * Time.deltaTime;
+            jumpVelocity += Physics.gravity * (control.jumping ? jumpingGravityMod : fallingGravityMod) * Time.deltaTime;
+            isFalling = false;
+            isJumping = true;
+        } else if (collisions.CheckGround ()) { // Player is on the ground
+            jumpVelocity *= 0.9f;
+            jumpCount = 0;
+            isFalling = false;
+            isJumping = false;
+        } else // Player is falling down
+        {
+            jumpVelocity += Physics.gravity * fallingGravityMod * Time.deltaTime;
             isJumping = false;
             isFalling = true;
         }
-        else if(rb.velocity.y > Mathf.Epsilon) //If the player is in the air and jumps again
-        {
-            if (!control.jumpOn) {
-                rb.velocity += jumpDir * Physics.gravity.y * (smallJumpMod - 1) * Time.deltaTime;
-                isFalling = false;
-                isJumping = true;
-            }
-        }
-        else
-        {
-            hasJumped = 0;
-            isLanding = true;
-        }
+
+        controller.Move (jumpVelocity * Time.deltaTime);
     }
 
     void SaveNLoad()
