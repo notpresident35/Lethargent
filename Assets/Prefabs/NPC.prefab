@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1929719299480640208}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 1929719299877658869}
   - component: {fileID: 1929719299877658871}
   - component: {fileID: 1929719299877658868}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1929719300773686317}
   - component: {fileID: 1929719300773686316}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Physics
   m_TagString: Untagged
   m_Icon: {fileID: 0}

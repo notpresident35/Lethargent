@@ -89,7 +89,7 @@ public class CameraScript : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag ("Player");
         target = player.transform.Find ("CameraTargetC");
         leftShoulder = player.transform.Find ("CameraTargetL");
         rightShoulder = player.transform.Find ("CameraTargetR");
@@ -186,7 +186,7 @@ public class CameraScript : MonoBehaviour
     }
 
     void TargetPosition () {
-        TargetShoulderPositions();
+        TargetShoulderPositions ();
         TargetStandardPosition ();
 
         targetPosition = Vector3.Lerp (standardPosition, shoulderPosition, aimingBlend);

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2124246991241499733}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GroundTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 2124246991558546148}
   - component: {fileID: 2124246991558546149}
   - component: {fileID: 2124246991558546146}
+  - component: {fileID: 6865905904183607184}
+  - component: {fileID: 1616094223562396504}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -176,6 +178,124 @@ MonoBehaviour:
   interactable: []
   inAir: 0
   groundTransform: {fileID: 2124246991241499733}
+--- !u!95 &6865905904183607184
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124246991558546147}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a52106efdf40bfe4fb88b2fd386627ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1616094223562396504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124246991558546147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 8bd0a29cbccea9145b4f0ebf0ea05c81, type: 2}
+    - {fileID: 11400000, guid: ac4dc7b3034eb9d478a61fb6ecdcdb45, type: 2}
+    - {fileID: 11400000, guid: c269bd5b0210bf04c9cfd686c67a8323, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 20da2f1de5f1e3f43ac1bef8bcf8374f, type: 2}
+    - {fileID: 11400000, guid: 52148b7d2b7656e43b93f10f4a5b9a76, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2124246991558546147}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2124246991558546147}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6865905904183607184}
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: StartLoopingAnimations
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6865905904183607184}
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: StopLoopingAnimations
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6865905904183607184}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Base Layer.Idle
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6865905904183607184}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Base Layer.ThinkingIdle
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2124246991838850570
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +307,7 @@ GameObject:
   - component: {fileID: 2124246991838850574}
   - component: {fileID: 2124246991838850575}
   - component: {fileID: 2124246991838850572}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,8 +384,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7887102397523243011}
-  m_Layer: 0
-  m_Name: Vision Target
+  m_Layer: 12
+  m_Name: VisionTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -294,8 +414,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7305051551926307062}
-  m_Layer: 0
-  m_Name: CameraTarget (Left Shoulder)
+  m_Layer: 12
+  m_Name: CameraTargetL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -324,8 +444,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5714766887166547701}
-  m_Layer: 0
-  m_Name: CameraTarget (Right Shoulder)
+  m_Layer: 12
+  m_Name: CameraTargetR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,8 +474,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 221670220218080333}
-  m_Layer: 0
-  m_Name: CameraTarget
+  m_Layer: 12
+  m_Name: CameraTargetC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
