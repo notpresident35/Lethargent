@@ -22,7 +22,7 @@ public class CameraScript : MonoBehaviour
     [Header ("Rotation")]
 
     [SerializeField] bool invertYAxis;
-    [SerializeField] float cameraSensitivity = 3f;
+    [SerializeField] float cameraSensitivity = 1f;
     [SerializeField] float verticalRotationMax;
     [SerializeField] float verticalRotationMin;
     [SerializeField] float xRotation = 0.0f;
@@ -204,7 +204,7 @@ public class CameraScript : MonoBehaviour
         if (Physics.CheckSphere (normPos, shoulderDetectionRadius, collisionMask)) {
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
-            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
+            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces
             targetingRightShoulder = !targetingRightShoulder;
             normPos = targetingRightShoulder ? rightShoulder.position : leftShoulder.position;
             shoulderPosition = normPos;
@@ -264,7 +264,7 @@ public class CameraScript : MonoBehaviour
         } else {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-        } 
+        }
     }
 
     void ApplyTransform () {

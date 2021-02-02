@@ -20,7 +20,7 @@ public class PlayerMechanics : MonoBehaviour
     [Space]
 
     [Header("Horizontal Movement")]
-    [SerializeField] float normalSpeed = 3f;
+    [SerializeField] float normalSpeed = 10f;
     [SerializeField] float turnSpeed = 0.1f;
     [SerializeField] float crouchMod = 0.5f;
     [SerializeField] float currentSpeed;
@@ -45,7 +45,6 @@ public class PlayerMechanics : MonoBehaviour
     CapsuleCollider playerCol; //The collider of the player
     PlayerCollisions collisions; //Controls collision interactions
     PlayerControlMapping control; //The control map of the player
-    CharacterController controller;
     Transform model;
     Transform camCache;
     Vector3 movement = Vector3.zero;
@@ -61,7 +60,6 @@ public class PlayerMechanics : MonoBehaviour
         playerCol = GetComponent<CapsuleCollider>();
         control = GetComponent<PlayerControlMapping>();
         collisions = GetComponent<PlayerCollisions>();
-        controller = GetComponent<CharacterController> ();
         model = transform.Find ("Model");
     }
     // Start is called before the first frame update
@@ -120,7 +118,7 @@ public class PlayerMechanics : MonoBehaviour
 
         movement = dir * currentSpeed;
         movement.y = rb.velocity.y;
-        rb.velocity = movement;
+        rb.AddForce(movement);
 
         if (control.aiming) {
             // Rotate with mouse movement
@@ -135,7 +133,7 @@ public class PlayerMechanics : MonoBehaviour
         }
     }
 
-    
+
     /*private void OnDrawGizmos () {
         if (!Application.isPlaying) { return; }
         Gizmos.color = Color.red;
