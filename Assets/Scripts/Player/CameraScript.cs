@@ -87,6 +87,7 @@ public class CameraScript : MonoBehaviour
     Quaternion targetRotation;
     float freeLookCacheXRotation;
     float freeLookCacheYRotation;
+    bool mouseReleased = false;
 
     void Start()
     {
@@ -128,7 +129,7 @@ public class CameraScript : MonoBehaviour
         isFreeLooking = Mathf.Abs (control.horizontalAim) > Mathf.Epsilon || Mathf.Abs (control.verticalAim) > Mathf.Epsilon;
 
         // Ignore mouse input if player isn't aiming or freelooking
-        if (control.aiming || (isFreeLooking && !control.freeMouse)) {
+        if (control.aiming || (isFreeLooking && !mouseReleased)) {
             rotationDelta.y = control.horizontalAim * cameraSensitivity;
             rotationDelta.x = (invertYAxis ? -1 : 1) * control.verticalAim * cameraSensitivity;
         } else {
@@ -253,7 +254,11 @@ public class CameraScript : MonoBehaviour
     }
 
     void UpdateCursor () {
-        if (control.freeMouse || control.aiming) {
+        if (control.freeMouse) {
+            mouseReleased = !mouseReleased;
+        }
+
+        if (mouseReleased || control.aiming) {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         } else {
