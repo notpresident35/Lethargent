@@ -122,10 +122,11 @@ MonoBehaviour:
   zoomOffsetMin: 3
   zoomAmount: 0.5
   aimCameraSensitivityMultiplier: 0.2
+  aimBlendSpeed: 6
   freeLookReturnDelay: 2.5
-  movementInterpolationSpeed: 0.04
-  maxMovementSpeed: 0.5
-  rotationInterpolationFactor: 0.2
+  movementInterpolationSpeed: 0.1
+  maxMovementSpeed: 0.1
+  rotationInterpolationFactor: 0.25
   detectionRadius: 1
   shoulderDetectionRadius: 0.5
   cameraDistanceBuffer: 0.2

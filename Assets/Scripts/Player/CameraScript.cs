@@ -49,6 +49,7 @@ public class CameraScript : MonoBehaviour
     [Header ("Aim")]
 
     [SerializeField] float aimCameraSensitivityMultiplier = 0.5f;
+    [SerializeField] float aimBlendSpeed = 0.5f;
     Transform leftShoulder;
     Transform rightShoulder;
     bool targetingRightShoulder = true;
@@ -56,14 +57,14 @@ public class CameraScript : MonoBehaviour
     [Header ("Effects")]
 
     [SerializeField] float freeLookReturnDelay = 2;
+    [SerializeField] float freeLookReturnBlendSpeed = 8;
     float freeLookReturnIterator;
+    float freeLookBlend = 1;
     [SerializeField] float movementInterpolationSpeed = 0.05f;
-    [SerializeField] float maxMovementSpeed = 1;
-    /*[SerializeField] float currentMovementSpeed;
-    [SerializeField] float movementAcceleration;*/
     [SerializeField] float rotationInterpolationFactor = 0.2f;
     bool wasFreeLooking;
     bool wasAiming;
+    float aimingBlend = 0;
 
     [Header ("Collision")]
 
@@ -77,8 +78,14 @@ public class CameraScript : MonoBehaviour
     Camera cam;
     //LayerMask obstacleLayer;
     RaycastHit ray;
+    Vector3 standardPosition;
+    Vector3 shoulderPosition;
     Vector3 targetPosition;
+    Quaternion standardRotation;
+    Quaternion shoulderRotation;
     Quaternion targetRotation;
+    float freeLookCacheXRotation;
+    float freeLookCacheYRotation;
 
     void Start()
     {
@@ -102,24 +109,22 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         // Input
-        GetRotationInput();
+        GetInput();
         Zoom ();
 
         // Calculate target position and rotation
-        if (control.aiming) {
-            TargetShoulderPositions ();
-        } else {
-            TargetStandardPosition ();
-        }
+        TargetPosition ();
         TargetRotation ();
+        // TODO: Smooth movement and rotation while returning to default camera behavior from freelook behavior
 
         // Actually move and rotate the camera
         if (!active) { return; } // Camera updates its target transform during cutscenes so it can cut to them when they finish
         ApplyTransform ();
+        UpdateCursor ();
         ShakeScreen (); // TODO: allow screenshake in cutscenes, or fake it
     }
 
-    void GetRotationInput()
+    void GetInput()
     {
         // Ignore mouse input if player isn't aiming or freelooking
         if (control.aiming || control.freeLooking) {
@@ -129,33 +134,47 @@ public class CameraScript : MonoBehaviour
             rotationDelta = Vector3.zero;
         }
 
+        // Get mouse rotation if free-looking; otherwise, use player rotation
         if (!control.aiming) {
             if (control.freeLooking || freeLookReturnIterator < freeLookReturnDelay) {
                 yRotation += rotationDelta.y; //Capture horizontal mouse movement
                 xRotation += rotationDelta.x; //Capture vertical mouse movement
                 xRotation = Mathf.Clamp (xRotation, verticalRotationMin, verticalRotationMax); //Clamp vertical movement to certain angles
+                freeLookCacheXRotation = xRotation;
+                freeLookCacheYRotation = yRotation;
             } else {
                 if (wasFreeLooking || wasAiming) {
                     //print ("Reset vertical rotation");
-                    xRotation = defaultRotation.x;
+                    xRotation = Mathf.Lerp (defaultRotation.x, freeLookCacheXRotation, freeLookBlend);
                 }
-                yRotation = player.transform.rotation.eulerAngles.y;// * Mathf.Rad2Deg;
+                yRotation = Mathf.Lerp (player.transform.rotation.eulerAngles.y, freeLookCacheYRotation, freeLookBlend);
             }
             
             rotation = Quaternion.Euler (-xRotation, yRotation, 0);
         }
 
+        // Caching for effects
         wasFreeLooking = freeLookReturnIterator < freeLookReturnDelay;
         wasAiming = control.aiming;
 
+        // Return freelook to normal with blending after a delay. Shortens delay if player moves, and skips it entirely if player aims
         if (control.freeLooking) {
             freeLookReturnIterator = 0;
-        } else if (control.aiming) {
+            freeLookBlend = 1;
+        } else if (control.aiming || ((Mathf.Abs (control.xMove) > Mathf.Epsilon || Mathf.Abs (control.vMove) > Mathf.Epsilon) && freeLookReturnIterator > freeLookReturnDelay / 8)) {
             freeLookReturnIterator = freeLookReturnDelay;
         } else {
             freeLookReturnIterator += Time.deltaTime;
             freeLookReturnIterator = Mathf.Clamp (freeLookReturnIterator, 0, freeLookReturnDelay);
         }
+        if (freeLookReturnIterator == freeLookReturnDelay) {
+            freeLookBlend -= Time.deltaTime * freeLookReturnBlendSpeed;
+            freeLookBlend = Mathf.Clamp01 (freeLookBlend);
+        }
+
+        // Blends into and out of aiming
+        aimingBlend += Time.deltaTime * aimBlendSpeed * (control.aiming ? 1f : -1f);
+        aimingBlend = Mathf.Clamp01 (aimingBlend);
     }
 
     void Zoom () {
@@ -165,6 +184,13 @@ public class CameraScript : MonoBehaviour
         }
 
         zoom = Mathf.Clamp (zoom, -zoomOffsetMax, -zoomOffsetMin); //Clamp the zoom allowed
+    }
+
+    void TargetPosition () {
+        TargetShoulderPositions ();
+        TargetStandardPosition ();
+
+        targetPosition = Vector3.Lerp (standardPosition, shoulderPosition, aimingBlend);
     }
 
     void TargetShoulderPositions () {
@@ -180,14 +206,14 @@ public class CameraScript : MonoBehaviour
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
             // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
-            targetPosition = normPos - target.transform.forward * (ray.point - normPos).magnitude * (1 - cameraDistanceBuffer);
+            shoulderPosition = normPos - target.transform.forward * (ray.point - normPos).magnitude * (1 - cameraDistanceBuffer);
             //Debug.Log("hit");
         } else {
-            targetPosition = normPos; //In case no obstruction, use normal position
+            shoulderPosition = normPos; //In case no obstruction, use normal position
         }
     }
 
-    void TargetStandardPosition()
+    void TargetStandardPosition ()
     {
         Vector3 normPos = target.transform.position + rotation * offset.normalized * -zoom; //Regualr camera position if no obstruction is there
         //Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
@@ -197,35 +223,45 @@ public class CameraScript : MonoBehaviour
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
             // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
-            targetPosition = (normPos - target.transform.position).normalized * 
+            standardPosition = (normPos - target.transform.position).normalized * 
                              (ray.point - target.transform.position).magnitude * 
                              (1 - cameraDistanceBuffer) + target.transform.position;
             //Debug.Log("hit");
         }
         else
         {
-            targetPosition = normPos; //In case no obstruction, use normal position
+            standardPosition = normPos; //In case no obstruction, use normal position
         }
     }
     
     void TargetRotation () {
+        TargetStandardRotations ();
+        TargetShoulderRotations ();
+
+        targetRotation = Quaternion.Lerp (standardRotation, shoulderRotation, aimingBlend);
+    }
+
+    void TargetStandardRotations () {
+        standardRotation = Quaternion.LookRotation (target.transform.position - transform.position);
+    }
+
+    void TargetShoulderRotations () {
+        shoulderRotation = targetingRightShoulder ? rightShoulder.rotation : leftShoulder.rotation;
+        shoulderRotation = Quaternion.Lerp (shoulderRotation, Quaternion.LookRotation (cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 50)) - transform.position), aimCameraSensitivityMultiplier);
+    }
+
+    void UpdateCursor () {
         if (control.aiming) {
-            // Y-axis rotation should directly control the player's rotation, not the camera's
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            targetRotation = targetingRightShoulder ? rightShoulder.rotation : leftShoulder.rotation;
-            targetRotation = Quaternion.Lerp (targetRotation, Quaternion.LookRotation (cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 50)) - transform.position), aimCameraSensitivityMultiplier);
         } else {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            targetRotation = Quaternion.LookRotation (target.transform.position - transform.position);
-            //transform.LookAt (target.transform.position); //Continue to look at the player
         }
     }
 
     void ApplyTransform () {
-        Vector3 newPos = Vector3.Lerp (transform.position, targetPosition, movementInterpolationSpeed);
-        transform.position += (newPos - transform.position).normalized * Mathf.Clamp ((newPos - transform.position).magnitude, 0f, maxMovementSpeed);
+        transform.position = Vector3.Lerp (transform.position, targetPosition, movementInterpolationSpeed);
         transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, rotationInterpolationFactor);
     }
 
