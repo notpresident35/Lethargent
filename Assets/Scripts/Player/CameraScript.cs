@@ -49,13 +49,13 @@ public class CameraScript : MonoBehaviour
     [Header ("Aim")]
 
     [SerializeField] float aimCameraSensitivityMultiplier = 0.5f;
-    [SerializeField] float aimBlendSpeed = 0.5f;
     Transform leftShoulder;
     Transform rightShoulder;
     bool targetingRightShoulder = true;
 
-    [Header ("Effects")]
+    [Header ("Smoothing")]
 
+    [SerializeField] float aimBlendSpeed = 0.5f;
     [SerializeField] float freeLookReturnDelay = 2;
     [SerializeField] float freeLookReturnBlendSpeed = 8;
     float freeLookReturnIterator;
@@ -71,14 +71,13 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float detectionRadius = 1.5f;
     [SerializeField] float shoulderDetectionRadius = 0.5f;
     [SerializeField] float cameraDistanceBuffer = 0.2f;
+    [SerializeField] LayerMask collisionMask;
 
     PlayerControlMapping control;
     SceneData sData;
-    Transform camTransform;
     Camera cam;
-
-    //LayerMask obstacleLayer;
     RaycastHit ray;
+
     Vector3 standardPosition;
     Vector3 shoulderPosition;
     Vector3 targetPosition;
@@ -91,10 +90,9 @@ public class CameraScript : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        target = player.transform.Find ("CameraTarget");
-        leftShoulder = player.transform.Find ("CameraTarget (Left Shoulder)");
-        rightShoulder = player.transform.Find ("CameraTarget (Right Shoulder)");
-        camTransform = transform.Find ("ObstacleCheck");
+        target = player.transform.Find ("CameraTargetC");
+        leftShoulder = player.transform.Find ("CameraTargetL");
+        rightShoulder = player.transform.Find ("CameraTargetR");
         cam = GetComponent<Camera> ();
         control = player.GetComponent<PlayerControlMapping>();
         sData = FindObjectOfType<SceneData> ();// GameObject.FindGameObjectWithTag("Canvas").GetComponent<SceneData>();
@@ -203,11 +201,15 @@ public class CameraScript : MonoBehaviour
         //Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
 
         // SphereCasts back a bit from the camera, making sure that the camera does not get clip into a wall if the player backs up
-        if (Physics.SphereCast(normPos, shoulderDetectionRadius, -target.transform.forward, out ray, shoulderDetectionRadius, 1 << Statics.ObstacleLayer)) {
+        if (Physics.CheckSphere (normPos, shoulderDetectionRadius, collisionMask)) {
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
-            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces
-            shoulderPosition = normPos - target.transform.forward * (ray.point - normPos).magnitude * (1 - cameraDistanceBuffer);
+            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
+            targetingRightShoulder = !targetingRightShoulder;
+            normPos = targetingRightShoulder ? rightShoulder.position : leftShoulder.position;
+            shoulderPosition = normPos;
+
+            //shoulderPosition = normPos - target.transform.forward * (ray.point - normPos).magnitude * (1 - cameraDistanceBuffer);
             //Debug.Log("hit");
         } else {
             shoulderPosition = normPos; //In case no obstruction, use normal position
@@ -220,7 +222,7 @@ public class CameraScript : MonoBehaviour
         //Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
 
         // SphereCasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
-        if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position, out ray, -zoom, 1 << Statics.ObstacleLayer)) {
+        if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position, out ray, -zoom, collisionMask)) {
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
             // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces
@@ -252,12 +254,12 @@ public class CameraScript : MonoBehaviour
     }
 
     void UpdateCursor () {
-        if (control.aiming) {
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-        } else {
+        if (control.freeLooking && !control.aiming) {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        } else {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
     }
 

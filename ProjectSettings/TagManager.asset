@@ -14,13 +14,13 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
+  - Terrain
   - Interactable
-  - Obstacle
-  - 
-  - 
-  - 
-  - 
+  - Opaque Object
+  - Transparent Object
+  - Character
+  - Effects
+  - Audio
   - 
   - 
   - 

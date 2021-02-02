@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8033580414899255378}
   - component: {fileID: 8033580414899255380}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Dialogue Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}

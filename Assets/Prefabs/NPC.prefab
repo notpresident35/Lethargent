@@ -166,13 +166,13 @@ GameObject:
   - component: {fileID: 1929719300927068012}
   - component: {fileID: 1929719300927068015}
   - component: {fileID: 2956899301005987039}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1929719300927068013
 Transform:
   m_ObjectHideFlags: 0

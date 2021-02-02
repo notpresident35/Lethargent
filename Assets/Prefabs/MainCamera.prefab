@@ -124,12 +124,15 @@ MonoBehaviour:
   aimCameraSensitivityMultiplier: 0.2
   aimBlendSpeed: 6
   freeLookReturnDelay: 2.5
+  freeLookReturnBlendSpeed: 8
   movementInterpolationSpeed: 0.1
-  maxMovementSpeed: 0.1
   rotationInterpolationFactor: 0.25
   detectionRadius: 1
   shoulderDetectionRadius: 0.5
   cameraDistanceBuffer: 0.2
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!1 &2672950022349766672
 GameObject:
   m_ObjectHideFlags: 0
