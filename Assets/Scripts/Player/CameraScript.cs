@@ -76,6 +76,7 @@ public class CameraScript : MonoBehaviour
     SceneData sData;
     Transform camTransform;
     Camera cam;
+
     //LayerMask obstacleLayer;
     RaycastHit ray;
     Vector3 standardPosition;
@@ -90,7 +91,7 @@ public class CameraScript : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        target = player.transform.Find ("CameraTarget (Default)");
+        target = player.transform.Find ("CameraTarget");
         leftShoulder = player.transform.Find ("CameraTarget (Left Shoulder)");
         rightShoulder = player.transform.Find ("CameraTarget (Right Shoulder)");
         camTransform = transform.Find ("ObstacleCheck");
@@ -149,7 +150,7 @@ public class CameraScript : MonoBehaviour
                 }
                 yRotation = Mathf.Lerp (player.transform.rotation.eulerAngles.y, freeLookCacheYRotation, freeLookBlend);
             }
-            
+
             rotation = Quaternion.Euler (-xRotation, yRotation, 0);
         }
 
@@ -187,7 +188,7 @@ public class CameraScript : MonoBehaviour
     }
 
     void TargetPosition () {
-        TargetShoulderPositions ();
+        TargetShoulderPositions();
         TargetStandardPosition ();
 
         targetPosition = Vector3.Lerp (standardPosition, shoulderPosition, aimingBlend);
@@ -202,10 +203,10 @@ public class CameraScript : MonoBehaviour
         //Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
 
         // SphereCasts back a bit from the camera, making sure that the camera does not get clip into a wall if the player backs up
-        if (Physics.SphereCast (normPos, shoulderDetectionRadius, -target.transform.forward, out ray, shoulderDetectionRadius, 1 << Statics.ObstacleLayer)) {
+        if (Physics.SphereCast(normPos, shoulderDetectionRadius, -target.transform.forward, out ray, shoulderDetectionRadius, 1 << Statics.ObstacleLayer)) {
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
-            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
+            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces
             shoulderPosition = normPos - target.transform.forward * (ray.point - normPos).magnitude * (1 - cameraDistanceBuffer);
             //Debug.Log("hit");
         } else {
@@ -222,9 +223,9 @@ public class CameraScript : MonoBehaviour
         if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position, out ray, -zoom, 1 << Statics.ObstacleLayer)) {
             // Repositions the camera in front of the obstacle
             // Places the camera at the distance of the rayuast impact along the original line,
-            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces 
-            standardPosition = (normPos - target.transform.position).normalized * 
-                             (ray.point - target.transform.position).magnitude * 
+            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces
+            standardPosition = (normPos - target.transform.position).normalized *
+                             (ray.point - target.transform.position).magnitude *
                              (1 - cameraDistanceBuffer) + target.transform.position;
             //Debug.Log("hit");
         }
@@ -233,7 +234,7 @@ public class CameraScript : MonoBehaviour
             standardPosition = normPos; //In case no obstruction, use normal position
         }
     }
-    
+
     void TargetRotation () {
         TargetStandardRotations ();
         TargetShoulderRotations ();
