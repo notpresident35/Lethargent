@@ -13,7 +13,7 @@ public class PlayerControlMapping : MonoBehaviour
     [SerializeField] float m_scroll;
     [SerializeField] bool m_jumpOn;
     [SerializeField] bool m_crouching;
-    [SerializeField] bool m_freeLooking;
+    [SerializeField] bool m_freeMouse;
     [SerializeField] bool m_aiming;
     [SerializeField] bool m_swapShoulders;
     [SerializeField] bool m_enter;
@@ -68,7 +68,7 @@ public class PlayerControlMapping : MonoBehaviour
         m_scroll = Input.mouseScrollDelta.y;
         m_jumpOn = Input.GetButtonDown ("Jump");
         m_crouching = Input.GetButton ("Crouch");
-        m_freeLooking = Input.GetKey (KeyCode.F);
+        m_freeMouse = Input.GetKey (KeyCode.F);
         m_aiming = Input.GetMouseButton (1);
         m_swapShoulders = Input.GetKeyDown (KeyCode.Tab);
         m_enter = Input.GetButtonDown ("Submit");
@@ -86,7 +86,7 @@ public class PlayerControlMapping : MonoBehaviour
         m_scroll = 0;
         m_jumpOn = false;
         m_crouching = false;
-        m_freeLooking = false;
+        m_freeMouse = false;
         m_aiming = false;
         m_swapShoulders = false;
         m_enter = false;
@@ -128,8 +128,8 @@ public class PlayerControlMapping : MonoBehaviour
     public bool aiming {
         get { return m_aiming; }
     }
-    public bool freeLooking {
-        get { return m_freeLooking; }
+    public bool freeMouse {
+        get { return m_freeMouse; }
     }
     public bool swapShoulders {
         get { return m_swapShoulders; }

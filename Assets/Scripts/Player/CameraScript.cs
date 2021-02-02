@@ -62,7 +62,8 @@ public class CameraScript : MonoBehaviour
     float freeLookBlend = 1;
     [SerializeField] float movementInterpolationSpeed = 0.05f;
     [SerializeField] float rotationInterpolationFactor = 0.2f;
-    bool wasFreeLooking;
+    bool isFreeLooking;
+    bool isFreeCam;
     bool wasAiming;
     float aimingBlend = 0;
 
@@ -123,10 +124,11 @@ public class CameraScript : MonoBehaviour
         ShakeScreen (); // TODO: allow screenshake in cutscenes, or fake it
     }
 
-    void GetInput()
-    {
+    void GetInput () {
+        isFreeLooking = Mathf.Abs (control.horizontalAim) > Mathf.Epsilon || Mathf.Abs (control.verticalAim) > Mathf.Epsilon;
+
         // Ignore mouse input if player isn't aiming or freelooking
-        if (control.aiming || control.freeLooking) {
+        if (control.aiming || (isFreeLooking && !control.freeMouse)) {
             rotationDelta.y = control.horizontalAim * cameraSensitivity;
             rotationDelta.x = (invertYAxis ? -1 : 1) * control.verticalAim * cameraSensitivity;
         } else {
@@ -135,17 +137,14 @@ public class CameraScript : MonoBehaviour
 
         // Get mouse rotation if free-looking; otherwise, use player rotation
         if (!control.aiming) {
-            if (control.freeLooking || freeLookReturnIterator < freeLookReturnDelay) {
+            if (isFreeLooking || freeLookReturnIterator < freeLookReturnDelay) {
                 yRotation += rotationDelta.y; //Capture horizontal mouse movement
                 xRotation += rotationDelta.x; //Capture vertical mouse movement
                 xRotation = Mathf.Clamp (xRotation, verticalRotationMin, verticalRotationMax); //Clamp vertical movement to certain angles
                 freeLookCacheXRotation = xRotation;
                 freeLookCacheYRotation = yRotation;
             } else {
-                if (wasFreeLooking || wasAiming) {
-                    //print ("Reset vertical rotation");
-                    xRotation = Mathf.Lerp (defaultRotation.x, freeLookCacheXRotation, freeLookBlend);
-                }
+                xRotation = Mathf.Lerp (defaultRotation.x, freeLookCacheXRotation, freeLookBlend);
                 yRotation = Mathf.Lerp (player.transform.rotation.eulerAngles.y, freeLookCacheYRotation, freeLookBlend);
             }
 
@@ -153,14 +152,14 @@ public class CameraScript : MonoBehaviour
         }
 
         // Caching for effects
-        wasFreeLooking = freeLookReturnIterator < freeLookReturnDelay;
+        isFreeCam = freeLookReturnIterator < freeLookReturnDelay;
         wasAiming = control.aiming;
 
         // Return freelook to normal with blending after a delay. Shortens delay if player moves, and skips it entirely if player aims
-        if (control.freeLooking) {
+        if (isFreeLooking) {
             freeLookReturnIterator = 0;
             freeLookBlend = 1;
-        } else if (control.aiming || ((Mathf.Abs (control.xMove) > Mathf.Epsilon || Mathf.Abs (control.vMove) > Mathf.Epsilon) && freeLookReturnIterator > freeLookReturnDelay / 8)) {
+        } else if (control.aiming || ((Mathf.Abs (control.xMove) > Mathf.Epsilon || Mathf.Abs (control.vMove) > Mathf.Epsilon) && freeLookReturnIterator > freeLookReturnDelay / 4)) {
             freeLookReturnIterator = freeLookReturnDelay;
         } else {
             freeLookReturnIterator += Time.deltaTime;
@@ -254,13 +253,13 @@ public class CameraScript : MonoBehaviour
     }
 
     void UpdateCursor () {
-        if (control.freeLooking && !control.aiming) {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        } else {
+        if (control.freeMouse || control.aiming) {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-        }
+        } else {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        } 
     }
 
     void ApplyTransform () {

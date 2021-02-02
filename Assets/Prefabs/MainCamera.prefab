@@ -122,8 +122,8 @@ MonoBehaviour:
   zoomAmount: 0.5
   aimCameraSensitivityMultiplier: 0.2
   aimBlendSpeed: 6
-  freeLookReturnDelay: 2.5
-  freeLookReturnBlendSpeed: 8
+  freeLookReturnDelay: 2
+  freeLookReturnBlendSpeed: 6
   movementInterpolationSpeed: 0.1
   rotationInterpolationFactor: 0.25
   detectionRadius: 1
