@@ -4,6 +4,7 @@
     {
         // Splat Map Control Texture
         [HideInInspector] _Control("Control 1 (RGBA)", 2D) = "red" {}
+        //[HideInInspector] _MainTex("MainTex (RGBA)", 2D) = "white" {}
 
         // Textures
         [HideInInspector] _Splat3("Layer 3 (A)", 2D) = "white" {}
@@ -45,6 +46,8 @@
                 half4 colorFog : COLOR1;
                 float2 uv_MainTex : TEXCOORD0;
                 half3 normal : TEXCOORD1;
+                float2 uv_Control : TEXCOORD2;
+                float2 uv_Splat0 : TEXCOORD3;
             };
 
             float4 _MainTex_ST;
@@ -95,19 +98,25 @@
                 return o;
             }
 
-            sampler2D _MainTex;
+            //sampler2D _MainTex;
+            sampler2D _Control;
+            sampler2D _Splat0, _Splat1, _Splat2, _Splat3;
 
             float4 frag(v2f IN) : COLOR
             {
-                half4 c = tex2D(_MainTex, IN.uv_MainTex / IN.normal.r) * IN.color;
-                half4 color = c * (IN.colorFog.a);
-                color.rgb += IN.colorFog.rgb * (1 - IN.colorFog.a);
-                return color;
+                fixed4 splat_control = tex2D(_Control, IN.uv_Control / IN.normal.r);
+                fixed4 col;
+                col.rgb = splat_control.r * tex2D(_Splat0, IN.uv_Splat0).rgb;
+                col.rgb += splat_control.g * tex2D(_Splat1, IN.uv_Splat0).rgb;
+                col.rgb += splat_control.b * tex2D(_Splat2, IN.uv_Splat0).rgb;
+                col.rgb += splat_control.a * tex2D(_Splat3, IN.uv_Splat0).rgb;
+                col.a = 1.0;
+                return col;
             }
 
             ENDCG
         }
-
+        /*
         Pass {
             CGPROGRAM
 
@@ -121,9 +130,6 @@
             struct Input {
                 float2 uv_Control : TEXCOORD0;
                 float2 uv_Splat0 : TEXCOORD1;
-                float2 uv_Splat1 : TEXCOORD2;
-                float2 uv_Splat2 : TEXCOORD3;
-                float2 uv_Splat3 : TEXCOORD4;
             };
 
             Input vert(Input IN) {
@@ -135,20 +141,20 @@
                 fixed4 splat_control = tex2D(_Control, IN.uv_Control);
                 fixed3 col;
                 col = splat_control.r * tex2D(_Splat0, IN.uv_Splat0).rgb;
-                col += splat_control.g * tex2D(_Splat1, IN.uv_Splat1).rgb;
-                col += splat_control.b * tex2D(_Splat2, IN.uv_Splat2).rgb;
-                col += splat_control.a * tex2D(_Splat3, IN.uv_Splat3).rgb;
+                col += splat_control.g * tex2D(_Splat1, IN.uv_Splat0).rgb;
+                col += splat_control.b * tex2D(_Splat2, IN.uv_Splat0).rgb;
+                col += splat_control.a * tex2D(_Splat3, IN.uv_Splat0).rgb;
                 //col.a = 1.0;
                 return col;
             }
             ENDCG
         }
+            */
+        /*
         // Terrain surface shader
-        /*CGPROGRAM
+        CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
         #pragma surface surf Lambert
-
-        #pragma target 4.0
 
         sampler2D _Control;
         sampler2D _Splat0, _Splat1, _Splat2, _Splat3;
@@ -156,9 +162,6 @@
         struct Input {
             float2 uv_Control : TEXCOORD0;
             float2 uv_Splat0 : TEXCOORD1;
-            float2 uv_Splat1 : TEXCOORD2;
-            float2 uv_Splat2 : TEXCOORD3;
-            float2 uv_Splat3 : TEXCOORD4;
         };
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -173,9 +176,9 @@
             fixed4 splat_control = tex2D(_Control, IN.uv_Control);
             fixed3 col;
             col = splat_control.r * tex2D(_Splat0, IN.uv_Splat0).rgb;
-            col += splat_control.g * tex2D(_Splat1, IN.uv_Splat1).rgb;
-            col += splat_control.b * tex2D(_Splat2, IN.uv_Splat2).rgb;
-            col += splat_control.a * tex2D(_Splat3, IN.uv_Splat3).rgb;
+            col += splat_control.g * tex2D(_Splat1, IN.uv_Splat0).rgb;
+            col += splat_control.b * tex2D(_Splat2, IN.uv_Splat0).rgb;
+            col += splat_control.a * tex2D(_Splat3, IN.uv_Splat0).rgb;
             o.Albedo = col;
             o.Alpha = 0.0;
         }
