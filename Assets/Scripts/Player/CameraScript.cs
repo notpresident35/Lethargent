@@ -22,6 +22,7 @@ public class CameraScript : MonoBehaviour
     [Header ("Rotation")]
 
     [SerializeField] bool invertYAxis;
+    [SerializeField] bool facePlayerMovementAfterMovingBackwards = true;
     [SerializeField] float cameraSensitivity = 1f;
     [SerializeField] float freeLookDetectionSensitivity = 0.05f;
     [SerializeField] float verticalRotationMax;
@@ -92,6 +93,7 @@ public class CameraScript : MonoBehaviour
     float freeLookCacheXRotation;
     float freeLookCacheYRotation;
     bool mouseReleased = false;
+    bool playerMovingBackward = false;
 
     void Start()
     {
@@ -130,7 +132,12 @@ public class CameraScript : MonoBehaviour
     }
 
     void GetInput () {
-        isFreeLooking = Mathf.Abs (control.horizontalAim) > Mathf.Epsilon || Mathf.Abs (control.verticalAim) > Mathf.Epsilon;
+        // Takes a threshold of movement to enable freelook because otherwise freelook overrides the camera contstantly if the player rests their hand on it
+        isFreeLooking = isFreeLooking ? (Mathf.Abs (control.horizontalAim) > Mathf.Epsilon || Mathf.Abs (control.verticalAim) > Mathf.Epsilon)
+                                      : (Mathf.Abs (control.horizontalAim) > freeLookDetectionSensitivity || Mathf.Abs (control.verticalAim) > freeLookDetectionSensitivity);
+        if (facePlayerMovementAfterMovingBackwards || Mathf.Abs (control.vMove) > Mathf.Epsilon) {
+            playerMovingBackward = control.vMove < -Mathf.Epsilon;
+        }
 
         // Ignore mouse input if player isn't aiming or freelooking
         if (control.aiming || (isFreeLooking && !mouseReleased)) {
@@ -149,8 +156,8 @@ public class CameraScript : MonoBehaviour
                 freeLookCacheXRotation = xRotation;
                 freeLookCacheYRotation = yRotation;
             } else {
-                xRotation = Mathf.Lerp (defaultRotation.x, freeLookCacheXRotation, freeLookBlend);
-                yRotation = Mathf.Lerp (Mathf.Lerp (yRotation, player.transform.rotation.eulerAngles.y + (control.vMove < -Mathf.Epsilon ? 180 : 0), followRotationInterpolationSpeed * Time.deltaTime), freeLookCacheYRotation, freeLookBlend);
+                xRotation = Mathf.LerpAngle (defaultRotation.x, freeLookCacheXRotation, freeLookBlend);
+                yRotation = Mathf.LerpAngle (Mathf.LerpAngle (yRotation, player.transform.rotation.eulerAngles.y + (playerMovingBackward ? 180 : 0), followRotationInterpolationSpeed * Time.deltaTime), freeLookCacheYRotation, freeLookBlend);
             }
 
             rotation = Quaternion.Euler (-xRotation, yRotation, 0);

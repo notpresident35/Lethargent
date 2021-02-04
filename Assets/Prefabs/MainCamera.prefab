@@ -104,7 +104,9 @@ MonoBehaviour:
   offset: {x: 0, y: 6, z: -10}
   defaultRotation: {x: 25, y: 180, z: 0}
   invertYAxis: 1
+  facePlayerMovementAfterMovingBackwards: 0
   cameraSensitivity: 0.5
+  freeLookDetectionSensitivity: 0.05
   verticalRotationMax: 70
   verticalRotationMin: -25
   xRotation: 0
@@ -126,6 +128,7 @@ MonoBehaviour:
   freeLookReturnBlendSpeed: 6
   movementInterpolationSpeed: 0.1
   rotationInterpolationFactor: 0.25
+  followRotationInterpolationSpeed: 0.5
   detectionRadius: 1
   shoulderDetectionRadius: 0.5
   cameraDistanceBuffer: 0.2
