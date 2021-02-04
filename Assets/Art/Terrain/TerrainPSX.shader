@@ -27,7 +27,7 @@
             "RenderType" = "Opaque"
         }
         LOD 200
-
+        
         Pass {
             // PSX vert/frag shader
             Lighting On
@@ -51,7 +51,7 @@
             uniform half4 unity_FogStart;
             uniform half4 unity_FogEnd;
 
-            void vert(inout appdata_full v) {
+            v2f vert(appdata_full v) {
                 v2f o;
                 //Vertex snapping
                 float4 snapToPixel = UnityObjectToClipPos(v.vertex);
@@ -90,9 +90,9 @@
                     o.pos = 0;
                 }
 
-                v.vertex.xyz = o.pos;
+                //v.vertex.xyz = o.pos;
 
-                //return o;
+                return o;
             }
 
             sampler2D _MainTex;
@@ -108,9 +108,43 @@
             ENDCG
         }
 
+        Pass {
+            CGPROGRAM
 
+            //#pragma debug
+            #pragma vertex vert
+            #pragma fragment frag
+
+            sampler2D _Control;
+            sampler2D _Splat0, _Splat1, _Splat2, _Splat3;
+
+            struct Input {
+                float2 uv_Control : TEXCOORD0;
+                float2 uv_Splat0 : TEXCOORD1;
+                float2 uv_Splat1 : TEXCOORD2;
+                float2 uv_Splat2 : TEXCOORD3;
+                float2 uv_Splat3 : TEXCOORD4;
+            };
+
+            Input vert(Input IN) {
+                return IN;
+            }
+        
+            float3 frag (Input IN) : COLOR {
+                // Albedo comes from a texture tinted by color
+                fixed4 splat_control = tex2D(_Control, IN.uv_Control);
+                fixed3 col;
+                col = splat_control.r * tex2D(_Splat0, IN.uv_Splat0).rgb;
+                col += splat_control.g * tex2D(_Splat1, IN.uv_Splat1).rgb;
+                col += splat_control.b * tex2D(_Splat2, IN.uv_Splat2).rgb;
+                col += splat_control.a * tex2D(_Splat3, IN.uv_Splat3).rgb;
+                //col.a = 1.0;
+                return col;
+            }
+            ENDCG
+        }
         // Terrain surface shader
-        CGPROGRAM
+        /*CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
         #pragma surface surf Lambert
 
@@ -145,7 +179,7 @@
             o.Albedo = col;
             o.Alpha = 0.0;
         }
-        ENDCG
+        ENDCG*/
     }
     Dependency "AddPassShader" = "Custom/TerrainPSXAddPass"
 

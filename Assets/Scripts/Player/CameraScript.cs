@@ -23,6 +23,7 @@ public class CameraScript : MonoBehaviour
 
     [SerializeField] bool invertYAxis;
     [SerializeField] float cameraSensitivity = 1f;
+    [SerializeField] float freeLookDetectionSensitivity = 0.05f;
     [SerializeField] float verticalRotationMax;
     [SerializeField] float verticalRotationMin;
     [SerializeField] float xRotation = 0.0f;
@@ -62,6 +63,7 @@ public class CameraScript : MonoBehaviour
     float freeLookBlend = 1;
     [SerializeField] float movementInterpolationSpeed = 0.05f;
     [SerializeField] float rotationInterpolationFactor = 0.2f;
+    [SerializeField] float followRotationInterpolationSpeed = 0.5f;
     bool isFreeLooking;
     bool isFreeCam;
     bool wasAiming;
@@ -80,9 +82,11 @@ public class CameraScript : MonoBehaviour
     RaycastHit ray;
 
     Vector3 standardPosition;
+    Vector3 standardTargetPosition;
     Vector3 shoulderPosition;
     Vector3 targetPosition;
     Quaternion standardRotation;
+    Quaternion standardTargetRotation;
     Quaternion shoulderRotation;
     Quaternion targetRotation;
     float freeLookCacheXRotation;
@@ -146,7 +150,7 @@ public class CameraScript : MonoBehaviour
                 freeLookCacheYRotation = yRotation;
             } else {
                 xRotation = Mathf.Lerp (defaultRotation.x, freeLookCacheXRotation, freeLookBlend);
-                yRotation = Mathf.Lerp (player.transform.rotation.eulerAngles.y, freeLookCacheYRotation, freeLookBlend);
+                yRotation = Mathf.Lerp (Mathf.Lerp (yRotation, player.transform.rotation.eulerAngles.y + (control.vMove < -Mathf.Epsilon ? 180 : 0), followRotationInterpolationSpeed * Time.deltaTime), freeLookCacheYRotation, freeLookBlend);
             }
 
             rotation = Quaternion.Euler (-xRotation, yRotation, 0);
@@ -246,6 +250,7 @@ public class CameraScript : MonoBehaviour
 
     void TargetStandardRotations () {
         standardRotation = Quaternion.LookRotation (target.transform.position - transform.position);
+        //standardRotation = Quaternion.Lerp (standardRotation, standardTargetRotation, followRotationInterpolationSpeed * Time.deltaTime);
     }
 
     void TargetShoulderRotations () {

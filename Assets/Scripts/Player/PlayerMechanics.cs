@@ -150,7 +150,9 @@ public class PlayerMechanics : MonoBehaviour
             isFalling = false;
             isJumping = true;
         } else if (collisions.CheckGround ()) { // Player is on the ground
-            jumpVelocity *= 0.9f;
+            jumpVelocity.x *= 0.9f;
+            // y velocity is stopped by the ground; no need to override this
+            jumpVelocity.z *= 0.9f;
             jumpCount = 0;
             isFalling = false;
             isJumping = false;
