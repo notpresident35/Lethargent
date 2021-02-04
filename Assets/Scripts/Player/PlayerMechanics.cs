@@ -70,6 +70,7 @@ public class PlayerMechanics : MonoBehaviour
     {
         //restartText.gameObject.SetActive(false);
         currentSpeed = normalSpeed;
+        jumpVelocity.y = -6f; // Acts like a bit of gravity while moving down slopes
     }
 
     // Update is called once per frame
