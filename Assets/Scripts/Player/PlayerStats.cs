@@ -15,8 +15,10 @@ public class PlayerStats
 
     bool m_finishedGame = false;
 
-    // Collectibles dictionary with {collectible_id (String) : collected (Bool)}
-    private Dictionary<string, bool> m_collectibles = new Dictionary<string, bool>();
+    // Collectibles dictionary with {item_id (String) : collected (Bool)}
+    private Dictionary<Item, bool> m_normItems = new Dictionary<Item, bool>();
+
+    private Dictionary<Item, bool> m_keyItems = new Dictionary<Item, bool>();
 
     public float playerPosX
     {
@@ -43,28 +45,51 @@ public class PlayerStats
       get{return m_finishedGame;}
       set{m_finishedGame = value;}
     }
-    public Dictionary<string, bool> collectibles
+    public Dictionary<Item, bool> normItems
     {
-       get{return m_collectibles;}
+       get{return m_normItems;}
+    }
+    public Dictionary<Item, bool> keyItems
+    {
+       get{return m_keyItems;}
     }
 
-    public bool collectibleRegistered(string id)
+    //Use bool norm to indicate whether to use normal items dict or key items dict
+    public bool ItemRegistered(Item id)
     {
-        return m_collectibles.ContainsKey(id);
+        if(m_normItems.ContainsKey(id))
+        {
+            return true;
+        }
+        return m_keyItems.ContainsKey(id);
     }
 
-    public void addCollectible(string id, bool value=false)
+    public void AddItem(Item id, bool norm, bool value=false)
     {
-        m_collectibles.Add(id, value);
+        if(norm)
+        {
+            m_normItems.Add(id, value);
+            return;
+        }
+        m_keyItems.Add(id, value);
     }
 
-    public void updateCollectibles(string id, bool new_value)
+    public void UpdateItem(Item id, bool new_value)
     {
-        m_collectibles[id] = new_value;
+        if(m_normItems.ContainsKey(id))
+        {
+            m_normItems[id] = new_value;
+            return;
+        }
+        m_keyItems[id] = new_value;
     }
 
-    public bool getCollectibleItem(string id)
+    public bool GetItem(Item id)
     {
-        return m_collectibles[id];
+        if(m_normItems.ContainsKey(id))
+        {
+            return m_normItems[id];
+        }
+        return m_keyItems[id];
     }
 }
