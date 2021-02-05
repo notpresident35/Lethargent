@@ -22,7 +22,7 @@ MonoBehaviour:
     m_Value: 256
   colorPrecision:
     m_OverrideState: 1
-    m_Value: 4.6
+    m_Value: 16
 --- !u!114 &-758010384845797820
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -42,9 +42,9 @@ MonoBehaviour:
     m_Value: 2
   ditherThreshold:
     m_OverrideState: 1
-    m_Value: 5.22
+    m_Value: 10
   ditherStrength:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   ditherScale:
     m_OverrideState: 1
@@ -62,50 +62,5 @@ MonoBehaviour:
   m_Name: VolumeProfile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 169896938054019971}
   - {fileID: -2649047749314681680}
   - {fileID: -758010384845797820}
---- !u!114 &169896938054019971
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32eb3b8fb939d9b41b04b5621e6d36dd, type: 3}
-  m_Name: Fog
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  fogDensity:
-    m_OverrideState: 1
-    m_Value: 10
-  fogDistance:
-    m_OverrideState: 1
-    m_Value: 2.9
-  fogColor:
-    m_OverrideState: 1
-    m_Value: {r: 0, g: 0, b: 0, a: 0}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  fogNear:
-    m_OverrideState: 0
-    m_Value: 0
-  fogFar:
-    m_OverrideState: 0
-    m_Value: 81.3
-  fogAltScale:
-    m_OverrideState: 0
-    m_Value: 10
-  fogThinning:
-    m_OverrideState: 0
-    m_Value: 458
-  noiseScale:
-    m_OverrideState: 1
-    m_Value: 843
-  noiseStrength:
-    m_OverrideState: 1
-    m_Value: 0.029

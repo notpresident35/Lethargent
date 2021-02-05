@@ -36,12 +36,16 @@ public class PlayerCollisions : MonoBehaviour
         return Physics.CheckSphere(groundTransform.position, collisionRadius, groundMask);
     }
 
+    public bool CheckInteract () {
+        return Physics.CheckSphere (visionTransform.position, interactRadius, interactionMask);
+    }
+
     public Collider[] Interact()
     {
         // interactable must be a created at runtime because
         // it breaks the logic if values from previous Interact() are still stored in the same variable
 
-        return Physics.OverlapSphere(transform.position, interactRadius, interactionMask);
+        return Physics.OverlapSphere(visionTransform.position, interactRadius, interactionMask);
     }
 
 }

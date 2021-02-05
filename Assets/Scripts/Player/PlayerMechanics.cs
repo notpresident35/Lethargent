@@ -72,10 +72,14 @@ public class PlayerMechanics : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         if (!active) { return; }
-        Walk ();
-        Jump ();
         Interact ();
         SaveNLoad ();
+    }
+
+    void FixedUpdate () {
+        if (!active) { return; }
+        Walk ();
+        Jump ();
     }
 
     void Walk () {
@@ -118,7 +122,7 @@ public class PlayerMechanics : MonoBehaviour {
         dir = (xDir + yDir).normalized;*/
 
         movement = dir * currentSpeed;
-        controller.Move (movement * Time.deltaTime);
+        controller.Move (movement * Time.fixedDeltaTime);
 
         if (control.aiming) {
             // Rotate with mouse movement
@@ -143,7 +147,7 @@ public class PlayerMechanics : MonoBehaviour {
 
         if (jumpVelocity.y > Mathf.Epsilon) // Player is jumping up; fall slower if still holding the jump button
         {
-            jumpVelocity += Physics.gravity * (control.jumping ? jumpingGravityMod : fallingGravityMod) * Time.deltaTime;
+            jumpVelocity += Physics.gravity * (control.jumping ? jumpingGravityMod : fallingGravityMod) * Time.fixedDeltaTime;
             isFalling = false;
             isJumping = true;
         } else if (collisions.CheckGround ()) { // Player is on the ground
@@ -155,12 +159,12 @@ public class PlayerMechanics : MonoBehaviour {
             isJumping = false;
         } else // Player is falling down
           {
-            jumpVelocity += Physics.gravity * fallingGravityMod * Time.deltaTime;
+            jumpVelocity += Physics.gravity * fallingGravityMod * Time.fixedDeltaTime;
             isJumping = false;
             isFalling = true;
         }
 
-        controller.Move (jumpVelocity * Time.deltaTime);
+        controller.Move (jumpVelocity * Time.fixedDeltaTime);
     }
 
     void Interact () {

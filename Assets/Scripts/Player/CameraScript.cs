@@ -63,6 +63,7 @@ public class CameraScript : MonoBehaviour
     float freeLookReturnIterator;
     float freeLookBlend = 1;
     [SerializeField] float movementInterpolationSpeed = 0.05f;
+    [SerializeField] float aimingMovementInterpolationSpeed = 0.05f;
     [SerializeField] float rotationInterpolationFactor = 0.2f;
     [SerializeField] float followRotationInterpolationSpeed = 0.5f;
     bool isFreeLooking;
@@ -112,8 +113,17 @@ public class CameraScript : MonoBehaviour
         freeLookReturnIterator = freeLookReturnDelay;
     }
 
+    private void Update () {
+        if (control.swapShoulders) {
+            targetingRightShoulder = !targetingRightShoulder;
+        }
+        if (control.freeMouse) {
+            mouseReleased = !mouseReleased;
+        }
+    }
+
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Input
         GetInput();
@@ -204,9 +214,6 @@ public class CameraScript : MonoBehaviour
     }
 
     void TargetShoulderPositions () {
-        if (control.swapShoulders) {
-            targetingRightShoulder = !targetingRightShoulder;
-        }
 
         Vector3 normPos = targetingRightShoulder ? rightShoulder.position : leftShoulder.position;
         //Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
@@ -266,10 +273,6 @@ public class CameraScript : MonoBehaviour
     }
 
     void UpdateCursor () {
-        if (control.freeMouse) {
-            mouseReleased = !mouseReleased;
-        }
-
         if (mouseReleased || control.aiming) {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
@@ -280,7 +283,11 @@ public class CameraScript : MonoBehaviour
     }
 
     void ApplyTransform () {
-        transform.position = Vector3.Lerp (transform.position, targetPosition, movementInterpolationSpeed);
+        if (control.aiming) {
+            transform.position = Vector3.Lerp (transform.position, targetPosition, aimingMovementInterpolationSpeed);
+        } else {
+            transform.position = Vector3.Lerp (transform.position, targetPosition, movementInterpolationSpeed);
+        }
         transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, rotationInterpolationFactor);
     }
 

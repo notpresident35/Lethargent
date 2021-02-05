@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIBillboard : MonoBehaviour {
 
     [SerializeField] float scaleFactor;
+    [SerializeField] bool useScaling = true;
     [SerializeField] float maxScale;
     [SerializeField] float minScale;
 
@@ -20,6 +21,8 @@ public class UIBillboard : MonoBehaviour {
 
     void Update () {
         transform.rotation = camTransform.rotation * originalRotation;
-        transform.localScale = Mathf.Clamp ((camTransform.position - transform.position).magnitude * scaleFactor, minScale, maxScale) * originalScale;
+        if (useScaling) {
+            transform.localScale = Mathf.Clamp ((camTransform.position - transform.position).magnitude * scaleFactor, minScale, maxScale) * originalScale;
+        }
     }
 }
