@@ -5,15 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class Item : MonoBehaviour
 {
-    private string name;
-    private int id;
-    private bool normal;
+    protected string name;
+    protected int id;
+    protected bool normal;
 
-    public Item(string _name, int _id, bool _norm)
+    protected virtual void Awake()
     {
-        name = _name;
-        id = _id;
-        normal = _norm;
+        name = "";
+        id = -1;
+        normal = false;
     }
 
     public virtual void PickUp()
