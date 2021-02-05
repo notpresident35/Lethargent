@@ -1,6 +1,10 @@
-﻿
-public abstract class GenericInteractable {
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
+[System.Serializable]
+public class GenericInteractable : MonoBehaviour
+{
     // Make any iteractable object or item inherit from this script
-    public abstract void InteractEvent ();
+    public void InteractEvent();
 }
