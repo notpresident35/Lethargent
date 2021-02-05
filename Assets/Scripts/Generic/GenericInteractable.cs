@@ -6,5 +6,5 @@ using UnityEngine;
 public class GenericInteractable : MonoBehaviour
 {
     // Make any iteractable object or item inherit from this script
-    public void InteractEvent();
+    public virtual void InteractEvent() {}
 }
