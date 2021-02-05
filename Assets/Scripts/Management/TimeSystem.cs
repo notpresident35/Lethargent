@@ -9,6 +9,8 @@ public class TimeSystem : MonoBehaviour {
 
     static TimeSystem Singleton;
 
+    public AnimationCurve FogStrength; // One horizontal unit equals one day, and vertical units are scaled down 100x
+
     // Needs to run before other scripts on game start, because other scripts depend on the time
     [ContextMenu ("Start game")]
     void StartGame () {
@@ -42,6 +44,7 @@ public class TimeSystem : MonoBehaviour {
         if (isTimeProgressing) {
             currentTime += Time.deltaTime;
         }
+        RenderSettings.fogDensity = FogStrength.Evaluate (currentTime / Statics.DayLength) / 100f;
     }
 
     public static void StopTime () {
@@ -55,6 +58,11 @@ public class TimeSystem : MonoBehaviour {
     public static void PauseTime (float time) {
         isTimeProgressing = false;
         Singleton.StartCoroutine (Singleton.ResumeTime (time));
+    }
+
+    [ContextMenu ("Skip 1 day")]
+    public void Skiptime () {
+        currentTime += Statics.DayLength;
     }
 
     IEnumerator ResumeTime (float time) {

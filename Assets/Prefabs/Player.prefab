@@ -102,7 +102,6 @@ MonoBehaviour:
   isFalling: 0
   isIdle: 0
   joystickControls: 0
-  interactText: {fileID: 0}
 --- !u!114 &2124246991558546149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,15 +145,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionRadius: 0.5
-  interactRadius: 3
+  interactRadius: 4
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3329
   interactionMask:
     serializedVersion: 2
-    m_Bits: 0
-  groundTransform: {fileID: 0}
-  visionTransform: {fileID: 0}
+    m_Bits: 512
+  groundTransform: {fileID: 2124246991241499733}
+  visionTransform: {fileID: 7887102397523243011}
 --- !u!95 &6865905904183607184
 Animator:
   serializedVersion: 3
@@ -317,7 +316,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124246991838850570}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2124246991558546153}

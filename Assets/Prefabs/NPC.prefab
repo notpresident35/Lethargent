@@ -88,7 +88,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3687e26dd39a02b41a18b36fc628ab44, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
   visionTarget: {fileID: 0}
   visionMask:
     serializedVersion: 2
-    m_Bits: 1843
+    m_Bits: 5377
   visionRange: 20
   visionAlertTime: 1.5
   chasingVisionBreakTime: 5

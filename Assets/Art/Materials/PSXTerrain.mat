@@ -41,6 +41,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Boolean_B08A2835: 0
-    - Vector1_61545082: 8
+    - Boolean_B08A2835: 1
+    - Vector1_61545082: 16
     m_Colors: []
