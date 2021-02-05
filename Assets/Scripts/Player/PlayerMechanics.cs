@@ -11,7 +11,7 @@ public class PlayerMechanics : MonoBehaviour
     [SerializeField] bool active = true;
 
     [Header("Vertical Movement")]
-    [SerializeField] float jumpSpeed = 7f;
+    [SerializeField] float jumpSpeed = 8f;
     [SerializeField] float jumpingGravityMod = 3f; //For double jump
     [SerializeField] float fallingGravityMod = 4f; //Speed of falling
     [SerializeField] int maxJumps = 1;
@@ -37,16 +37,25 @@ public class PlayerMechanics : MonoBehaviour
     public bool isIdle;
     public bool joystickControls;
 
+    [Space]
+
+    [Header("Transforms")]
+    [SerializeField] Transform visionTransform;
+
+    [Space]
+
+    [Header("Texts")]
+    [SerializeField] Text interactText; //Press E text
+    //[SerializeField] Text restartText; //Restart again text
 
     GameObject cam; //Camera
-    //Text restartText; //Restart again text
     Rigidbody rb; //Player's rigidbody
 
     CapsuleCollider playerCol; //The collider of the player
     PlayerCollisions collisions; //Controls collision interactions
     PlayerControlMapping control; //The control map of the player
     CharacterController controller;
-    Transform model;
+    Transform model; //Player's model
     Transform camCache;
     Vector3 movement = Vector3.zero;
 
@@ -61,44 +70,54 @@ public class PlayerMechanics : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerCol = GetComponent<CapsuleCollider>();
         control = GetComponent<PlayerControlMapping>();
-        controller = GetComponent<CharacterController> ();
+        controller = GetComponent<CharacterController>();
         collisions = GetComponent<PlayerCollisions>();
         model = transform.Find ("Model");
+        interactText = GameObject.Find("InteractText").GetComponent<Text>();
+        visionTransform = transform.Find("VisionTarget");
     }
+
     // Start is called before the first frame update
     void Start()
     {
         //restartText.gameObject.SetActive(false);
         currentSpeed = normalSpeed;
         jumpVelocity.y = -6f; // Acts like a bit of gravity while moving down slopes
+        interactText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!active) { return; }
-        Walk ();
+        Walk();
         Jump();
+        Interact();
         SaveNLoad();
     }
 
-    void Walk () {
-        if (!control.crouching) {
+    void Walk() {
+        if (!control.crouching)
+        {
             currentSpeed = normalSpeed;
-        } else {
+        }
+        else
+        {
             currentSpeed = normalSpeed * crouchMod;
         }
 
         // Movement
-        Vector3 dir = new Vector3 (control.xMove, 0.0f, control.vMove);
+        Vector3 dir = new Vector3(control.xMove, 0.0f, control.vMove);
         Vector3 camRot = cam.transform.rotation.eulerAngles;
 
         // Change direction based on camera angle
-        if (joystickControls) {
+        if (joystickControls)
+        {
             // Only updates the reference angle for the camera's rotation if the player stops moving
             // This allows the player to hold s to move straight in one direction while the camera rotates 180 degrees
             // This also allows the player to intuitively move in, say, a circle while using a joystick
-            if (dir.magnitude < Mathf.Epsilon) {
+            if (dir.magnitude < Mathf.Epsilon)
+            {
                 camCache.position = cam.transform.position;
                 camCache.rotation = cam.transform.rotation;
             }
@@ -107,6 +126,7 @@ public class PlayerMechanics : MonoBehaviour
 
         camRot.x = 0; // Ignore vertical camera rotation
         dir = (Quaternion.Euler (camRot) * dir).normalized;
+
         /*
         Vector3 xCamRot = camCacheX.rotation.eulerAngles;
         Vector3 yCamRot = camCacheY.rotation.eulerAngles;
@@ -121,17 +141,21 @@ public class PlayerMechanics : MonoBehaviour
         dir = (xDir + yDir).normalized;*/
 
         movement = dir * currentSpeed;
-        controller.Move (movement * Time.deltaTime);
+        controller.Move(movement * Time.deltaTime);
 
-        if (control.aiming) {
+        if (control.aiming)
+        {
             // Rotate with mouse movement
-            transform.Rotate (0, control.horizontalAim * aimRotationSpeed, 0);
-        } else {
+            transform.Rotate(0, control.horizontalAim * aimRotationSpeed, 0);
+        }
+        else
+        {
             // Rotate smoothly to face movement
-            if (dir.magnitude > Mathf.Epsilon) {
-                float angle = Mathf.Atan2 (dir.x, dir.z) * Mathf.Rad2Deg;
-                angle = Mathf.SmoothDampAngle (transform.eulerAngles.y, angle, ref smoothTime, turnSpeed);
-                transform.rotation = Quaternion.Euler (0, angle, 0);
+            if (dir.magnitude > Mathf.Epsilon)
+            {
+                float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+                angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref smoothTime, turnSpeed);
+                transform.rotation = Quaternion.Euler(0, angle, 0);
             }
         }
     }
@@ -150,26 +174,56 @@ public class PlayerMechanics : MonoBehaviour
             jumpVelocity += Physics.gravity * (control.jumping ? jumpingGravityMod : fallingGravityMod) * Time.deltaTime;
             isFalling = false;
             isJumping = true;
-        } else if (collisions.CheckGround ()) { // Player is on the ground
+        }
+        else if (collisions.CheckGround())
+        { // Player is on the ground
             jumpVelocity.x *= 0.9f;
             // y velocity is stopped by the ground; no need to override this
             jumpVelocity.z *= 0.9f;
             jumpCount = 0;
             isFalling = false;
             isJumping = false;
-        } else // Player is falling down
+        }
+        else // Player is falling down
         {
             jumpVelocity += Physics.gravity * fallingGravityMod * Time.deltaTime;
             isJumping = false;
             isFalling = true;
         }
 
-        controller.Move (jumpVelocity * Time.deltaTime);
+        controller.Move(jumpVelocity * Time.deltaTime);
+    }
+
+    void Interact()
+    {
+        Collider[] cols = collisions.Interact(); //Get interactables
+        if (cols.Length != 0)
+        {
+            for (int i = 0; i < cols.Length; i++) //In case of multiple nearby interactables
+            {
+                GameObject target = cols[i].gameObject;
+                Vector3 dir = target.transform.position - visionTransform.position;
+                float angle = Vector3.Angle(cam.transform.forward, dir); //Use camera forward for easier use
+
+                if (angle <= 30.0f) //If player is looking within 30 degrees of object
+                {
+                    interactText.gameObject.SetActive(true); //Show interact text
+                    if (control.interact)
+                    {
+                        target.GetComponent<GenericInteractable>().InteractEvent(); //Trigger interactable
+                    }
+                }
+                else
+                {
+                    interactText.gameObject.SetActive(false); //Remove text once looking away
+                }
+            }
+        }
     }
 
     void SaveNLoad()
     {
-        if(control.save)
+        if (control.save)
         {
             Scene scene = SceneManager.GetActiveScene();
             LevelManager.current.playerData.sceneID = scene.buildIndex;
@@ -181,13 +235,13 @@ public class PlayerMechanics : MonoBehaviour
 
         //-----------------------------------------------------------------
 
-        if(control.load)
+        if (control.load)
         {
             SaveLoad.Load();
-            if(LevelManager.current.playerData.finishedGame)
+            if (LevelManager.current.playerData.finishedGame)
             {
                 //restartText.gameObject.SetActive(true);
-                if(control.load)
+                if (control.load)
                 {
                     goto loading;
                 }
@@ -209,21 +263,21 @@ public class PlayerMechanics : MonoBehaviour
         }
     }
 
-    private void OnEnable () {
+    private void OnEnable() {
         CutsceneManager.CutsceneStart += StartCutscene;
         CutsceneManager.CutsceneStop += StopCutscene;
     }
 
-    private void OnDisable () {
+    private void OnDisable() {
         CutsceneManager.CutsceneStart -= StartCutscene;
         CutsceneManager.CutsceneStop -= StopCutscene;
     }
 
-    public void StartCutscene () {
+    public void StartCutscene() {
         active = false;
     }
 
-    public void StopCutscene () {
+    public void StopCutscene() {
         active = true;
     }
 }

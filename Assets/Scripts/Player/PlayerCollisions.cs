@@ -10,33 +10,38 @@ public class PlayerCollisions : MonoBehaviour
 {
     [Header("Offsets of Player")]
     [SerializeField] float collisionRadius = 0.5f;
-    [SerializeField] float interactRadius = 1f;
+    [SerializeField] float interactRadius = 3f;
 
     [Space]
 
-    [Header ("Collision Checks")]
-    [SerializeField] LayerMask collisionMask;
+    [Header ("Masks & Transforms")]
+    [SerializeField] LayerMask groundMask;
     [SerializeField] LayerMask interactionMask;
     [SerializeField] Transform groundTransform;
+    [SerializeField] Transform visionTransform;
 
-    void Start ()
+    GameObject cam;
+
+    void Start()
     {
+        groundMask = LayerMask.GetMask("Terrain");
+        interactionMask = LayerMask.GetMask("Interactable");
         groundTransform = transform.Find("GroundTransform");
-        //interactText.gameObject.SetActive(false);
+        visionTransform = transform.Find("VisionTarget");
+        cam = Camera.main.gameObject;
     }
 
-    public bool CheckGround () {
-        return Physics.CheckSphere (groundTransform.position, collisionRadius, collisionMask);
+    public bool CheckGround()
+    {
+        return Physics.CheckSphere(groundTransform.position, collisionRadius, groundMask);
     }
 
-    public bool Interact () {
+    public Collider[] Interact()
+    {
         // interactable must be a created at runtime because
         // it breaks the logic if values from previous Interact() are still stored in the same variable
-        Collider [] interactable = Physics.OverlapSphere (transform.position, interactRadius, interactionMask);
-        if (interactable.Length != 0) {
-            interactable [0].GetComponent<GenericInteractable> ().InteractEvent ();
-            return true;
-        }
-        return false;
+
+        return Physics.OverlapSphere(transform.position, interactRadius, interactionMask);
     }
+
 }

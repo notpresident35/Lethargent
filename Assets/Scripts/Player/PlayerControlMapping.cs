@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerControlMapping : MonoBehaviour
 {
-    Rigidbody rb;
-
     [SerializeField] float m_xMove;
     [SerializeField] float m_vMove;
     [SerializeField] float m_horizontalAim;
@@ -18,19 +16,18 @@ public class PlayerControlMapping : MonoBehaviour
     [SerializeField] bool m_click;
     [SerializeField] bool m_aiming;
     [SerializeField] bool m_swapShoulders;
+    [SerializeField] bool m_interact;
     [SerializeField] bool m_enter;
     [SerializeField] bool m_pause;
     [SerializeField] bool m_save;
     [SerializeField] bool m_load;
 
-    [SerializeField] bool m_inputting = true; //For debugging only, revert to no value before publishing game
+    [SerializeField] bool m_inputting = true; //For debugging only, revert to false before publishing game
 
-    // JUST A PLACEHOLDER TO REMOVE ERRORS
     // Start is called before the first frame update
     void Awake()
     {
-         rb = GetComponent<Rigidbody>();
-        CaptureDummyInput ();
+        CaptureDummyInput();
     }
 
     // Update is called once per frame
@@ -38,11 +35,11 @@ public class PlayerControlMapping : MonoBehaviour
     {
         if(m_inputting)
         {
-            CaptureInput ();
+            CaptureInput();
         }
         else
         {
-            CaptureDummyInput ();
+            CaptureDummyInput();
         }
     }
 
@@ -62,27 +59,28 @@ public class PlayerControlMapping : MonoBehaviour
         StartInput();
     }
 
-    void CaptureInput () {
-        m_xMove = Input.GetAxisRaw ("Horizontal");
-        m_vMove = Input.GetAxisRaw ("Vertical");
-        m_horizontalAim = Input.GetAxisRaw ("Mouse X");
-        m_verticalAim = Input.GetAxisRaw ("Mouse Y");
+    void CaptureInput() {
+        m_xMove = Input.GetAxisRaw("Horizontal");
+        m_vMove = Input.GetAxisRaw("Vertical");
+        m_horizontalAim = Input.GetAxisRaw("Mouse X");
+        m_verticalAim = Input.GetAxisRaw("Mouse Y");
         m_scroll = Input.mouseScrollDelta.y;
-        m_jumping = Input.GetButton ("Jump");
-        m_jumpOn = Input.GetButtonDown ("Jump");
-        m_crouching = Input.GetButton ("Crouch");
-        m_freeMouse = Input.GetKeyDown (KeyCode.F);
-        m_aiming = Input.GetMouseButton (1);
-        m_click = Input.GetKeyDown (KeyCode.Mouse0);
-        m_swapShoulders = Input.GetKeyDown (KeyCode.Tab);
-        m_enter = Input.GetButtonDown ("Submit");
-        m_pause = Input.GetButtonDown ("Pause");
+        m_jumping = Input.GetButton("Jump");
+        m_jumpOn = Input.GetButtonDown("Jump");
+        m_crouching = Input.GetButton("Crouch");
+        m_freeMouse = Input.GetKeyDown(KeyCode.F);
+        m_aiming = Input.GetMouseButton(1);
+        m_click = Input.GetKeyDown(KeyCode.Mouse0);
+        m_swapShoulders = Input.GetKeyDown(KeyCode.Tab);
+        m_interact = Input.GetKeyDown(KeyCode.E);
+        m_enter = Input.GetButtonDown("Submit");
+        m_pause = Input.GetButtonDown("Pause");
 
-        m_save = Input.GetKeyDown (KeyCode.F5);
-        m_load = Input.GetKeyDown (KeyCode.F6);
+        m_save = Input.GetKeyDown(KeyCode.F5);
+        m_load = Input.GetKeyDown(KeyCode.F6);
     }
 
-    void CaptureDummyInput () {
+    void CaptureDummyInput() {
         m_xMove = 0;
         m_vMove = 0;
         m_horizontalAim = 0;
@@ -144,6 +142,9 @@ public class PlayerControlMapping : MonoBehaviour
     }
     public bool swapShoulders {
         get { return m_swapShoulders; }
+    }
+    public bool interact {
+        get { return m_interact; }
     }
     public bool enter
     {

@@ -85,23 +85,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  jumpSpeed: 12
+  jumpSpeed: 8
   jumpingGravityMod: 3
-  fallingGravityMod: 8
+  fallingGravityMod: 4
   maxJumps: 1
   jumpCount: 0
   jumpDir: {x: 0, y: 1, z: 0}
-  normalSpeed: 5
-  turnSpeed: 0.2
-  crouchMod: 0.4
+  normalSpeed: 10
+  turnSpeed: 0.1
+  crouchMod: 0.5
   currentSpeed: 0
-  aimRotationSpeed: 0.2
+  aimRotationSpeed: 0
   isWalking: 0
   isCrouching: 0
   isJumping: 0
   isFalling: 0
   isIdle: 0
   joystickControls: 0
+  interactText: {fileID: 0}
 --- !u!114 &2124246991558546149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +127,7 @@ MonoBehaviour:
   m_click: 0
   m_aiming: 0
   m_swapShoulders: 0
+  m_interact: 0
   m_enter: 0
   m_pause: 0
   m_save: 0
@@ -143,15 +145,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef6deb7886a31842a9b2fe3648d292b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionRadius: 0.7
-  interactRadius: 6
-  collisionMask:
+  collisionRadius: 0.5
+  interactRadius: 3
+  groundMask:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 0
   interactionMask:
     serializedVersion: 2
-    m_Bits: 512
-  groundTransform: {fileID: 2124246991241499733}
+    m_Bits: 0
+  groundTransform: {fileID: 0}
+  visionTransform: {fileID: 0}
 --- !u!95 &6865905904183607184
 Animator:
   serializedVersion: 3
@@ -346,7 +349,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3687e26dd39a02b41a18b36fc628ab44, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 2250052771836400641}
   - component: {fileID: 2250052771836400653}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MainCanvas
   m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2250052772724917502
 RectTransform:
   m_ObjectHideFlags: 0
