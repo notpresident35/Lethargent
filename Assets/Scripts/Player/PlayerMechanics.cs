@@ -11,6 +11,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     [Header ("Vertical Movement")]
     [SerializeField] float jumpSpeed = 8f;
+    [SerializeField] float jumpInputLenience = 0.5f;
     [SerializeField] float jumpingGravityMod = 3f; //For double jump
     [SerializeField] float fallingGravityMod = 4f; //Speed of falling
     [SerializeField] int maxJumps = 1;
@@ -48,6 +49,7 @@ public class PlayerMechanics : MonoBehaviour {
     Vector3 movement = Vector3.zero;
 
     float smoothTime;
+    float jumpInputCache;
     Vector3 jumpVelocity = Vector3.zero;
 
     void Awake () {
@@ -138,9 +140,16 @@ public class PlayerMechanics : MonoBehaviour {
     }
 
     void Jump () {
-        if (control.jumpOn && jumpCount < maxJumps) //If player presses up
+        if (control.jumpOn) {
+            jumpInputCache = jumpInputLenience;
+        } else {
+            jumpInputCache -= Time.deltaTime;
+        }
+
+        if (jumpInputCache > 0 && jumpCount < maxJumps) //If player presses up
         {
             jumpVelocity = jumpDir.normalized * jumpSpeed;
+            jumpInputCache = 0;
             isJumping = true;
             jumpCount++;
         }
@@ -151,9 +160,7 @@ public class PlayerMechanics : MonoBehaviour {
             isFalling = false;
             isJumping = true;
         } else if (collisions.CheckGround ()) { // Player is on the ground
-            jumpVelocity.x *= 0.9f;
-            // y velocity is stopped by the ground; no need to override this
-            jumpVelocity.z *= 0.9f;
+            jumpVelocity *= 0.9f;
             jumpCount = 0;
             isFalling = false;
             isJumping = false;

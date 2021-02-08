@@ -9,7 +9,7 @@ using System;
 public class PlayerCollisions : MonoBehaviour
 {
     [Header("Offsets of Player")]
-    [SerializeField] float collisionRadius = 0.5f;
+    [SerializeField] Vector3 collisionDetectionBox;
     [SerializeField] float interactRadius = 3f;
 
     [Space]
@@ -24,16 +24,13 @@ public class PlayerCollisions : MonoBehaviour
 
     void Start()
     {
-        groundMask = LayerMask.GetMask("Terrain");
-        interactionMask = LayerMask.GetMask("Interactable");
         groundTransform = transform.Find("GroundTransform");
         visionTransform = transform.Find("VisionTarget");
         cam = Camera.main.gameObject;
     }
 
-    public bool CheckGround()
-    {
-        return Physics.CheckSphere(groundTransform.position, collisionRadius, groundMask);
+    public bool CheckGround () {
+        return Physics.CheckBox (groundTransform.position, collisionDetectionBox, groundTransform.rotation, groundMask);
     }
 
     public bool CheckInteract () {

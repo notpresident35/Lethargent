@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   jumpSpeed: 8
+  jumpInputLenience: 0.12
   jumpingGravityMod: 3
   fallingGravityMod: 4
   maxJumps: 1
@@ -211,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef6deb7886a31842a9b2fe3648d292b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionRadius: 0.5
+  collisionDetectionBox: {x: 0.3, y: 0.15, z: 0.3}
   interactRadius: 4
   groundMask:
     serializedVersion: 2
