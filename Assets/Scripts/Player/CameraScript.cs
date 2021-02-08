@@ -93,6 +93,7 @@ public class CameraScript : MonoBehaviour
     Quaternion targetRotation;
     float freeLookCacheXRotation;
     float freeLookCacheYRotation;
+    float distanceCache;
     bool mouseReleased = false;
     bool playerMovingBackward = false;
 
@@ -234,8 +235,12 @@ public class CameraScript : MonoBehaviour
         }
     }
 
-    void TargetStandardPosition ()
-    {
+    void TargetStandardPosition () {
+
+        if (distanceCache == 0) {
+            distanceCache = (rotation * offset.normalized * -zoom).magnitude;
+        }
+
         Vector3 normPos = target.transform.position + rotation * offset.normalized * -zoom; //Regualr camera position if no obstruction is there
         //Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
 
@@ -248,10 +253,14 @@ public class CameraScript : MonoBehaviour
                              (ray.point - target.transform.position).magnitude *
                              (1 - cameraDistanceBuffer) + target.transform.position;
             //Debug.Log("hit");
+            // When an obstacle is hit, snap to the hit position
+            distanceCache = (ray.point - target.transform.position).magnitude;
         }
         else
         {
             standardPosition = normPos; //In case no obstruction, use normal position
+            // When an obstacle was hit previously but is not hit now, slowly zoom out instead of snapping out
+            distanceCache = Mathf.Lerp (distanceCache, (normPos - target.transform.position).magnitude, (1 - Mathf.Clamp01 (rotationDelta.magnitude)) * Time.fixedDeltaTime);
         }
     }
 
