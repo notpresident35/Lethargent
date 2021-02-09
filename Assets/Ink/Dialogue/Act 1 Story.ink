@@ -1,6 +1,6 @@
 Opening shot
 The game begins with a view of the mountain. The camera pans in through the hole in the roof, shows an aerial shot of the compound, then turns to the office building, flying through the second-story window to focus on the protagonist, Matthew, working at his desk. 
-A few seconds pass, then generic office worker 1, Connor, walks down the stairs and calls out, "Oy, Matthew!"
+A few seconds pass, then generic office worker 1, Connor, walks down the stairs and calls out, "Hey, Matthew!"
 Matthew, looking up: "Yeah Connor?"
 Connor: "Boss needs something. Says to bring the report if you've finished."
 Matthew: "Wait, that's due today?"
@@ -66,7 +66,7 @@ Matthew: "You act like I have a choice-"
 Zack: "But you do have a choice! Just flip her of-"
 Matthew: "Excuse me?"
 Zack: "Don't interrupt! Give her the bird, and she'll go write her own posters!"
-Matthew: "I was ordered by the higher-ups!"
+Matthew, waving the packet: "I was ordered by the higher-ups!"
 Zack: "So? They come through The Boss, and he doesn't have to know squat!"
 Zack: "Make her write the posters, then tell Boss you did it! He'd never believe her over you."
 Matthew: "You've been reading Kalpana again, haven't you? You'd never come up with something this sick."
@@ -80,3 +80,17 @@ Zack: "That's better. I look forward to your proposed solution by... tomorrow."
 Matthew: "Can I at least have a week?"
 Zack: "Tomorrow."
 Matthew: "Tomorrow it is!"
+
+The player can now walk to their desk and put the packet down. Once they do so, the clock strikes 5, and all of the workers start to leave the building. There is now nothing for the player to do in the office; they must leave. When they leave, they must follow the other workers back to the barracks. No matter which direction the player starts walking in, once they get far enough away from the  office, generic coworker 2, Edsel, calls them over. 
+Edsel: "Oi, Matt!"
+Matthew: "Oh, hi Edsel."
+Edsel: "I go' me hands on a pack o' beer, fresh off the line!"
+Matthew: "Really? How did you-"
+Edsel: "A magicalion n'er reveals his secrets!"
+Connor: "You mean a magician?"
+Edsel: "Yea, tha's the word! A magitian!"
+Connor: "...sure. Anyway, he's right; it just got shipped in today. Care to join us?"
+Matthew: "Sure! What kind of beer is it?"
+Edsel: "'fraid it's jus' the regular."
+
+Cut to Matthew with the coworkers in the barracks, later that night.
