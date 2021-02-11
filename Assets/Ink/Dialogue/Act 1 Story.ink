@@ -8,7 +8,7 @@ Connor: "Dunno. You're the one on it, not me."
 Matthew: "...I guess I'll bring the draft."
 And with that, gameplay begins.
 
-Connor walks away from the cubicle, allowing Matthew to leave. The player is tasked with grabbing the report from the printer first, which is located on the third floor. If the player attempts to go downstairs, Matthew will refuse, saying "I can't leave yet! The Boss is waiting for me upstairs." If the player attempts to enter the office without the report, Matthew will also refuse, saying "Wait! The Boss asked for the report! I need to bring it, even if it isn't done yet. Better safe than sorry..." Once they have the report, the player can then enter the office on the fourth floor.
+Connor walks away from the cubicle, allowing Matthew to leave. The player is tasked with grabbing the report from the typewriter first, which is located on his desk. If the player attempts to go downstairs, Matthew will refuse, saying "I can't leave yet! The Boss is waiting for me upstairs." If the player attempts to go upstairs without the report, Matthew will also refuse, saying "Wait! The Boss asked for the report! I need to bring it, even if it isn't done yet. Better safe than sorry..." Once they have the report, the player can then enter the office on the fourth floor.
 
 The Boss is sitting at his desk. When Matthew enters, he greets him, saying, "The report's done then?"
 Matthew: "Mostly-"
@@ -93,4 +93,16 @@ Connor: "...sure. Anyway, he's right; it just got shipped in today. Care to join
 Matthew: "Sure! What kind of beer is it?"
 Edsel: "'fraid it's jus' the regular."
 
-Cut to Matthew with the coworkers in the barracks, later that night.
+Cut to Matthew in the barracks later that night playing cards with Connor, Edsel, and generic coworker 3, Erika. A few seconds of silent card-playing pass, then Edsel speaks.
+Edsel: "Heard talk o'er by the diner. Chef says some food ain't getting shipped right."
+Connor: "In that case, we're hardly helping by swiping beer-"
+Edsel: "Nay, that's the strange part. They go' too much supply!"
+Edsel: "They order fi'e carrots and six come knocking, wi' a good ripe hare to boot!"
+Erika: "T-tt-thaat's od-dd."
+Connor: "Hey, the more goodies we get, the merrier!"
+Connor: "Say, Matthew. You're awful quiet. What's biting you?"
+Matthew: "Zack."
+Connor: "...ah. Got another poster?"
+Matthew: "Yup. He knew before I'd even opened the brief."
+Erika: "That's ss-so rough! I-I wissh I was Bosss so I could f-f-fire him."
+Matthew: "Don't we all..."
