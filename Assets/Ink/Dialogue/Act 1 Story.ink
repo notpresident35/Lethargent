@@ -110,10 +110,14 @@ Matthew: "Yup. He knew before I'd even opened the brief."
 Connor: "Shame. He's too attentive. Has he been reading *her* again?"
 Matthew: "Mhmm..."
 Connor: "Well, maybe if I swiped the book, he'd cool it for a bit."
-Matthew: "That wouldn't help. He's threatened the stapler again."
+Matthew: "Too late for that. He's threatened the stapler again."
 Edsel: "Nay! In my navy days, he'd be ge'in a load o' my fists for tha'!"
 Erika: "Yeah! That's ss-so rough! I-I wissh I was Bosss so I could f-f-fire him."
 Matthew: "Don't we all..."
+Short pause.
+Connor: "Maybe you could leave."
+Matthew: "Connor, you know I can't."
+Connor: "Not even for a day?"
 Short pause.
 Connor: "I'm going to go hit the sack. Y'all shoul-"
 Edsel: "Oi, wha' did I tell ya about usin' tha' word? You ain't foreign no more!"
@@ -130,4 +134,30 @@ Matthew: "Wait, was that about me?"
 Connor: "No; The Boss wants us to investigate! Hurry up!"
 Connor runs down to the first floor and waits for the player in the lobby. When the player enters the lobby, he shouts "Keep up now!" and runs out of the office.
 When the player exits the office, they can see that a large number of people are running to and from the compound, and they can see Connor running with them. The player has to follow the other people towards the subway station. Connor waits for the player at the entrance, saying "Down here!" and running to the boarding zone as the player enters.
-When the player walks down to the boarding zone, they can see the 
+When the player walks down to the boarding zone, they can see the rubble for the first time, and can no longer move. Cut to a closeup of the rubble, then a closeup of Matthew, then Matthew passes out.
+
+Matthew wakes up alone in the barracks the next day. Maybe he monologues a couple of sentences. Then, Zach comes in, followed by Tasha and two generic coworkers, antagonists 3 and 4. 
+Zach: "Hey, knucklehead!"
+Zach: "Guess what you forgot was due yesterday!"
+Matthew: "I couldn't do it! I've been unconscious!"
+Zach: "So? You still didn't do it, you knucklehead!"
+Tasha: "Honey, you could've had it done when you walked in the office yesterday."
+Matthew: "Don't honey me-"
+Zach: "And now you're backtalking Tasha?!"
+Zach: "My baby girl, getting smack talk from a knucklehead like you?!"
+Zach: "I won't have it!"
+Zach: "Carl!"
+Carl (antagonist 3): "Yes sir?"
+Zach: "The stapler!"
+Matthew: "No, please!"
+Carl: "With pleasure, sir."
+Matthew, backing into a corner: "Stop it!"
+Tasha: "Aw, is the knucklehead gonna cry?"
+Zach, moving towards Matthew: "Don't worry."
+Zach: "This will quiet you down."
+Matthew: "No!"
+Matthew lunges forward and tackles Zach. Zach, surprised, drops the stapler. Matthew grabs the stapler, then staples Zach twice in the chest. He then stands up, looks at the other three antagonists, and brandishes the stapler. All four of them scream and run away. 
+Matthew: "Well. I think that went well."
+Matthew: "Yes, very well."
+
+End of Act 1

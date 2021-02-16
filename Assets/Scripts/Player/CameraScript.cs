@@ -15,9 +15,8 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float maxX;
     [SerializeField] float minY;
     [SerializeField] float maxY;
-    [SerializeField] Vector3 offset = new Vector3(0, 1, -3);
+    [SerializeField] Vector3 offset = new Vector3(0, 1, -3); // TODO: Remove?
     [SerializeField] Vector3 defaultRotation;
-    float offsetMagnitude;
 
     [Header ("Rotation")]
 
@@ -84,11 +83,9 @@ public class CameraScript : MonoBehaviour
     RaycastHit ray;
 
     Vector3 standardPosition;
-    Vector3 standardTargetPosition;
     Vector3 shoulderPosition;
     Vector3 targetPosition;
     Quaternion standardRotation;
-    Quaternion standardTargetRotation;
     Quaternion shoulderRotation;
     Quaternion targetRotation;
     float freeLookCacheXRotation;
@@ -97,21 +94,30 @@ public class CameraScript : MonoBehaviour
     bool mouseReleased = false;
     bool playerMovingBackward = false;
 
-    void Start()
-    {
+    private void Awake () {
         player = GameObject.FindGameObjectWithTag ("Player");
         target = player.transform.Find ("CameraTargetC");
         leftShoulder = player.transform.Find ("CameraTargetL");
         rightShoulder = player.transform.Find ("CameraTargetR");
         cam = GetComponent<Camera> ();
-        control = player.GetComponent<PlayerControlMapping>();
+        control = player.GetComponent<PlayerControlMapping> ();
         sData = FindObjectOfType<SceneData> ();// GameObject.FindGameObjectWithTag("Canvas").GetComponent<SceneData>();
+    }
+
+    private void Start () {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        transform.position = offset;
-        xRotation = defaultRotation.x;
-        yRotation = defaultRotation.y;
         freeLookReturnIterator = freeLookReturnDelay;
+
+        xRotation = defaultRotation.x;
+        yRotation = player.transform.rotation.eulerAngles.y;
+        rotation = Quaternion.Euler (-xRotation, yRotation, 0);
+
+        targetPosition = target.transform.position + rotation * offset.normalized * -zoom;
+        distanceCache = (targetPosition - target.transform.position).magnitude;
+        targetRotation = Quaternion.LookRotation (target.transform.position - transform.position);
+        transform.position = targetPosition;
+        transform.rotation = targetRotation;
     }
 
     private void Update () {
@@ -237,11 +243,7 @@ public class CameraScript : MonoBehaviour
 
     void TargetStandardPosition () {
 
-        if (distanceCache == 0) {
-            distanceCache = (rotation * offset.normalized * -zoom).magnitude;
-        }
-
-        Vector3 normPos = target.transform.position + rotation * offset.normalized * -zoom; //Regualr camera position if no obstruction is there
+        Vector3 normPos = target.transform.position + rotation * offset.normalized * -zoom; // An unobstructed camera's position
         //Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
 
         // SphereCasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
