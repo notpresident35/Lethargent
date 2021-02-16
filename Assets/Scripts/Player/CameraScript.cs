@@ -347,4 +347,8 @@ public class CameraScript : MonoBehaviour
         transform.position = targetPosition;
         transform.rotation = targetRotation;
     }
+
+    public void SetResetCamera (bool input) {
+        facePlayerMovementAfterMovingBackwards = input;
+    }
 }

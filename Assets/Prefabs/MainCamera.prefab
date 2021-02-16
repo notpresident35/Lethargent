@@ -105,7 +105,7 @@ MonoBehaviour:
   offset: {x: 0, y: 6, z: -10}
   defaultRotation: {x: 25, y: 180, z: 0}
   invertYAxis: 1
-  facePlayerMovementAfterMovingBackwards: 0
+  facePlayerMovementAfterMovingBackwards: 1
   cameraSensitivity: 1
   freeLookDetectionSensitivity: 0.05
   verticalRotationMax: 70
