@@ -178,7 +178,13 @@ public class PlayerMechanics : MonoBehaviour {
         if (control.interact) {
             Collider [] cols = collisions.Interact (); //Get interactables
             if (cols.Length != 0) {
-                cols[0].GetComponent<GenericInteractable> ().Interact (); //Trigger interactable
+                int closestIndex = 0;
+                for (int i = 0; i < cols.Length; i++) {
+                    if ((cols[i].transform.position - transform.position).magnitude <= (cols [closestIndex].transform.position - transform.position).magnitude) {
+                        closestIndex = i;
+                    }
+                }
+                cols[closestIndex].GetComponent<GenericInteractable> ().Interact (); //Trigger interactable
             } 
         }
     }

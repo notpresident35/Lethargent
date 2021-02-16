@@ -48,12 +48,12 @@ Matthew: "Hang on, there's a lot of packaging."
 Matthew: "...It's a request for a propoganda poster."
 Jingyi: "Oh! They must have loved my last one!"
 Matthew: "I suppose so."
-Matthew: "They specifically want me to draft it and you to paint it. Not sure why they asked for me..."
+Matthew: "They want me to draft it and you to paint it. Not sure why they need me..."
 Jingyi: "Hey! Your last draft was really inspiring!"
 Matthew: "Yes, but we didn't even use it-"
 Jingyi: "That doesn't matter! They know you're good!"
-Matthew: "Sure, I guess."
-Matthew: "Anyway, I'll come back when the draft's done."
+Matthew: "Sure, I guess... It doesn't matter. A job's a job."
+Matthew: "I'll come back when the draft's done."
 Jingyi: "Sweet! Can't wait to see it!"
 
 The player is now tasked with putting the packet on their desk. As they approach their desk, they are interrupted by antagonist 1, Zack.
@@ -68,7 +68,7 @@ Matthew: "Excuse me?"
 Zack: "Don't interrupt! Give her the bird, and she'll go write her own posters!"
 Matthew, waving the packet: "I was ordered by the higher-ups!"
 Zack: "So? They come through The Boss, and he doesn't have to know squat!"
-Zack: "Make her write the posters, then tell Boss you did it! He'd never believe her over you."
+Zack: "Make her do the posters on her own, then tell Boss you did it! He'd never believe her over you."
 Matthew: "You've been reading Kalpana again, haven't you? You'd never come up with something this sick."
 Zack, gesturing to the stapler on his desk: "Ah ah ah, remember what we talked about?"
 Matthew, recoiling and grasping his arm: "Sorry! I'm sorry! Kalpana is our friend! I'll see what I can do about Jingyi."
@@ -83,15 +83,17 @@ Matthew: "Tomorrow it is!"
 
 The player can now walk to their desk and put the packet down. Once they do so, the clock strikes 5, and all of the workers start to leave the building. There is now nothing for the player to do in the office; they must leave. When they leave, they must follow the other workers back to the barracks. No matter which direction the player starts walking in, once they get far enough away from the  office, generic coworker 2, Edsel, calls them over. 
 Edsel: "Oi, Matt!"
-Matthew: "Oh, hi Edsel."
+Matthew: "Oh. Hi Edsel."
 Edsel: "I go' me hands on a pack o' beer, fresh off the line!"
-Matthew: "Really? How did you-"
+Matthew: "How did you-"
 Edsel: "A magicalion n'er reveals his secrets!"
 Connor: "You mean a magician?"
-Edsel: "Yea, tha's the word! A magitian!"
+Edsel: "Yea, tha's the word! A magetian!"
 Connor: "...sure. Anyway, he's right; it just got shipped in today. Care to join us?"
-Matthew: "Sure! What kind of beer is it?"
+Matthew: "Sure."
+Connor: "Sweet! Say, Edsel, what kind of beer is it?"
 Edsel: "'fraid it's jus' the regular."
+Connor: "Alright. I find the regular is just dandy."
 
 Cut to Matthew in the barracks later that night playing cards with Connor, Edsel, and generic coworker 3, Erika. A few seconds of silent card-playing pass, then Edsel speaks.
 Edsel: "Heard talk o'er by the diner. Chef says some food ain't getting shipped right."
@@ -99,10 +101,33 @@ Connor: "In that case, we're hardly helping by swiping beer-"
 Edsel: "Nay, that's the strange part. They go' too much supply!"
 Edsel: "They order fi'e carrots and six come knocking, wi' a good ripe hare to boot!"
 Erika: "T-tt-thaat's od-dd."
-Connor: "Hey, the more goodies we get, the merrier!"
+Connor: "Hey, I won't complain. More goodies for us!"
+Quick pause
 Connor: "Say, Matthew. You're awful quiet. What's biting you?"
 Matthew: "Zack."
 Connor: "...ah. Got another poster?"
 Matthew: "Yup. He knew before I'd even opened the brief."
-Erika: "That's ss-so rough! I-I wissh I was Bosss so I could f-f-fire him."
+Connor: "Shame. He's too attentive. Has he been reading *her* again?"
+Matthew: "Mhmm..."
+Connor: "Well, maybe if I swiped the book, he'd cool it for a bit."
+Matthew: "That wouldn't help. He's threatened the stapler again."
+Edsel: "Nay! In my navy days, he'd be ge'in a load o' my fists for tha'!"
+Erika: "Yeah! That's ss-so rough! I-I wissh I was Bosss so I could f-f-fire him."
 Matthew: "Don't we all..."
+Short pause.
+Connor: "I'm going to go hit the sack. Y'all shoul-"
+Edsel: "Oi, wha' did I tell ya about usin' tha' word? You ain't foreign no more!"
+Connor: "*Cough* not now *cough*"
+Edsel: "..."
+Edsel: "Righ'. Sorry lads."
+Fade to black
+
+Fade in to Matthew working at his desk the next day. 
+Something needs to happen here for pacing, just not sure what. Fill this in later.
+The screen shakes and a low rumble is heard as the subway tunnel collapses. 
+Connor, running down from the third floor: "Matthew! Come on!"
+Matthew: "Wait, was that about me?"
+Connor: "No; The Boss wants us to investigate! Hurry up!"
+Connor runs down to the first floor and waits for the player in the lobby. When the player enters the lobby, he shouts "Keep up now!" and runs out of the office.
+When the player exits the office, they can see that a large number of people are running to and from the compound, and they can see Connor running with them. The player has to follow the other people towards the subway station. Connor waits for the player at the entrance, saying "Down here!" and running to the boarding zone as the player enters.
+When the player walks down to the boarding zone, they can see the 

@@ -13741,16 +13741,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1041356581379168668, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
-      propertyPath: m_RenderShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1041356581379168668, guid: 253e897f3510b8b47bbd076ba19a3679,
-        type: 3}
-      propertyPath: m_RendererIndex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1041356581379168668, guid: 253e897f3510b8b47bbd076ba19a3679,
-        type: 3}
       propertyPath: m_VolumeTrigger
       value: 
       objectReference: {fileID: 655800722}

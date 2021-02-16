@@ -5,6 +5,6 @@ using UnityEngine;
 public class ElecticalBox : GenericInteractable {
 
     public override void Interact () {
-        Debug.Log ("Electrical box has been interacted with!");
+        Debug.Log (gameObject.name + " has been interacted with!");
     }
 }
