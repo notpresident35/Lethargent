@@ -384,9 +384,11 @@ MonoBehaviour:
   jumpDir: {x: 0, y: 1, z: 0}
   normalSpeed: 10
   turnSpeed: 0.1
-  crouchMod: 0.5
+  crouchMod: 0.4
   currentSpeed: 0
   aimRotationSpeed: 0
+  standingHeight: 2.15
+  crouchingHeight: 1.4
   isWalking: 0
   isCrouching: 0
   isJumping: 0
@@ -574,13 +576,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.25
+  m_Height: 2.15
   m_Radius: 0.4
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.125, z: 0}
+  m_Center: {x: 0, y: 1.075, z: 0}
 --- !u!1 &2165139868397265135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,7 +1161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
+  m_Color: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1178,7 +1180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '[E]'
+  m_Text: E
 --- !u!1 &3709644742907929905
 GameObject:
   m_ObjectHideFlags: 0

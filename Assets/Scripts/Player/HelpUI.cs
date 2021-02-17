@@ -14,13 +14,14 @@ public class HelpUI : MonoBehaviour {
     PlayerCollisions collisions;
     PlayerControlMapping control;
     bool hasInteracted;
-    Color textCol = Color.white;
+    Color textCol;
     Vector3 backgroundScale;
 
     private void Awake () {
         backgroundScale = HelpBackground.localScale;
         collisions = FindObjectOfType<PlayerCollisions> ();
         control = FindObjectOfType<PlayerControlMapping> ();
+        textCol = HelpText.color;
         textCol.a = 0;
         HelpText.color = textCol;
         HelpBackground.localScale = Vector3.zero;

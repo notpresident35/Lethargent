@@ -9,6 +9,7 @@ public class CameraScript : MonoBehaviour {
     public GameObject SettingsMenu;
     public Toggle Toggle1;
     public Toggle Toggle2;
+    public Toggle Toggle3;
 
     [SerializeField] bool active = true;
     GameObject player;
@@ -158,14 +159,14 @@ public class CameraScript : MonoBehaviour {
 
     void GetInput () {
         // Takes a threshold of movement to enable freelook because otherwise freelook overrides the camera contstantly if the player rests their hand on it
-        isFreeLooking = isFreeLooking ? (Mathf.Abs (control.horizontalAim) > Mathf.Epsilon || Mathf.Abs (control.verticalAim) > Mathf.Epsilon)
-                                      : (Mathf.Abs (control.horizontalAim) > freeLookDetectionSensitivity || Mathf.Abs (control.verticalAim) > freeLookDetectionSensitivity);
+        isFreeLooking = mouseReleased ? false : (isFreeLooking ? (Mathf.Abs (control.horizontalAim) > Mathf.Epsilon || Mathf.Abs (control.verticalAim) > Mathf.Epsilon)
+                                                               : (Mathf.Abs (control.horizontalAim) > freeLookDetectionSensitivity || Mathf.Abs (control.verticalAim) > freeLookDetectionSensitivity));
         if (followTurnAfterBackwardsMovement || Mathf.Abs (control.vMove) > Mathf.Epsilon) {
             playerMovingBackward = control.vMove < -Mathf.Epsilon;
         }
 
         // Ignore mouse input if player isn't aiming or freelooking
-        if (control.aiming || (isFreeLooking && !mouseReleased)) {
+        if (control.aiming || isFreeLooking) {
             rotationDelta.y = control.horizontalAim * cameraSensitivity;
             rotationDelta.x = (invertYAxis ? -1 : 1) * control.verticalAim * cameraSensitivity;
         } else {
@@ -198,7 +199,7 @@ public class CameraScript : MonoBehaviour {
             freeLookBlend = 1;
         } else if (control.aiming || ((Mathf.Abs (control.xMove) > Mathf.Epsilon || Mathf.Abs (control.vMove) > Mathf.Epsilon) && freeLookReturnIterator > freeLookReturnDelay / 4)) {
             freeLookReturnIterator = freeLookReturnDelay;
-        } else {
+        } else if (!mouseReleased) {
             freeLookReturnIterator += Time.deltaTime;
             freeLookReturnIterator = Mathf.Clamp (freeLookReturnIterator, 0, freeLookReturnDelay);
         }
@@ -365,6 +366,7 @@ public class CameraScript : MonoBehaviour {
     public void SetPlayerFollow (bool input) {
         followPlayer = input;
         Toggle1.interactable = input;
+        Toggle3.interactable = input;
     }
 
     public void SetFollowWhileMoving (bool input) {

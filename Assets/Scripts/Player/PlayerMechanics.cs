@@ -29,6 +29,13 @@ public class PlayerMechanics : MonoBehaviour {
 
     [Space]
 
+    [Header ("Crouching")]
+
+    [SerializeField] float standingHeight;
+    [SerializeField] float crouchingHeight;
+
+    [Space]
+
     [Header ("Booleans")]
     public bool isWalking;
     public bool isCrouching;
@@ -38,9 +45,6 @@ public class PlayerMechanics : MonoBehaviour {
     public bool joystickControls;
 
     GameObject cam; //Camera
-    Rigidbody rb; //Player's rigidbody
-
-    CapsuleCollider playerCol; //The collider of the player
     PlayerCollisions collisions; //Controls collision interactions
     PlayerControlMapping control; //The control map of the player
     CharacterController controller;
@@ -56,8 +60,6 @@ public class PlayerMechanics : MonoBehaviour {
         cam = Camera.main.gameObject;
         camCache = new GameObject ("CameraCache").transform;
         //restartText = GameObject.Find("RestartText").GetComponent<Text>();
-        rb = GetComponent<Rigidbody> ();
-        playerCol = GetComponent<CapsuleCollider> ();
         control = GetComponent<PlayerControlMapping> ();
         controller = GetComponent<CharacterController> ();
         collisions = GetComponent<PlayerCollisions> ();
@@ -76,6 +78,7 @@ public class PlayerMechanics : MonoBehaviour {
         if (!active) { return; }
         Interact ();
         SaveNLoad ();
+        Crouch ();
     }
 
     void FixedUpdate () {
@@ -172,6 +175,11 @@ public class PlayerMechanics : MonoBehaviour {
         }
 
         controller.Move (jumpVelocity * Time.fixedDeltaTime);
+    }
+
+    void Crouch () {
+        controller.height = control.crouching ? crouchingHeight : standingHeight;
+        controller.center = new Vector3(0, (control.crouching ? crouchingHeight : standingHeight) / 2, 0);
     }
 
     void Interact () {

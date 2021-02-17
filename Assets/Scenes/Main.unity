@@ -15759,6 +15759,11 @@ PrefabInstance:
       objectReference: {fileID: 1350903980}
     - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
         type: 3}
+      propertyPath: Toggle3
+      value: 
+      objectReference: {fileID: 1769460432}
+    - target: {fileID: 2672950021914325680, guid: 253e897f3510b8b47bbd076ba19a3679,
+        type: 3}
       propertyPath: SettingsMenu
       value: 
       objectReference: {fileID: 1334372103}
@@ -32558,7 +32563,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1599469456}
   m_LocalRotation: {x: -0.7071067, y: -0.00000022724274, z: -0.00000035762793, w: 0.7071068}
-  m_LocalPosition: {x: -1.08, y: -2.14, z: 19.11}
+  m_LocalPosition: {x: -1.08, y: -2.05, z: 19.11}
   m_LocalScale: {x: 2.7825065, y: 1, z: 1.0786585}
   m_Children: []
   m_Father: {fileID: 1154243117}
@@ -35179,7 +35184,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1574740742}
   toggleTransition: 1
   graphic: {fileID: 436159083}
@@ -39980,7 +39985,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1996286856
 GameObject:
   m_ObjectHideFlags: 0
@@ -40876,7 +40881,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1521968484}
   toggleTransition: 1
   graphic: {fileID: 126101947}
