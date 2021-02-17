@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class CameraScript : MonoBehaviour
-{
+public class CameraScript : MonoBehaviour {
+
     public GameObject SettingsMenu;
+    public Toggle Toggle1;
+    public Toggle Toggle2;
 
     [SerializeField] bool active = true;
     GameObject player;
@@ -22,8 +25,11 @@ public class CameraScript : MonoBehaviour
 
     [Header ("Rotation")]
 
+    [SerializeField] bool followPlayer;
+    [SerializeField] bool followWhileMoving;
+    [SerializeField] bool followIgnoreBackwardsMovement;
+    [SerializeField] bool followTurnAfterBackwardsMovement;
     [SerializeField] bool invertYAxis;
-    [SerializeField] bool facePlayerMovementAfterMovingBackwards = true;
     [SerializeField] float cameraSensitivity = 1f;
     [SerializeField] float freeLookDetectionSensitivity = 0.05f;
     [SerializeField] float verticalRotationMax;
@@ -154,7 +160,7 @@ public class CameraScript : MonoBehaviour
         // Takes a threshold of movement to enable freelook because otherwise freelook overrides the camera contstantly if the player rests their hand on it
         isFreeLooking = isFreeLooking ? (Mathf.Abs (control.horizontalAim) > Mathf.Epsilon || Mathf.Abs (control.verticalAim) > Mathf.Epsilon)
                                       : (Mathf.Abs (control.horizontalAim) > freeLookDetectionSensitivity || Mathf.Abs (control.verticalAim) > freeLookDetectionSensitivity);
-        if (facePlayerMovementAfterMovingBackwards || Mathf.Abs (control.vMove) > Mathf.Epsilon) {
+        if (followTurnAfterBackwardsMovement || Mathf.Abs (control.vMove) > Mathf.Epsilon) {
             playerMovingBackward = control.vMove < -Mathf.Epsilon;
         }
 
@@ -168,7 +174,7 @@ public class CameraScript : MonoBehaviour
 
         // Get mouse rotation if free-looking; otherwise, use player rotation
         if (!control.aiming) {
-            if (isFreeLooking || freeLookReturnIterator < freeLookReturnDelay) {
+            if (isFreeCam || (!followWhileMoving && (Mathf.Abs (control.vMove) > Mathf.Epsilon || Mathf.Abs (control.xMove) > Mathf.Epsilon))) {
                 yRotation += rotationDelta.y; //Capture horizontal mouse movement
                 xRotation += rotationDelta.x; //Capture vertical mouse movement
                 xRotation = Mathf.Clamp (xRotation, verticalRotationMin, verticalRotationMax); //Clamp vertical movement to certain angles
@@ -176,14 +182,14 @@ public class CameraScript : MonoBehaviour
                 freeLookCacheYRotation = yRotation;
             } else {
                 xRotation = Mathf.LerpAngle (defaultRotation.x, freeLookCacheXRotation, freeLookBlend);
-                yRotation = Mathf.LerpAngle (Mathf.LerpAngle (yRotation, player.transform.rotation.eulerAngles.y + (playerMovingBackward ? 180 : 0), followRotationInterpolationSpeed * Time.deltaTime), freeLookCacheYRotation, freeLookBlend);
+                yRotation = Mathf.LerpAngle (Mathf.LerpAngle (yRotation, player.transform.rotation.eulerAngles.y + (playerMovingBackward && followIgnoreBackwardsMovement ? 180 : 0), followRotationInterpolationSpeed * Time.deltaTime), freeLookCacheYRotation, freeLookBlend);
             }
 
             rotation = Quaternion.Euler (-xRotation, yRotation, 0);
         }
 
         // Caching for effects
-        isFreeCam = freeLookReturnIterator < freeLookReturnDelay;
+        isFreeCam = followPlayer ? freeLookReturnIterator < freeLookReturnDelay : true;
         wasAiming = control.aiming;
 
         // Return freelook to normal with blending after a delay. Shortens delay if player moves, and skips it entirely if player aims
@@ -352,15 +358,33 @@ public class CameraScript : MonoBehaviour
         transform.rotation = targetRotation;
     }
 
-    public void SetResetCamera (bool input) {
-        facePlayerMovementAfterMovingBackwards = input;
-    }
-
     public void SetYAxisInvert (bool input) {
         invertYAxis = input;
     }
 
+    public void SetPlayerFollow (bool input) {
+        followPlayer = input;
+        Toggle1.interactable = input;
+    }
+
+    public void SetFollowWhileMoving (bool input) {
+        followWhileMoving = input;
+    }
+
+    public void SetFollowIgnoreBackwardsMovement (bool input) {
+        followIgnoreBackwardsMovement = !input;
+        Toggle2.interactable = !input;
+    }
+
+    public void SetFollowTurnAfterBackwardsMovement (bool input) {
+        followTurnAfterBackwardsMovement = input;
+    }
+
     public void SetSensitivity (float input) {
         cameraSensitivity = input;
+    }
+
+    public void Quit () {
+        Application.Quit ();
     }
 }
