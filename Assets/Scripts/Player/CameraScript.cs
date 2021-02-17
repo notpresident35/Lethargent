@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class CameraScript : MonoBehaviour
 {
+    public GameObject SettingsMenu;
+
     [SerializeField] bool active = true;
     GameObject player;
     Transform target;
@@ -287,9 +289,11 @@ public class CameraScript : MonoBehaviour
         if (mouseReleased || control.aiming) {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+            SettingsMenu.SetActive (true);
         } else {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            SettingsMenu.SetActive (false);
         }
     }
 
@@ -350,5 +354,13 @@ public class CameraScript : MonoBehaviour
 
     public void SetResetCamera (bool input) {
         facePlayerMovementAfterMovingBackwards = input;
+    }
+
+    public void SetYAxisInvert (bool input) {
+        invertYAxis = input;
+    }
+
+    public void SetSensitivity (float input) {
+        cameraSensitivity = input;
     }
 }

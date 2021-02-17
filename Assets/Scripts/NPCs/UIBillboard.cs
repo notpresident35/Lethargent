@@ -20,7 +20,7 @@ public class UIBillboard : MonoBehaviour {
     }
 
     void Update () {
-        transform.rotation = camTransform.rotation * originalRotation;
+        transform.rotation = camTransform.rotation/* * originalRotation*/;
         if (useScaling) {
             transform.localScale = Mathf.Clamp ((camTransform.position - transform.position).magnitude * scaleFactor, minScale, maxScale) * originalScale;
         }
