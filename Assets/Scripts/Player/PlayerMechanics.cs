@@ -50,11 +50,13 @@ public class PlayerMechanics : MonoBehaviour {
     CharacterController controller;
     Transform model; //Player's model
     Transform camCache;
+    Animator anim;
     Vector3 movement = Vector3.zero;
 
     float smoothTime;
     float jumpInputCache;
     Vector3 jumpVelocity = Vector3.zero;
+    string currentAnimState;
 
     void Awake () {
         cam = Camera.main.gameObject;
@@ -63,6 +65,7 @@ public class PlayerMechanics : MonoBehaviour {
         control = GetComponent<PlayerControlMapping> ();
         controller = GetComponent<CharacterController> ();
         collisions = GetComponent<PlayerCollisions> ();
+        anim = GetComponent<Animator> ();
         model = transform.Find ("Model");
     }
 
@@ -139,6 +142,12 @@ public class PlayerMechanics : MonoBehaviour {
                 angle = Mathf.SmoothDampAngle (transform.eulerAngles.y, angle, ref smoothTime, turnSpeed);
                 transform.rotation = Quaternion.Euler (0, angle, 0);
             }
+        }
+
+        if (movement.magnitude < Mathf.Epsilon) {
+            SetAnim ("Idle");
+        } else {
+            SetAnim ("WalkingForward");
         }
     }
 
@@ -237,6 +246,11 @@ public class PlayerMechanics : MonoBehaviour {
 
                 transform.position = new Vector3(t_x, t_y, t_z);
         }
+    }
+
+    void SetAnim (string animState) {
+        if (currentAnimState == animState) { return; }
+        anim.Play (animState, 0);
     }
 
     private void OnEnable() {
