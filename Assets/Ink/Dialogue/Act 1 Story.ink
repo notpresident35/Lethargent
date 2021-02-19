@@ -126,9 +126,15 @@ Edsel: "..."
 Edsel: "Righ'. Sorry lads."
 Fade to black
 
-Fade in to Matthew working at his desk the next day. 
-Something needs to happen here for pacing, just not sure what. Fill this in later.
-The screen shakes and a low rumble is heard as the subway tunnel collapses. 
+Fade in to Matthew working at his desk the next day. Edsel walks by with the broom and sweeps the floor behind Matthew, then stops and looks at Matthew.
+Edsel: "You ain't gone blatherin' to Zach, right?"
+Matthew: "No."
+Edsel: "Good. The man's go' a screw loose."
+Edsel: "If I were still a spry navy boy, he'da got the ol' rat-tat-"
+Matthew: "Ok, ok, I get it."
+Matthew: "I think you missed a spot."
+Edsel: "*Grumble grumble*"
+Edsel walks away and Matthew goes back to work. Then, the screen shakes and a low rumble is heard as the subway tunnel collapses. 
 Connor, running down from the third floor: "Matthew! Come on!"
 Matthew: "Wait, was that about me?"
 Connor: "No; The Boss wants us to investigate! Hurry up!"
@@ -136,10 +142,10 @@ Connor runs down to the first floor and waits for the player in the lobby. When 
 When the player exits the office, they can see that a large number of people are running to and from the compound, and they can see Connor running with them. The player has to follow the other people towards the subway station. Connor waits for the player at the entrance, saying "Down here!" and running to the boarding zone as the player enters.
 When the player walks down to the boarding zone, they can see the rubble for the first time, and can no longer move. Cut to a closeup of the rubble, then a closeup of Matthew, then Matthew passes out.
 
-Matthew wakes up alone in the barracks the next day. Maybe he monologues a couple of sentences. Then, Zach comes in, followed by Tasha and two generic coworkers, antagonists 3 and 4. 
+Matthew wakes up alone in the barracks the next day. He groans, then says, "How long have I...." Then, Zach comes in, followed by Tasha and two generic coworkers, antagonists 3 and 4. 
 Zach: "Hey, knucklehead!"
 Zach: "Guess what you forgot was due yesterday!"
-Matthew: "I couldn't do it! I've been unconscious!"
+Matthew: "What? Talk to Jingyi? I was out cold!"
 Zach: "So? You still didn't do it, you knucklehead!"
 Tasha: "Honey, you could've had it done when you walked in the office yesterday."
 Matthew: "Don't honey me-"
@@ -157,7 +163,6 @@ Zach, moving towards Matthew: "Don't worry."
 Zach: "This will quiet you down."
 Matthew: "No!"
 Matthew lunges forward and tackles Zach. Zach, surprised, drops the stapler. Matthew grabs the stapler, then staples Zach twice in the chest. He then stands up, looks at the other three antagonists, and brandishes the stapler. All four of them scream and run away. 
-Matthew: "Well. I think that went well."
-Matthew: "Yes, very well."
+Matthew: "Huh. That went well."
 
 End of Act 1
