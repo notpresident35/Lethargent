@@ -383,7 +383,7 @@ MonoBehaviour:
   jumpCount: 0
   jumpDir: {x: 0, y: 1, z: 0}
   normalSpeed: 10
-  turnSpeed: 0.1
+  turnSpeed: 0.025
   crouchMod: 0.4
   currentSpeed: 0
   aimRotationSpeed: 0

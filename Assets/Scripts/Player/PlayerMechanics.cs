@@ -147,7 +147,7 @@ public class PlayerMechanics : MonoBehaviour {
         if (movement.magnitude < Mathf.Epsilon) {
             SetAnim ("Idle");
         } else {
-            SetAnim ("WalkingForward");
+            SetAnim ("RunningForward");
         }
     }
 
