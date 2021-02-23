@@ -78,6 +78,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        anim.applyRootMotion = active;
         if (!active) { return; }
         Interact ();
         SaveNLoad ();
