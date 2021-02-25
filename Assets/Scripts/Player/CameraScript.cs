@@ -12,6 +12,7 @@ public class CameraScript : MonoBehaviour {
     public Toggle Toggle3;
 
     [SerializeField] bool active = true;
+    [SerializeField] bool cutsceneMode = false;
     GameObject player;
     Transform target;
 
@@ -87,6 +88,7 @@ public class CameraScript : MonoBehaviour {
     [SerializeField] LayerMask collisionMask;
 
     PlayerControlMapping control;
+    Animator anim;
     SceneData sData;
     Camera cam;
     RaycastHit ray;
@@ -103,12 +105,18 @@ public class CameraScript : MonoBehaviour {
     bool mouseReleased = false;
     bool playerMovingBackward = false;
 
+    float cutsceneTargetInterpolationSpeed;
+    float cutsceneTargetSetTime;
+    Vector3 cutsceneCachePosition;
+    Quaternion cutsceneCacheRotation;
+
     private void Awake () {
         player = GameObject.FindGameObjectWithTag ("Player");
         target = player.transform.Find ("CameraTargetC");
         leftShoulder = player.transform.Find ("CameraTargetL");
         rightShoulder = player.transform.Find ("CameraTargetR");
         cam = GetComponent<Camera> ();
+        anim = GetComponent<Animator> ();
         control = player.GetComponent<PlayerControlMapping> ();
         sData = FindObjectOfType<SceneData> ();// GameObject.FindGameObjectWithTag("Canvas").GetComponent<SceneData>();
     }
@@ -130,17 +138,28 @@ public class CameraScript : MonoBehaviour {
     }
 
     private void Update () {
+        if (!active || cutsceneMode) { return; }
+
         if (control.swapShoulders) {
             targetingRightShoulder = !targetingRightShoulder;
         }
+
         if (control.freeMouse) {
             mouseReleased = !mouseReleased;
         }
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
+
+        if (!active) { return; }
+
+        if (cutsceneMode) {
+            /*transform.position = Vector3.Lerp (cutsceneCachePosition, targetPosition, Mathf.Clamp01 ((Time.time - cutsceneTargetSetTime) * cutsceneTargetInterpolationSpeed));
+            transform.rotation = Quaternion.Lerp (cutsceneCacheRotation, targetRotation, Mathf.Clamp01 ((Time.time - cutsceneTargetSetTime) * cutsceneTargetInterpolationSpeed));*/
+            return;
+        }
+
         // Input
         GetInput();
         Zoom ();
@@ -349,16 +368,6 @@ public class CameraScript : MonoBehaviour {
         CutsceneManager.CutsceneStop -= StopCutscene;
     }
 
-    public void StartCutscene () {
-        active = false;
-    }
-
-    public void StopCutscene () {
-        active = true;
-        transform.position = targetPosition;
-        transform.rotation = targetRotation;
-    }
-
     public void SetYAxisInvert (bool input) {
         invertYAxis = input;
     }
@@ -389,4 +398,44 @@ public class CameraScript : MonoBehaviour {
     public void Quit () {
         Application.Quit ();
     }
+
+    // Cutscene methods
+
+    public void StartCutscene () {
+        cutsceneMode = true;
+        anim.applyRootMotion = false;
+    }
+
+    public void StopCutscene () {
+        cutsceneMode = false;
+        anim.applyRootMotion = true;
+        transform.position = targetPosition;
+        transform.rotation = targetRotation;
+    }
+    /*
+    public void SetPosition (Vector3 position) {
+        transform.position = position;
+        targetPosition = position;
+        cutsceneCachePosition = position;
+    }
+
+    public void SetRotation (Vector3 rotation) {
+        transform.rotation = Quaternion.Euler (rotation);
+        targetRotation = Quaternion.Euler (rotation);
+        cutsceneCacheRotation = Quaternion.Euler (rotation);
+    }
+
+    public void SetTargetPosition (Vector3 position) {
+        targetPosition = position;
+        cutsceneCachePosition = transform.position;
+    }
+
+    public void SetTargetRotation (Vector3 rotation) {
+        targetRotation = Quaternion.Euler (rotation);
+        cutsceneCacheRotation = transform.rotation;
+    }
+
+    public void SetInterpolation (float interpolation) {
+        cutsceneTargetInterpolationSpeed = interpolation;
+    }*/
 }

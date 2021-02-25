@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2672950021914325685}
   - component: {fileID: 2672950021914325680}
   - component: {fileID: -1041356581379168668}
+  - component: {fileID: 4724403035685274873}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -102,6 +103,7 @@ MonoBehaviour:
   Toggle2: {fileID: 0}
   Toggle3: {fileID: 0}
   active: 1
+  cutsceneMode: 0
   minX: 0
   maxX: 0
   minY: 0
@@ -175,3 +177,22 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!95 &4724403035685274873
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2672950021914325684}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cc12f299c7ea700438e609452dacda57, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
