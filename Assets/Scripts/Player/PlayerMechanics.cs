@@ -193,7 +193,7 @@ public class PlayerMechanics : MonoBehaviour {
     }
 
     void Interact () {
-        if (control.interact) {
+        if (control.interact && collisions.CheckInteract()) {
             Collider [] cols = collisions.Interact (); //Get interactables
             if (cols.Length != 0) {
                 int closestIndex = 0;
@@ -203,7 +203,7 @@ public class PlayerMechanics : MonoBehaviour {
                     }
                 }
                 cols[closestIndex].GetComponent<GenericInteractable> ().Interact (); //Trigger interactable
-            } 
+            }
         }
     }
 

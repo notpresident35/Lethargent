@@ -17,6 +17,7 @@ public class PlayerCollisions : MonoBehaviour
     [Header ("Masks & Transforms")]
     [SerializeField] LayerMask groundMask;
     [SerializeField] LayerMask interactionMask;
+    [SerializeField] LayerMask opaqueMask;
     [SerializeField] Transform groundTransform;
     [SerializeField] Transform visionTransform;
 
@@ -26,6 +27,8 @@ public class PlayerCollisions : MonoBehaviour
     {
         groundTransform = transform.Find("GroundTransform");
         visionTransform = transform.Find("VisionTarget");
+        interactionMask = LayerMask.GetMask("Interactable");
+        opaqueMask = LayerMask.GetMask("Opaque Object");
         cam = Camera.main.gameObject;
     }
 
@@ -34,7 +37,15 @@ public class PlayerCollisions : MonoBehaviour
     }
 
     public bool CheckInteract () {
-        return Physics.CheckSphere (visionTransform.position, interactRadius, interactionMask);
+        Collider[] interactables = Physics.OverlapSphere(visionTransform.position, interactRadius, interactionMask);
+        for(int i = 0; i < interactables.Length; i++)
+        {
+            if(!Physics.Linecast(visionTransform.position, interactables[i].transform.position, opaqueMask))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Collider[] Interact()
