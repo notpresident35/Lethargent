@@ -31,7 +31,7 @@ public class EntityBehavior : MonoBehaviour {
         currentBehaviorIndex = 0;
 
         for (int i = 0; i < behaviors.Length; i++) {
-            if (behaviors[i]._time < TimeSystem.currentTime) {
+            if (behaviors[i]._time < TimeSystem.CurrentTime) {
                 currentBehaviorIndex = i;
             } else {
                 break;
@@ -53,7 +53,7 @@ public class EntityBehavior : MonoBehaviour {
         if (!active) { return; }
 
         // If the next state is due and the current state is interruptible, switch to the next state
-        if (currentBehaviorIndex < behaviors.Length - 1 && TimeSystem.currentTime > behaviors [currentBehaviorIndex + 1]._time) {
+        if (currentBehaviorIndex < behaviors.Length - 1 && TimeSystem.CurrentTime > behaviors [currentBehaviorIndex + 1]._time) {
             currentBehaviorIndex++;
             entity.SetBehavior (behaviors [currentBehaviorIndex]._behavior);
         }

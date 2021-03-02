@@ -108,6 +108,7 @@ MonoBehaviour:
     m_Signals:
     - {fileID: 11400000, guid: c269bd5b0210bf04c9cfd686c67a8323, type: 2}
     - {fileID: 11400000, guid: 8bd0a29cbccea9145b4f0ebf0ea05c81, type: 2}
+    - {fileID: 11400000, guid: c2fa2b984bb391145900c9cbcfd5b5b9, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -126,6 +127,19 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 974765701149370791}
           m_MethodName: SetCutsceneEnd
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 974765701149370791}
+          m_MethodName: TriggerContinue
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

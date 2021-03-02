@@ -38,13 +38,18 @@ public class CutsceneDialogueController : MonoBehaviour {
 	// Destroys all the old content and choices.
 	// Continues over all the lines of text, then displays all the choices. If there are no choices, the story is finished!
 	void RefreshView () {
-		// Remove all the UI on screen
-		RemoveChildren ();
-
 		// Continue gets the next line of the story
 		string text = story.Continue ();
 		// This removes any white space from the text.
 		text = text.Trim ();
+		// Lines saying REPEAT will be skipped, continuing to display the previous line's text without re-animating it.
+		if (text == "REPEAT") { return; } 
+
+		// Remove all the UI on screen
+		RemoveChildren ();
+
+		// Lines saying SKIP will be skipped, clearing the previous line to leave no dialogue displayed
+		if (text == "SKIP") { return; } 
 		// Display the text on screen!
 		CreateContentView (text);
 	}

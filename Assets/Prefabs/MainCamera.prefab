@@ -108,8 +108,8 @@ MonoBehaviour:
   maxX: 0
   minY: 0
   maxY: 0
-  offset: {x: 0, y: 6, z: -10}
-  defaultRotation: {x: 25, y: 180, z: 0}
+  offset: {x: 0, y: 6, z: -11}
+  defaultRotation: {x: 0, y: 180, z: 0}
   followPlayer: 0
   followWhileMoving: 1
   followIgnoreBackwardsMovement: 1

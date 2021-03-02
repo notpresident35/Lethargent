@@ -116,7 +116,7 @@ public class CameraScript : MonoBehaviour {
         leftShoulder = player.transform.Find ("CameraTargetL");
         rightShoulder = player.transform.Find ("CameraTargetR");
         cam = GetComponent<Camera> ();
-        anim = GetComponent<Animator> ();
+        anim = transform.parent.GetComponent<Animator> ();
         control = player.GetComponent<PlayerControlMapping> ();
         sData = FindObjectOfType<SceneData> ();// GameObject.FindGameObjectWithTag("Canvas").GetComponent<SceneData>();
     }
@@ -125,16 +125,9 @@ public class CameraScript : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         freeLookReturnIterator = freeLookReturnDelay;
+        SettingsMenu.SetActive (false);
 
-        xRotation = defaultRotation.x;
-        yRotation = player.transform.rotation.eulerAngles.y;
-        rotation = Quaternion.Euler (-xRotation, yRotation, 0);
-
-        targetPosition = target.transform.position + rotation * offset.normalized * -zoom;
-        distanceCache = (targetPosition - target.transform.position).magnitude;
-        targetRotation = Quaternion.LookRotation (target.transform.position - transform.position);
-        transform.position = targetPosition;
-        transform.rotation = targetRotation;
+        ResetCamera ();
     }
 
     private void Update () {
@@ -163,6 +156,7 @@ public class CameraScript : MonoBehaviour {
         // Input
         GetInput();
         Zoom ();
+        //print (yRotation);
 
         // Calculate target position and rotation
         TargetPosition ();
@@ -202,7 +196,7 @@ public class CameraScript : MonoBehaviour {
                 freeLookCacheYRotation = yRotation;
             } else {
                 xRotation = Mathf.LerpAngle (defaultRotation.x, freeLookCacheXRotation, freeLookBlend);
-                yRotation = Mathf.LerpAngle (Mathf.LerpAngle (yRotation, player.transform.rotation.eulerAngles.y + (playerMovingBackward && followIgnoreBackwardsMovement ? 180 : 0), followRotationInterpolationSpeed * Time.deltaTime), freeLookCacheYRotation, freeLookBlend);
+                yRotation = Mathf.LerpAngle (Mathf.LerpAngle (yRotation, target.rotation.eulerAngles.y + (playerMovingBackward && followIgnoreBackwardsMovement ? 180 : 0), followRotationInterpolationSpeed * Time.deltaTime), freeLookCacheYRotation, freeLookBlend);
             }
 
             rotation = Quaternion.Euler (-xRotation, yRotation, 0);
@@ -315,12 +309,12 @@ public class CameraScript : MonoBehaviour {
         if (mouseReleased || control.aiming) {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            SettingsMenu.SetActive (true);
         } else {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            SettingsMenu.SetActive (false);
         }
+
+        SettingsMenu.SetActive (mouseReleased); // TODO: Move this and refactor to allow settings to be changed in cutscenes
     }
 
     void ApplyTransform () {
@@ -368,6 +362,24 @@ public class CameraScript : MonoBehaviour {
         CutsceneManager.CutsceneStop -= StopCutscene;
     }
 
+    void ResetCamera () {
+        xRotation = defaultRotation.x;
+        yRotation = target.rotation.eulerAngles.y;
+        rotation = Quaternion.Euler (-xRotation, yRotation, 0);
+
+        targetPosition = target.transform.position + rotation * offset.normalized * -zoom;
+        distanceCache = (targetPosition - target.transform.position).magnitude;
+        targetRotation = Quaternion.LookRotation (target.transform.position - transform.position);
+        transform.position = targetPosition;
+        transform.rotation = targetRotation;
+
+        freeLookReturnIterator = 0;
+        freeLookBlend = 0;
+        aimingBlend = 0;
+        wasAiming = false;
+        isFreeLooking = false;
+    }
+
     public void SetYAxisInvert (bool input) {
         invertYAxis = input;
     }
@@ -403,39 +415,20 @@ public class CameraScript : MonoBehaviour {
 
     public void StartCutscene () {
         cutsceneMode = true;
-        anim.applyRootMotion = false;
+        anim.enabled = true;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
     }
 
     public void StopCutscene () {
+        targetPosition = transform.parent.position;
+        targetRotation = transform.parent.rotation;
         cutsceneMode = false;
-        anim.applyRootMotion = true;
+        anim.enabled = false;
         transform.position = targetPosition;
         transform.rotation = targetRotation;
+        transform.parent.position = Vector3.zero;
+        transform.parent.rotation = Quaternion.identity;
+        ResetCamera ();
     }
-    /*
-    public void SetPosition (Vector3 position) {
-        transform.position = position;
-        targetPosition = position;
-        cutsceneCachePosition = position;
-    }
-
-    public void SetRotation (Vector3 rotation) {
-        transform.rotation = Quaternion.Euler (rotation);
-        targetRotation = Quaternion.Euler (rotation);
-        cutsceneCacheRotation = Quaternion.Euler (rotation);
-    }
-
-    public void SetTargetPosition (Vector3 position) {
-        targetPosition = position;
-        cutsceneCachePosition = transform.position;
-    }
-
-    public void SetTargetRotation (Vector3 rotation) {
-        targetRotation = Quaternion.Euler (rotation);
-        cutsceneCacheRotation = transform.rotation;
-    }
-
-    public void SetInterpolation (float interpolation) {
-        cutsceneTargetInterpolationSpeed = interpolation;
-    }*/
 }

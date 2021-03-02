@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class TimeSystem : MonoBehaviour {
 
-    public static float currentTime { get; private set; }
-    public static bool isTimeProgressing { get; private set; } = false;
+    public static float CurrentTime { get; private set; }
+    public static bool IsTimeProgressing { get; private set; } = false;
+    public static bool IsAct1Complete { get; private set; } = false; // TODO: Move this
 
     static TimeSystem Singleton;
 
@@ -15,8 +16,8 @@ public class TimeSystem : MonoBehaviour {
     [ContextMenu ("Start game")]
     void StartGame () {
         // TODO: Load time from save
-        currentTime = 0;
-        isTimeProgressing = true;
+        CurrentTime = 0;
+        IsTimeProgressing = IsAct1Complete;
     }
 
     /*
@@ -40,34 +41,35 @@ public class TimeSystem : MonoBehaviour {
         StartGame ();
     }
 
+
     private void Update () {
-        if (isTimeProgressing) {
-            currentTime += Time.deltaTime;
+        if (IsTimeProgressing) {
+            CurrentTime += Time.deltaTime;
         }
-        RenderSettings.fogDensity = FogStrength.Evaluate (currentTime / Statics.DayLength) / 100f;
+        RenderSettings.fogDensity = FogStrength.Evaluate (CurrentTime / Statics.DayLength) / 100f;
     }
 
     public static void StopTime () {
-        isTimeProgressing = false;
+        IsTimeProgressing = false;
     }
 
     public static void StartTime () {
-        isTimeProgressing = true;
+        IsTimeProgressing = true;
     }
 
     public static void PauseTime (float time) {
-        isTimeProgressing = false;
+        IsTimeProgressing = false;
         Singleton.StartCoroutine (Singleton.ResumeTime (time));
     }
 
     [ContextMenu ("Skip 1 day")]
     public void Skiptime () {
-        currentTime += Statics.DayLength;
+        CurrentTime += Statics.DayLength;
     }
 
     IEnumerator ResumeTime (float time) {
         yield return new WaitForSeconds (time);
-        isTimeProgressing = true;
+        IsTimeProgressing = true;
     }
 }
 

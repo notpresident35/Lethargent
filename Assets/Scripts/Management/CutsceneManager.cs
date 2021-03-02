@@ -49,13 +49,18 @@ public class CutsceneManager : MonoBehaviour {
         director = GetComponent<PlayableDirector> ();
     }
 
+    private void Start () {
+        // TODO: Check if the game was saved in a cutscene, then play it if it was.
+        StartCutscene (0);
+    }
+
     [ContextMenu ("Start Test Cutscene")]
     public void StartTestCutscene () {
         StartCutscene (0);
     }
 
     private void Update () {
-        if (Input.GetKeyDown (ContinueInput) && Active && WaitingForContinue) {
+        if ((Input.GetKeyDown (ContinueInput) || Input.GetMouseButtonDown (0) || Input.GetMouseButtonDown (1)) && Active && WaitingForContinue) {
             Continue ();
         }
     }
@@ -87,5 +92,11 @@ public class CutsceneManager : MonoBehaviour {
         Active = false;
         CutsceneStop ();
         TimeSystem.StartTime ();
+    }
+
+    public void TriggerContinue () {
+        if (CutsceneContinue != null) {
+            CutsceneContinue ();
+        }
     }
 }
