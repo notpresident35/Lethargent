@@ -14,6 +14,8 @@ public class CutsceneDialogueController : MonoBehaviour {
 
 	[SerializeField]
 	private Transform dialogueRoot = null;
+	[SerializeField]
+	private GameObject background;
 
 	// UI Prefabs
 	[SerializeField]
@@ -52,6 +54,7 @@ public class CutsceneDialogueController : MonoBehaviour {
 		if (text == "SKIP") { return; } 
 		// Display the text on screen!
 		CreateContentView (text);
+		background.SetActive (true);
 	}
 
 
@@ -74,6 +77,7 @@ public class CutsceneDialogueController : MonoBehaviour {
 		for (int i = childCount - 1; i >= 0; --i) {
 			Destroy (dialogueRoot.GetChild (i).gameObject);
 		}
+		background.SetActive (false);
 	}
 
 	public object GetVariable (string name) {

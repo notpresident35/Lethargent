@@ -32,6 +32,7 @@ public class CutsceneManager : MonoBehaviour {
      * 15 𝔈𝔫𝔠𝔬𝔲𝔫𝔱𝔢𝔯 𝔴𝔦𝔱𝔥 𝔞𝔫 𝔲𝔫𝔨𝔫𝔬𝔴𝔞𝔟𝔩𝔢 𝔢𝔫𝔱𝔦𝔱𝔶
      */
 
+    public bool StartGameInCutscene = true;
     public static bool Active;
     public static bool WaitingForContinue;
     public static int CutsceneID;
@@ -51,7 +52,9 @@ public class CutsceneManager : MonoBehaviour {
 
     private void Start () {
         // TODO: Check if the game was saved in a cutscene, then play it if it was.
-        StartCutscene (0);
+        if (StartGameInCutscene) {
+            StartCutscene (0);
+        }
     }
 
     [ContextMenu ("Start Test Cutscene")]
