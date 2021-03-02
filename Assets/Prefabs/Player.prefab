@@ -883,6 +883,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: male_model_v3
       objectReference: {fileID: 0}
+    - target: {fileID: 8944704269038373242, guid: 0d534d83a3352de478363fe34c9ac01e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d534d83a3352de478363fe34c9ac01e, type: 3}
 --- !u!4 &5261113327864461621 stripped
