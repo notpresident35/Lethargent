@@ -13,7 +13,6 @@ public class TimeSystem : MonoBehaviour {
     public AnimationCurve FogStrength; // One horizontal unit equals one day, and vertical units are scaled down 100x
 
     // Needs to run before other scripts on game start, because other scripts depend on the time
-    [ContextMenu ("Start game")]
     void StartGame () {
         // TODO: Load time from save
         CurrentTime = 0;
@@ -51,6 +50,11 @@ public class TimeSystem : MonoBehaviour {
 
     public static void StopTime () {
         IsTimeProgressing = false;
+    }
+
+    [ContextMenu ("Start time")]
+    public void DebugStartTime () {
+        IsTimeProgressing = true;
     }
 
     public static void StartTime () {
