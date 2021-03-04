@@ -11,6 +11,6 @@ public class Sun : MonoBehaviour {
     }
 
     void Update () {
-        transform.rotation = Quaternion.Euler (TimeSystem.CurrentTime * 360f / Statics.DayLength, startRotation.y, startRotation.z);
+        transform.rotation = Quaternion.Euler (TimeSystem.CurrentTime * 360f / TimeSystem.Singleton.DayLength, startRotation.y, startRotation.z);
     }
 }

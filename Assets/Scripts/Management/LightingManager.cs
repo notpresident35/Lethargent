@@ -8,6 +8,7 @@ public class LightingManager : MonoBehaviour {
     [SerializeField] Gradient SkyColor;
     [SerializeField] Gradient EquatorColor;
     [SerializeField] Gradient GroundColor;
+    [SerializeField] Gradient FogColor;
     [SerializeField] AnimationCurve AmbientLightStrength;
     [SerializeField] float debugTimeValue;
     [SerializeField] Light [] AmbientLights;
@@ -16,8 +17,15 @@ public class LightingManager : MonoBehaviour {
     private static int ambientEquatorColorID = Shader.PropertyToID ("ambient_equatorcolor");
     private static int ambientGroundColorID = Shader.PropertyToID ("ambient_groundcolor");
 
+    Camera main;
+
+    private void Start () {
+        main = Camera.main;
+    }
+
     private void Update () {
-        ApplyLightingAtTime (TimeSystem.CurrentTime % Statics.DayLength);
+        ApplyLightingAtTime ((TimeSystem.CurrentTime % TimeSystem.Singleton.DayLength) / TimeSystem.Singleton.DayLength);
+        print ((TimeSystem.CurrentTime % TimeSystem.Singleton.DayLength) / TimeSystem.Singleton.DayLength);
     }
 
     // Finds the nearest entry before the current time, then blends that entry with the next entry based on the current time
@@ -25,6 +33,8 @@ public class LightingManager : MonoBehaviour {
         RenderSettings.ambientSkyColor = SkyColor.Evaluate (time);
         RenderSettings.ambientEquatorColor = EquatorColor.Evaluate (time);
         RenderSettings.ambientGroundColor = GroundColor.Evaluate (time);
+        RenderSettings.fogColor = FogColor.Evaluate (time);
+        main.backgroundColor = FogColor.Evaluate (time);
 
         if (useAmbientLights) {
             for (int i = 0; i < AmbientLights.Length; i++) {
@@ -46,6 +56,8 @@ public class LightingManager : MonoBehaviour {
         RenderSettings.ambientSkyColor = SkyColor.Evaluate (debugTimeValue);
         RenderSettings.ambientEquatorColor = EquatorColor.Evaluate (debugTimeValue);
         RenderSettings.ambientGroundColor = GroundColor.Evaluate (debugTimeValue);
+        RenderSettings.fogColor = FogColor.Evaluate (debugTimeValue);
+        main.backgroundColor = FogColor.Evaluate (debugTimeValue);
 
         if (useAmbientLights) {
             for (int i = 0; i < AmbientLights.Length; i++) {

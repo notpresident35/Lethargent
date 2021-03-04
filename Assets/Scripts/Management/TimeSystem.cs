@@ -8,9 +8,12 @@ public class TimeSystem : MonoBehaviour {
     public static bool IsTimeProgressing { get; private set; } = false;
     public static bool IsAct1Complete { get; private set; } = false; // TODO: Move this
 
-    static TimeSystem Singleton;
+    public static TimeSystem Singleton;
 
     public AnimationCurve FogStrength; // One horizontal unit equals one day, and vertical units are scaled down 100x
+    public float DayLength = 120f; // Day/night cycle length, measured in seconds
+
+    private bool timeProgressingCache;
 
     // Needs to run before other scripts on game start, because other scripts depend on the time
     void StartGame () {
@@ -38,6 +41,8 @@ public class TimeSystem : MonoBehaviour {
             Destroy (this);
         }
         StartGame ();
+        // TODO: Make time system start at the end of Act 1, rather than immediately
+        StartTime ();
     }
 
 
@@ -45,7 +50,10 @@ public class TimeSystem : MonoBehaviour {
         if (IsTimeProgressing) {
             CurrentTime += Time.deltaTime;
         }
-        RenderSettings.fogDensity = FogStrength.Evaluate (CurrentTime / Statics.DayLength) / 100f;
+        RenderSettings.fogDensity = FogStrength.Evaluate (CurrentTime / DayLength) / 100f;
+
+        // "Reveals" CurrentTime in inspector by setting the object's position
+        transform.position = Vector3.one * CurrentTime;
     }
 
     public static void StopTime () {
@@ -68,12 +76,21 @@ public class TimeSystem : MonoBehaviour {
 
     [ContextMenu ("Skip 1 day")]
     public void Skiptime () {
-        CurrentTime += Statics.DayLength;
+        CurrentTime += DayLength;
     }
 
     IEnumerator ResumeTime (float time) {
         yield return new WaitForSeconds (time);
         IsTimeProgressing = true;
+    }
+
+    void StartCutscene () {
+        timeProgressingCache = IsTimeProgressing;
+        IsTimeProgressing = false;
+    }
+
+    void StopCutscene () {
+        IsTimeProgressing = timeProgressingCache;
     }
 }
 

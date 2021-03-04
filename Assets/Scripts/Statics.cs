@@ -22,7 +22,6 @@ public class Statics {
     public static string SFXVolumePlayerPrefName = "SFXVolume";
 
     //** Other
-    public static float DayLength = 120f; // Day/night cycle length, measured in seconds
     public static float Sqrt2 = 1.4142136f; // Approximation of the square root of 2
 
     public static float Interpolate (float start, float target, float interpolation) {
