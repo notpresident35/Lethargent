@@ -12,20 +12,15 @@ public class LightingManager : MonoBehaviour {
     [SerializeField] AnimationCurve AmbientLightStrength;
     [SerializeField] float debugTimeValue;
     [SerializeField] Light [] AmbientLights;
+    [SerializeField] Camera main;
 
     private static int ambientSkyColorID = Shader.PropertyToID ("ambient_skycolor");
     private static int ambientEquatorColorID = Shader.PropertyToID ("ambient_equatorcolor");
     private static int ambientGroundColorID = Shader.PropertyToID ("ambient_groundcolor");
 
-    Camera main;
-
-    private void Start () {
-        main = Camera.main;
-    }
-
     private void Update () {
         ApplyLightingAtTime ((TimeSystem.CurrentTime % TimeSystem.Singleton.DayLength) / TimeSystem.Singleton.DayLength);
-        print ((TimeSystem.CurrentTime % TimeSystem.Singleton.DayLength) / TimeSystem.Singleton.DayLength);
+        //print ((TimeSystem.CurrentTime % TimeSystem.Singleton.DayLength) / TimeSystem.Singleton.DayLength);
     }
 
     // Finds the nearest entry before the current time, then blends that entry with the next entry based on the current time

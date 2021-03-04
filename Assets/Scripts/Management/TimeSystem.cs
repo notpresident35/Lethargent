@@ -13,12 +13,14 @@ public class TimeSystem : MonoBehaviour {
     public AnimationCurve FogStrength; // One horizontal unit equals one day, and vertical units are scaled down 100x
     public float DayLength = 120f; // Day/night cycle length, measured in seconds
 
+    [SerializeField] float startTime = 0.4f;
+
     private bool timeProgressingCache;
 
     // Needs to run before other scripts on game start, because other scripts depend on the time
     void StartGame () {
         // TODO: Load time from save
-        CurrentTime = 0;
+        CurrentTime = startTime * DayLength;
         IsTimeProgressing = IsAct1Complete;
     }
 
