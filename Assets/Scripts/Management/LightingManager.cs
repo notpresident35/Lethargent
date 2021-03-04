@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
+[ExecuteInEditMode]
 public class LightingManager : MonoBehaviour {
 
     [SerializeField] bool useAmbientLights = false;
@@ -10,16 +12,23 @@ public class LightingManager : MonoBehaviour {
     [SerializeField] Gradient GroundColor;
     [SerializeField] Gradient FogColor;
     [SerializeField] AnimationCurve AmbientLightStrength;
-    [SerializeField] float debugTimeValue;
+    [SerializeField] [Range (0f, 1f)] float debugTimeValue;
     [SerializeField] Light [] AmbientLights;
     [SerializeField] Camera main;
+
+    float debugTimeValueCache;
 
     private static int ambientSkyColorID = Shader.PropertyToID ("ambient_skycolor");
     private static int ambientEquatorColorID = Shader.PropertyToID ("ambient_equatorcolor");
     private static int ambientGroundColorID = Shader.PropertyToID ("ambient_groundcolor");
 
     private void Update () {
-        ApplyLightingAtTime ((TimeSystem.CurrentTime % TimeSystem.Singleton.DayLength) / TimeSystem.Singleton.DayLength);
+        if (Application.isPlaying) {
+            ApplyLightingAtTime ((TimeSystem.CurrentTime % TimeSystem.Singleton.DayLength) / TimeSystem.Singleton.DayLength);
+        } else if (debugTimeValue != debugTimeValueCache) {
+            debugTimeValueCache = debugTimeValue;
+            ApplyDebugLghting ();
+        }
         //print ((TimeSystem.CurrentTime % TimeSystem.Singleton.DayLength) / TimeSystem.Singleton.DayLength);
     }
 
