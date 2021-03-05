@@ -38540,6 +38540,51 @@ PrefabInstance:
       propertyPath: SettingsMenu
       value: 
       objectReference: {fileID: 1334372103}
+    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.442
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.637
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.42309406
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.053711817
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.8972908
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.11391113
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 14.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -129.51001
+      objectReference: {fileID: 0}
     - target: {fileID: 9108007058853254206, guid: a49886dc2a79517448cdd8a1e8e40690,
         type: 3}
       propertyPath: m_VolumeTrigger
@@ -38862,7 +38907,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2287578115398416092}
   m_LocalRotation: {x: -0, y: 0.53649515, z: -0, w: 0.84390336}
-  m_LocalPosition: {x: 3.584, y: 16.225391, z: 6.208}
+  m_LocalPosition: {x: 3.584, y: 16.22539, z: 6.208}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 543450652148453692}
@@ -39312,7 +39357,7 @@ Animator:
   m_GameObject: {fileID: 2287578115398416092}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bc9c48ebaaf42cb4db0796a32d5c0f54, type: 2}
+  m_Controller: {fileID: 9100000, guid: f82c92d5c15f4074ea50be1d3ceae940, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
