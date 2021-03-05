@@ -43,6 +43,7 @@ public class CutsceneManager : MonoBehaviour {
     // TODO: Refactor to use the interaction button
     public KeyCode ContinueInput;
     public TimelineAsset[] Cutscenes;
+    public bool[] CutscenesHavePlayed;
 
     PlayableDirector director;
 
@@ -55,6 +56,9 @@ public class CutsceneManager : MonoBehaviour {
         if (StartGameInCutscene) {
             StartCutscene (0);
         }
+
+        // TODO: Load these booleans
+        CutscenesHavePlayed = new bool [Cutscenes.Length];
     }
 
     [ContextMenu ("Start Test Cutscene")]
