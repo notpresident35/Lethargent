@@ -91,6 +91,7 @@ public class CutsceneManager : MonoBehaviour {
         Active = true;
         WaitingForContinue = false;
         TimeSystem.StopTime ();
+        CutsceneID = ID;
         CutsceneStart ();
         director.Play (Cutscenes[ID]);
     }
