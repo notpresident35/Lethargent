@@ -218,8 +218,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a5e08df22d763f346bd1f96575b78bfa, type: 2}
     - {fileID: 11400000, guid: 26c2dcbfff8f95d4a99cb0d586ee529d, type: 2}
     - {fileID: 11400000, guid: b2a13a5b7dbb2f1408b6aebace6cb922, type: 2}
-    - {fileID: 11400000, guid: 9e1733b914eabc443917d426fcc0ad87, type: 2}
+    - {fileID: 11400000, guid: 8cc87e4815ce6cf4288fe89b0cb79c6c, type: 2}
     - {fileID: 11400000, guid: 8c0bd336a3b7e7c4ab32a45c606dd1ee, type: 2}
+    - {fileID: 11400000, guid: 13066c7b92508bd4aadc6b590371c64a, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -232,6 +233,17 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Base Layer.Idle
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3015895844052692378}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Arms.Idle
             m_BoolArgument: 0
           m_CallState: 2
     - m_PersistentCalls:
@@ -247,6 +259,17 @@ MonoBehaviour:
             m_StringArgument: Base Layer.ThinkingIdle
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 3015895844052692378}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Arms.ThinkingIdle
+            m_BoolArgument: 0
+          m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
@@ -260,6 +283,17 @@ MonoBehaviour:
             m_StringArgument: Base Layer.SittingTyping
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 3015895844052692378}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Arms.SittingTyping
+            m_BoolArgument: 0
+          m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
@@ -271,6 +305,17 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Base Layer.SittingIdle
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3015895844052692378}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Arms.SittingIdle
             m_BoolArgument: 0
           m_CallState: 2
     - m_PersistentCalls:
@@ -299,6 +344,17 @@ MonoBehaviour:
             m_StringArgument: Base Layer.RunningForward
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 3015895844052692378}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Arms.RunningForward
+            m_BoolArgument: 0
+          m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
@@ -322,7 +378,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Cutscenes.Cutscene1 State3
+            m_StringArgument: Cutscenes.Cutscene2 State1
             m_BoolArgument: 0
           m_CallState: 2
     - m_PersistentCalls:
@@ -336,6 +392,30 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Base Layer.WalkingForward
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3015895844052692378}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Arms.WalkingForward
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3015895844052692378}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Cutscenes.Cutscene2 State2
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!95 &3015895844052692378

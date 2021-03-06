@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Item : MonoBehaviour
+public class Item : GenericInteractable
 {
     protected string name;
     protected int id;
@@ -38,4 +38,8 @@ public class Item : MonoBehaviour
     }
 
     public virtual void Action() {}
+
+    public override void Interact () {
+        PickUp ();
+    }
 }

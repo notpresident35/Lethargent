@@ -36,6 +36,14 @@ public class PlayerMechanics : MonoBehaviour {
 
     [Space]
 
+    [Header ("Item")]
+
+    [SerializeField] bool itemHeld;
+    [SerializeField] Transform hand;
+    [SerializeField] Transform heldItem;
+
+    [Space]
+
     [Header ("Booleans")]
     public bool isWalking;
     public bool isCrouching;
@@ -57,6 +65,7 @@ public class PlayerMechanics : MonoBehaviour {
     float jumpInputCache;
     Vector3 jumpVelocity = Vector3.zero;
     string currentAnimState;
+    bool wasHoldingItem;
 
     void Awake () {
         cam = Camera.main.gameObject;
@@ -80,6 +89,7 @@ public class PlayerMechanics : MonoBehaviour {
     void Update () {
         anim.applyRootMotion = active;
         if (!active) { return; }
+        Grab ();
         Interact ();
         SaveNLoad ();
         Crouch ();
@@ -203,8 +213,26 @@ public class PlayerMechanics : MonoBehaviour {
                     }
                 }
                 cols[closestIndex].GetComponent<GenericInteractable> ().Interact (); //Trigger interactable
+                if (cols[closestIndex].GetComponent<Item> ()) {
+                    heldItem = cols [closestIndex].transform;
+                    print ("Grabbed");
+                }
             }
         }
+    }
+
+    void Grab () {
+        if (itemHeld) {
+            heldItem.position = hand.position;
+            heldItem.rotation = hand.rotation;
+        }
+        if (itemHeld && !wasHoldingItem) {
+            anim.Play ("HoldingItem", 2);
+        }
+        if (!itemHeld && wasHoldingItem) {
+            anim.Play (currentAnimState, 2);
+        }
+        wasHoldingItem = itemHeld;
     }
 
     void SaveNLoad ()
@@ -252,6 +280,10 @@ public class PlayerMechanics : MonoBehaviour {
     void SetAnim (string animState) {
         if (currentAnimState == animState) { return; }
         anim.Play (animState, 0);
+        if (!heldItem) {
+            anim.Play (animState, 2);
+        }
+        currentAnimState = animState;
     }
 
     private void OnEnable() {

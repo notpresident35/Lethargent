@@ -21,7 +21,7 @@ public class PlayerCollisions : MonoBehaviour
     [SerializeField] Transform groundTransform;
     [SerializeField] Transform visionTransform;
 
-    GameObject cam;
+    Camera cam;
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class PlayerCollisions : MonoBehaviour
         visionTransform = transform.Find("VisionTarget");
         interactionMask = LayerMask.GetMask("Interactable");
         opaqueMask = LayerMask.GetMask("Opaque Object");
-        cam = Camera.main.gameObject;
+        cam = Camera.main;
     }
 
     public bool CheckGround () {
@@ -38,22 +38,45 @@ public class PlayerCollisions : MonoBehaviour
 
     public bool CheckInteract () {
         Collider[] interactables = Physics.OverlapSphere(visionTransform.position, interactRadius, interactionMask);
-        for(int i = 0; i < interactables.Length; i++)
-        {
-            if(!Physics.Linecast(visionTransform.position, interactables[i].transform.position, opaqueMask))
-            {
+        for (int i = 0; i < interactables.Length; i++) {
+            if (QueryInteractable(interactables[i].transform)) {
                 return true;
             }
         }
         return false;
     }
 
-    public Collider[] Interact()
-    {
+    // Returns true if either the interactable is visible to the camera or to the player character
+    public bool QueryInteractable (Transform interactable) {
+        Debug.DrawLine (cam.transform.position, interactable.position, Color.red);
+        // Checks whether the interactable is within the camera's view frustum and unobstructed
+        Vector3 viewportPoint = cam.WorldToViewportPoint (interactable.position);
+        if (!Physics.Linecast (cam.transform.position, interactable.position, opaqueMask) && viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1) {
+            return true;
+        }
+        Debug.DrawLine (visionTransform.position, interactable.position, Color.green);
+        // Checks whether the interactable is unobstructed
+        if (!Physics.Linecast (visionTransform.position, interactable.position, opaqueMask)) {
+            return true;
+        }
+        return false;
+    }
+
+    public Collider[] Interact() {
         // interactable must be a created at runtime because
         // it breaks the logic if values from previous Interact() are still stored in the same variable
 
-        return Physics.OverlapSphere(visionTransform.position, interactRadius, interactionMask);
+        List<Collider> interactables = new List<Collider> (Physics.OverlapSphere (visionTransform.position, interactRadius, interactionMask));
+        int iterator = 0;
+        while (iterator < interactables.Count) {
+            if (!QueryInteractable (interactables [iterator].transform)) {
+                interactables.RemoveAt (iterator);
+            } else {
+                iterator++;
+            }
+        }
+
+        return interactables.ToArray ();
     }
 
 }
