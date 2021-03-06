@@ -696,7 +696,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 53.368896, y: 0}
+  m_AnchoredPosition: {x: 53.36914, y: 0}
   m_SizeDelta: {x: -106.737915, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &27123175
@@ -14969,7 +14969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 53.368896, y: 0}
+  m_AnchoredPosition: {x: 53.36914, y: 0}
   m_SizeDelta: {x: -106.737915, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &883675916
@@ -15152,7 +15152,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 53.368896, y: 0}
+  m_AnchoredPosition: {x: 53.36914, y: 0}
   m_SizeDelta: {x: -106.737915, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &890789910
@@ -15415,7 +15415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 53.368896, y: 0}
+  m_AnchoredPosition: {x: 53.36914, y: 0}
   m_SizeDelta: {x: -106.737915, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &927734208
@@ -21429,7 +21429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 16.599854, y: -54.30005}
+  m_AnchoredPosition: {x: 16.59961, y: -54.30005}
   m_SizeDelta: {x: 445.6494, y: 56.697327}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1226668404
@@ -23595,7 +23595,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 53.368896, y: 0}
+  m_AnchoredPosition: {x: 53.36914, y: 0}
   m_SizeDelta: {x: -106.737915, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1354708153
@@ -40306,16 +40306,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4945423917696415416, guid: 98fbd5a2956198d48b3e502bfc0a7b1b,
-        type: 3}
-      propertyPath: FogStrength.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4945423917696415416, guid: 98fbd5a2956198d48b3e502bfc0a7b1b,
-        type: 3}
-      propertyPath: FogStrength.m_Curve.Array.data[0].value
-      value: 1.497467
-      objectReference: {fileID: 0}
     - target: {fileID: 4945423917696415417, guid: 98fbd5a2956198d48b3e502bfc0a7b1b,
         type: 3}
       propertyPath: m_RootOrder

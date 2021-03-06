@@ -244,14 +244,14 @@ public class PlayerMechanics : MonoBehaviour {
             LevelManager.current.playerData.playerPosX = transform.position.x;
             LevelManager.current.playerData.playerPosY = transform.position.y;
             LevelManager.current.playerData.playerPosZ = transform.position.z;
-            SaveLoad.Save();
+            SaveLoad.WriteToDisk();
         }
 
         //-----------------------------------------------------------------
 
         if (control.load)
         {
-            SaveLoad.Load();
+            SaveLoad.LoadFromDisk();
             if (LevelManager.current.playerData.finishedGame)
             {
                 //restartText.gameObject.SetActive(true);

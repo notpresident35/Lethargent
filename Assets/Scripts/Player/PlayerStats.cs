@@ -123,4 +123,13 @@ public class PlayerStats
         }
         return m_keyItems[id];
     }
+
+    public PlayerStats () {
+        /*
+        sceneID = 0;
+        playerPosX = 0;
+        playerPosX = 0;
+        playerPosX = 0;
+        */
+    }
 }

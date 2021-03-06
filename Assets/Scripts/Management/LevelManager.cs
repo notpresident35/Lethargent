@@ -13,13 +13,8 @@ public class LevelManager //Is started by Main Menu or when game is started
 
     public bool isSceneBeingLoaded = false; //Checks if a scene is being loaded
 
-    public LevelManager()
-    {
+    public LevelManager () {
         playerData = new PlayerStats();
-        playerData.sceneID = 0;
-        playerData.playerPosX = 0;
-        playerData.playerPosX = 0;
-        playerData.playerPosX = 0;
+        time = 0;
     }
-
 }
