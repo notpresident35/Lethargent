@@ -168,7 +168,7 @@ MonoBehaviour:
   standingHeight: 2.15
   crouchingHeight: 1.4
   itemHeld: 0
-  hand: {fileID: 0}
+  grabber: {fileID: 2027766086168900803}
   heldItem: {fileID: 0}
   isWalking: 0
   isCrouching: 0
@@ -944,6 +944,36 @@ Transform:
   m_Father: {fileID: 2124246991558546153}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8922665375137404003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2027766086168900803}
+  m_Layer: 12
+  m_Name: GrabTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2027766086168900803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922665375137404003}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.06, y: 0.394, z: 0.575}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 612868648083153622}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6468571672949008174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1111,6 +1141,12 @@ PrefabInstance:
 --- !u!4 &5261113327864461621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1209147335207591451, guid: 0d534d83a3352de478363fe34c9ac01e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6468571672949008174}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &612868648083153622 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5856266540034278904, guid: 0d534d83a3352de478363fe34c9ac01e,
     type: 3}
   m_PrefabInstance: {fileID: 6468571672949008174}
   m_PrefabAsset: {fileID: 0}

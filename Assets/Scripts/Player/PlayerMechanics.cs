@@ -30,17 +30,21 @@ public class PlayerMechanics : MonoBehaviour {
     [Space]
 
     [Header ("Crouching")]
-
     [SerializeField] float standingHeight;
     [SerializeField] float crouchingHeight;
 
     [Space]
 
-    [Header ("Item")]
-
+    [Header ("Items")]
     [SerializeField] bool itemHeld;
-    [SerializeField] Transform hand;
+    [SerializeField] Transform grabber;
     [SerializeField] Transform heldItem;
+
+    [Space]
+
+    [Header ("Cutscenes")]
+    [SerializeField] Transform Cutscene2BossGrabber;
+    [SerializeField] Transform Cutscene2BossDesk;
 
     [Space]
 
@@ -216,7 +220,7 @@ public class PlayerMechanics : MonoBehaviour {
                 if (cols[closestIndex].GetComponent<Item> ()) {
                     itemHeld = true;
                     heldItem = cols [closestIndex].transform;
-                    heldItem.transform.parent = hand;
+                    heldItem.transform.parent = grabber;
                     heldItem.localPosition = Vector3.zero;
                     heldItem.localRotation = Quaternion.identity;
                     cols [closestIndex].enabled = false;
@@ -285,7 +289,7 @@ public class PlayerMechanics : MonoBehaviour {
     void SetAnim (string animState) {
         if (currentAnimState == animState) { return; }
         anim.Play (animState, 0);
-        if (!heldItem) {
+        if (!heldItem || !itemHeld) {
             anim.Play (animState, 2);
         }
         currentAnimState = animState;
@@ -307,5 +311,19 @@ public class PlayerMechanics : MonoBehaviour {
 
     public void StopCutscene() {
         active = true;
+    }
+
+    public void Cutscene2Event1 () {
+        itemHeld = false;
+        heldItem.parent = Cutscene2BossGrabber;
+        heldItem.localPosition = Vector3.zero;
+        heldItem.localRotation = Quaternion.identity;
+    }
+
+    public void Cutscene2Event2 () {
+        heldItem.parent = Cutscene2BossDesk;
+        heldItem.localPosition = Vector3.zero;
+        heldItem.localRotation = Quaternion.identity;
+        heldItem = null;
     }
 }
