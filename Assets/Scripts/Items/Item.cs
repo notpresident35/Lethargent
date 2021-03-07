@@ -18,7 +18,7 @@ public class Item : GenericInteractable
 
     public virtual void PickUp()
     {
-        LevelManager.current.playerData.UpdateItem(this, true);
+        //LevelManager.current.playerData.UpdateItem(this, true);
     }
 
     public virtual void Drop()

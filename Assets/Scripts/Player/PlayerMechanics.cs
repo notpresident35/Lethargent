@@ -214,7 +214,12 @@ public class PlayerMechanics : MonoBehaviour {
                 }
                 cols[closestIndex].GetComponent<GenericInteractable> ().Interact (); //Trigger interactable
                 if (cols[closestIndex].GetComponent<Item> ()) {
+                    itemHeld = true;
                     heldItem = cols [closestIndex].transform;
+                    heldItem.transform.parent = hand;
+                    heldItem.localPosition = Vector3.zero;
+                    heldItem.localRotation = Quaternion.identity;
+                    cols [closestIndex].enabled = false;
                     print ("Grabbed");
                 }
             }
@@ -222,12 +227,12 @@ public class PlayerMechanics : MonoBehaviour {
     }
 
     void Grab () {
-        if (itemHeld) {
+        /*if (itemHeld) {
             heldItem.position = hand.position;
             heldItem.rotation = hand.rotation;
-        }
+        }*/
         if (itemHeld && !wasHoldingItem) {
-            anim.Play ("HoldingItem", 2);
+            anim.Play ("ItemHeld", 2);
         }
         if (!itemHeld && wasHoldingItem) {
             anim.Play (currentAnimState, 2);

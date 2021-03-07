@@ -17,6 +17,6 @@ public class SaveManager : MonoBehaviour {
 
     private void Start () {
         // TODO: Proper saving and loading
-        SaveLoad.NewGameNoSave ();
+        //SaveLoad.NewGameNoSave ();
     }
 }
