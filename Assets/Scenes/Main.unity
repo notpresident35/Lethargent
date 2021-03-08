@@ -15178,7 +15178,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Camera follows while moving backwards
+  m_Text: Auto-cam spins when you turn around
 --- !u!222 &883675917
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15361,7 +15361,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Camera stays stationary while the player is moving
+  m_Text: Lock auto-cam while moving
 --- !u!222 &890789911
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15624,7 +15624,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Camera turns after moving backwards
+  m_Text: Auto-cam corrects for turning around
 --- !u!222 &927734209
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20278,7 +20278,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mouse sensitivity
+  m_Text: Look sensitivity
 --- !u!222 &1158053256
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21761,10 +21761,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 197734163}
   m_HandleRect: {fileID: 399570829}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 5
+  m_MinValue: 0.1
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 0.3
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -23916,7 +23916,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Camera follows movement
+  m_Text: Automatic camera
 --- !u!222 &1354708154
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39203,21 +39203,6 @@ PrefabInstance:
       propertyPath: SettingsMenu
       value: 
       objectReference: {fileID: 1334372103}
-    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3094613405336633581, guid: a49886dc2a79517448cdd8a1e8e40690,
         type: 3}
       propertyPath: m_LocalPosition.x

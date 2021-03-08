@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Statics {
 
+    //** UI/Settings
+
+    public static bool GameIsPaused = false;
+
     //** Layers and Tags
 
     public static string PlayerTagName = "Player";

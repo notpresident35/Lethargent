@@ -160,9 +160,17 @@ public class PlayerMechanics : MonoBehaviour {
         }
 
         if (movement.magnitude < Mathf.Epsilon) {
-            SetAnim ("Idle");
+            if (control.crouching) {
+                SetAnim ("CrouchingIdle");
+            } else {
+                SetAnim ("Idle");
+            }
         } else {
-            SetAnim ("RunningForward");
+            if (control.crouching) {
+                SetAnim ("CrouchingWalkingForward");
+            } else {
+                SetAnim ("RunningForward");
+            }
         }
     }
 

@@ -32,7 +32,7 @@ public class CameraScript : MonoBehaviour {
     [SerializeField] bool followIgnoreBackwardsMovement;
     [SerializeField] bool followTurnAfterBackwardsMovement;
     [SerializeField] bool invertYAxis;
-    [SerializeField] float cameraSensitivity = 1f;
+    [SerializeField] float cameraMouseSensitivity = 1f;
     [SerializeField] float freeLookDetectionSensitivity = 0.05f;
     [SerializeField] float verticalRotationMax;
     [SerializeField] float verticalRotationMin;
@@ -140,6 +140,13 @@ public class CameraScript : MonoBehaviour {
         if (control.freeMouse) {
             mouseReleased = !mouseReleased;
         }
+
+        // TODO: Move to a script that makes more sense
+        if (control.pause) {
+            Statics.GameIsPaused = !Statics.GameIsPaused;
+            Time.timeScale = Statics.GameIsPaused ? 0 : 1;
+        }
+        UpdateCursor ();
     }
 
     // Update is called once per frame
@@ -166,7 +173,6 @@ public class CameraScript : MonoBehaviour {
         // Actually move and rotate the camera
         if (!active) { return; } // Camera updates its target transform during cutscenes so it can cut to them when they finish
         ApplyTransform ();
-        UpdateCursor ();
         ShakeScreen (); // TODO: allow screenshake in cutscenes, or fake it
     }
 
@@ -180,8 +186,8 @@ public class CameraScript : MonoBehaviour {
 
         // Ignore mouse input if player isn't aiming or freelooking
         if (control.aiming || isFreeLooking) {
-            rotationDelta.y = control.horizontalAim * cameraSensitivity;
-            rotationDelta.x = (invertYAxis ? -1 : 1) * control.verticalAim * cameraSensitivity;
+            rotationDelta.y = control.horizontalAim * cameraMouseSensitivity;
+            rotationDelta.x = (invertYAxis ? -1 : 1) * control.verticalAim * cameraMouseSensitivity;
         } else {
             rotationDelta = Vector3.zero;
         }
@@ -306,7 +312,10 @@ public class CameraScript : MonoBehaviour {
     }
 
     void UpdateCursor () {
-        if (mouseReleased || control.aiming) {
+        if (Statics.GameIsPaused) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else if (active && (mouseReleased || control.aiming)) {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         } else {
@@ -314,7 +323,7 @@ public class CameraScript : MonoBehaviour {
             Cursor.visible = false;
         }
 
-        SettingsMenu.SetActive (mouseReleased); // TODO: Move this and refactor to allow settings to be changed in cutscenes
+        SettingsMenu.SetActive (Statics.GameIsPaused); // TODO: Move this and refactor to allow settings to be changed in cutscenes
     }
 
     void ApplyTransform () {
@@ -404,7 +413,7 @@ public class CameraScript : MonoBehaviour {
     }
 
     public void SetSensitivity (float input) {
-        cameraSensitivity = input;
+        cameraMouseSensitivity = Mathf.Pow (input, 2);
     }
 
     public void Quit () {
