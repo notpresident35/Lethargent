@@ -88,7 +88,7 @@ public class CameraScript : MonoBehaviour {
     [SerializeField] float cameraDistanceBuffer = 0.2f;
     [SerializeField] LayerMask collisionMask;
 
-    PlayerControlMapping control;
+    InputManager control;
     Animator anim;
     SceneData sData;
     Camera cam;
@@ -117,7 +117,7 @@ public class CameraScript : MonoBehaviour {
         rightShoulder = player.transform.Find ("CameraTargetR");
         cam = GetComponent<Camera> ();
         anim = transform.parent.GetComponent<Animator> ();
-        control = player.GetComponent<PlayerControlMapping> ();
+        control = FindObjectOfType<InputManager> ();
         sData = FindObjectOfType<SceneData> ();// GameObject.FindGameObjectWithTag("Canvas").GetComponent<SceneData>();
     }
 

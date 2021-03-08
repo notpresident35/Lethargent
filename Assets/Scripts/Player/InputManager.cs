@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlMapping : MonoBehaviour
-{
+public class InputManager : MonoBehaviour {
+
     [SerializeField] float m_xMove;
     [SerializeField] float m_vMove;
     [SerializeField] float m_horizontalAim;
@@ -71,7 +71,7 @@ public class PlayerControlMapping : MonoBehaviour
         m_freeMouse = Input.GetKeyDown(KeyCode.F);
         m_aiming = Input.GetMouseButton(1) || (Input.GetAxis ("AimAxis") > Mathf.Epsilon);
         m_click = Input.GetKeyDown(KeyCode.Mouse0);
-        m_swapShoulders = Input.GetKeyDown("ShoulderSwap");
+        m_swapShoulders = Input.GetButtonDown("ShoulderSwap");
         m_interact = Input.GetKeyDown(KeyCode.E);
         m_enter = Input.GetButtonDown("Submit");
         m_pause = Input.GetButtonDown("Pause");

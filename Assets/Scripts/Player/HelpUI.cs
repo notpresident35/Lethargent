@@ -12,7 +12,7 @@ public class HelpUI : MonoBehaviour {
 
     float helpIterator = 0;
     PlayerCollisions collisions;
-    PlayerControlMapping control;
+    InputManager control;
     bool hasInteracted;
     Color textCol;
     Vector3 backgroundScale;
@@ -20,7 +20,7 @@ public class HelpUI : MonoBehaviour {
     private void Awake () {
         backgroundScale = HelpBackground.localScale;
         collisions = FindObjectOfType<PlayerCollisions> ();
-        control = FindObjectOfType<PlayerControlMapping> ();
+        control = FindObjectOfType<InputManager> ();
         textCol = HelpText.color;
         textCol.a = 0;
         HelpText.color = textCol;

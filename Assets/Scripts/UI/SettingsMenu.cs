@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour {
 
@@ -9,13 +10,23 @@ public class SettingsMenu : MonoBehaviour {
 
     public GameObject PauseMenuAutoSelection, OptionsMenuAutoSelection;
 
+    [SerializeField] bool startMenu = false;
+
     bool optionsOpen = false;
-    PlayerControlMapping control;
+    InputManager control;
 
     private void Awake () {
         PauseMenu.SetActive (false);
         OptionsMenu.SetActive (false);
-        control = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerControlMapping> ();
+        control = FindObjectOfType <InputManager> ();
+    }
+
+    private void Start () {
+        if (startMenu) {
+            Statics.GameIsPaused = true;
+            PauseMenu.SetActive (true);
+            EventSystem.current.SetSelectedGameObject (PauseMenuAutoSelection);
+        }
     }
 
     private void Update () {
@@ -26,7 +37,9 @@ public class SettingsMenu : MonoBehaviour {
                 TogglePause ();
             }
         }
-        UpdateCursor ();
+        if (!startMenu) {
+            UpdateCursor ();
+        }
     }
 
     void UpdateCursor () {
@@ -44,7 +57,9 @@ public class SettingsMenu : MonoBehaviour {
 
     public void TogglePause () {
         Statics.GameIsPaused = !Statics.GameIsPaused;
-        PauseMenu.SetActive (Statics.GameIsPaused);
+        if (!startMenu) {
+            PauseMenu.SetActive (Statics.GameIsPaused);
+        }
         Time.timeScale = Statics.GameIsPaused ? 0 : 1;
         if (Statics.GameIsPaused) {
             EventSystem.current.SetSelectedGameObject (PauseMenuAutoSelection);
@@ -64,5 +79,17 @@ public class SettingsMenu : MonoBehaviour {
 
     public void Quit () {
         Application.Quit ();
+    }
+
+    public void NewGame () {
+        SceneManager.LoadScene ("Main");
+        Statics.GameIsPaused = false;
+        PauseMenu.SetActive (false);
+    }
+
+    public void LoadGame () {
+        SceneManager.LoadScene ("Main");
+        Statics.GameIsPaused = false;
+        PauseMenu.SetActive (false);
     }
 }

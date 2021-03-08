@@ -58,7 +58,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     GameObject cam; //Camera
     PlayerCollisions collisions; //Controls collision interactions
-    PlayerControlMapping control; //The control map of the player
+    InputManager control; //The control map of the player
     CharacterController controller;
     Transform model; //Player's model
     Transform camCache;
@@ -75,7 +75,7 @@ public class PlayerMechanics : MonoBehaviour {
         cam = Camera.main.gameObject;
         camCache = new GameObject ("CameraCache").transform;
         //restartText = GameObject.Find("RestartText").GetComponent<Text>();
-        control = GetComponent<PlayerControlMapping> ();
+        control = FindObjectOfType<InputManager> ();
         controller = GetComponent<CharacterController> ();
         collisions = GetComponent<PlayerCollisions> ();
         anim = GetComponent<Animator> ();

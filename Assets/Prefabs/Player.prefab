@@ -106,7 +106,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2124246991558546153}
   - component: {fileID: 2124246991558546148}
-  - component: {fileID: 2124246991558546149}
   - component: {fileID: 2124246991558546146}
   - component: {fileID: 6865905904183607184}
   - component: {fileID: 1616094223562396504}
@@ -178,36 +177,6 @@ MonoBehaviour:
   isFalling: 0
   isIdle: 0
   joystickControls: 0
---- !u!114 &2124246991558546149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2124246991558546147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f55b3555a8c33e449a5d30e59be9a5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_xMove: 0
-  m_vMove: 0
-  m_horizontalAim: 0
-  m_verticalAim: 0
-  m_scroll: 0
-  m_jumping: 0
-  m_jumpOn: 0
-  m_crouching: 0
-  m_freeMouse: 0
-  m_click: 0
-  m_aiming: 0
-  m_swapShoulders: 0
-  m_interact: 0
-  m_enter: 0
-  m_pause: 0
-  m_save: 0
-  m_load: 0
-  m_inputting: 1
 --- !u!114 &2124246991558546146
 MonoBehaviour:
   m_ObjectHideFlags: 0
