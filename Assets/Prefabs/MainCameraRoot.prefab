@@ -265,7 +265,7 @@ MonoBehaviour:
   dampShake: 1
   zoom: -7
   zoomOffsetMax: 11
-  zoomOffsetMin: 3
+  zoomOffsetMin: 2
   zoomAmount: 0.5
   aimCameraSensitivityMultiplier: 0.35
   aimBlendSpeed: 6

@@ -16,6 +16,7 @@ I know, I know, I'm terribly sorry-
 That's enough. Just finish it next time.
 Alright, I will-
 Wait. That's not why I brought you up here.
+SKIP
 ...oh
 Another assignment came in. Higher-ups asked specifically that you and Jingyi handle it.
 ...

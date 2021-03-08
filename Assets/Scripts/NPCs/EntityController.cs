@@ -61,12 +61,14 @@ public class EntityController : MonoBehaviour {
     [SerializeField] int currentWaypointIndex = 0;
 
     NavMeshAgent agent;
+    Animator anim;
     float visionAlertIterator;
     float searchIterator;
     bool wasActiveBeforeCutscene;
 
     private void Awake () {
         agent = GetComponent<NavMeshAgent> ();
+        anim = GetComponent<Animator> ();
         nextBehavior = default (Behavior);
         currentBehavior = default (Behavior);
         behaviorComplete = true;
@@ -84,6 +86,8 @@ public class EntityController : MonoBehaviour {
                     currentWaypointIndex++;
                     if (currentWaypointIndex > waypoints.Count - 1) {
                         currentState = State.Idle;
+                        anim.Play ("Idle", 0);
+                        anim.Play ("Idle", 2);
                         behaviorComplete = true;
                     } else {
                         agent.destination = waypoints [currentWaypointIndex];
@@ -207,6 +211,11 @@ public class EntityController : MonoBehaviour {
         // Vision
         visionTarget = newBehavior._visionTarget;
         visionTargetHostile = newBehavior._visionTargetHostile;
+
+        if (currentState == State.FollowingPath) {
+            anim.Play ("WalkingForward", 0);
+            anim.Play ("WalkingForward", 2);
+        }
 
         // Wandering state ignores normal pathfinding
         if (currentState == State.WanderingArea) {
@@ -337,13 +346,17 @@ public class EntityController : MonoBehaviour {
 
     public void StartCutscene () {
         wasActiveBeforeCutscene = active;
-        agent.isStopped = true;
+        agent.enabled = false;
+        anim.SetLayerWeight (1, 1);
+        anim.applyRootMotion = false;
         active = false;
     }
 
     public void StopCutscene () {
         active = wasActiveBeforeCutscene;
-        agent.isStopped = false;
+        anim.applyRootMotion = true;
+        anim.SetLayerWeight (1, 0);
+        agent.enabled = true;
     }
 
     /*private void OnDrawGizmos () {
