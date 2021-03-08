@@ -11,4 +11,11 @@ public class Paper : Item
         id = 22;
         normal = true;
     }
+
+    public override void PickUp () {
+        base.PickUp ();
+        foreach (Transform paper in transform.GetChild(0)) {
+            paper.GetComponent<Outline> ().enabled = false;
+        }
+    }
 }
