@@ -377,7 +377,7 @@ public class CameraScript : MonoBehaviour {
     }
 
     public void SetFollowWhileMoving (bool input) {
-        followWhileMoving = input;
+        followWhileMoving = !input;
     }
 
     public void SetFollowIgnoreBackwardsMovement (bool input) {

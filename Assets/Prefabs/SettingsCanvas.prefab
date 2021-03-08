@@ -565,7 +565,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &2177587258964437796
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,6 +915,7 @@ MonoBehaviour:
   OptionsMenu: {fileID: 2177587258964437796}
   PauseMenuAutoSelection: {fileID: 2177587258866903697}
   OptionsMenuAutoSelection: {fileID: 2177587259383567122}
+  startMenu: 0
 --- !u!1 &2177587259179630010
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,9 +967,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 2177587259208060870}
+    m_SelectOnDown: {fileID: 2177587258787206378}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -1063,9 +1064,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 2177587259383567120}
+    m_SelectOnDown: {fileID: 2177587259179630008}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -1374,9 +1375,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 2177587259208060870}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1

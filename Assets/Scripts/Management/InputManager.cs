@@ -72,7 +72,7 @@ public class InputManager : MonoBehaviour {
         m_aiming = Input.GetMouseButton(1) || (Input.GetAxis ("AimAxis") > Mathf.Epsilon);
         m_click = Input.GetKeyDown(KeyCode.Mouse0);
         m_swapShoulders = Input.GetButtonDown("ShoulderSwap");
-        m_interact = Input.GetKeyDown(KeyCode.E);
+        m_interact = Input.GetButtonDown ("Interact");
         m_enter = Input.GetButtonDown("Submit");
         m_pause = Input.GetButtonDown("Pause");
 

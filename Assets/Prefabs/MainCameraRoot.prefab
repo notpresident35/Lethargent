@@ -234,7 +234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aabd629ce2a97714182f40da7aa180f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SettingsMenu: {fileID: 0}
   Toggle1: {fileID: 0}
   Toggle2: {fileID: 0}
   Toggle3: {fileID: 0}
@@ -248,7 +247,7 @@ MonoBehaviour:
   defaultRotation: {x: 0, y: 180, z: 0}
   followPlayer: 0
   followWhileMoving: 1
-  followIgnoreBackwardsMovement: 1
+  followIgnoreBackwardsMovement: 0
   followTurnAfterBackwardsMovement: 1
   invertYAxis: 1
   cameraMouseSensitivity: 0.5

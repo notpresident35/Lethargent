@@ -8,7 +8,7 @@ public class ElecticalBox : GenericInteractable {
     public Material mat2;
 
     public override void Interact () {
-        Debug.Log (gameObject.name + " has been interacted with!");
+        //Debug.Log (gameObject.name + " has been interacted with!");
         GetComponent<MeshRenderer> ().material = mat2;
         StartCoroutine (resetMat ());
     }

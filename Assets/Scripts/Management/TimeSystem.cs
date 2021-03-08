@@ -36,17 +36,10 @@ public class TimeSystem : MonoBehaviour {
     }*/
 
     private void Awake () {
-        if (!Singleton) {
-            Singleton = this;
-        } else {
-            //Debug.LogWarning ("Only one instance of the TimeSystem should be used; remove all duplicates!");
-            gameObject.SetActive (false); // Disables this object immediately, allowing other scripts to use FindObjectOfType calls on Awake
-            Destroy (this);
-            return;
-        }
+        Singleton = GameController.Singleton.GetComponent<TimeSystem> ();
         StartGame ();
-        // TODO: Make time system start at the end of Act 1, rather than immediately
-        StartTime ();
+        // TODO: Make time system start at the end of Act 1
+        //StartTime ();
     }
 
 

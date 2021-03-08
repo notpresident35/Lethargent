@@ -31,6 +31,7 @@ public class SettingsMenu : MonoBehaviour {
 
     private void Update () {
         if (control.pause) {
+            //print ("Tried to pause");
             if (Statics.GameIsPaused && optionsOpen) {
                 ToggleOptions ();
             } else {
@@ -85,11 +86,15 @@ public class SettingsMenu : MonoBehaviour {
         SceneManager.LoadScene ("Main");
         Statics.GameIsPaused = false;
         PauseMenu.SetActive (false);
+        gameObject.SetActive (false);
+        Destroy (gameObject);
     }
 
     public void LoadGame () {
         SceneManager.LoadScene ("Main");
         Statics.GameIsPaused = false;
         PauseMenu.SetActive (false);
+        gameObject.SetActive (false);
+        Destroy (gameObject);
     }
 }
