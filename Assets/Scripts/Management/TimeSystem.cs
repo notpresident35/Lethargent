@@ -37,6 +37,8 @@ public class TimeSystem : MonoBehaviour {
 
     private void Awake () {
         Singleton = GameController.Singleton.GetComponent<TimeSystem> ();
+        CutsceneManager.CutsceneStart += StartCutscene;
+        CutsceneManager.CutsceneStop += StopCutscene;
         StartGame ();
         // TODO: Make time system start at the end of Act 1
         //StartTime ();
@@ -87,6 +89,9 @@ public class TimeSystem : MonoBehaviour {
     }
 
     void StopCutscene () {
+        if (CutsceneManager.CutsceneID == Statics.Act1CompleteCutsceneID) {
+            timeProgressingCache = true;
+        }
         IsTimeProgressing = timeProgressingCache;
     }
 }

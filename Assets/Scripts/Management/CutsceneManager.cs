@@ -91,7 +91,6 @@ public class CutsceneManager : MonoBehaviour {
     public void StartCutscene (int ID) {
         Active = true;
         WaitingForContinue = false;
-        TimeSystem.StopTime ();
         CutsceneID = ID;
         CutsceneStart ();
         director.Play (Cutscenes[ID]);
@@ -103,7 +102,6 @@ public class CutsceneManager : MonoBehaviour {
             Gateways [CutsceneID].SetActive (false);
         }
         CutsceneStop ();
-        TimeSystem.StartTime ();
     }
 
     public void TriggerContinue () {

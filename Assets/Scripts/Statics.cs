@@ -27,6 +27,7 @@ public class Statics {
 
     //** Other
     public static float Sqrt2 = 1.4142136f; // Approximation of the square root of 2
+    public static int Act1CompleteCutsceneID = 1; // TODO: Replace placeholder value once all Act 1 cutscenes are added
 
     public static float Interpolate (float start, float target, float interpolation) {
         return (start * interpolation) + (target * (1 - interpolation));
