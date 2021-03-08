@@ -87,6 +87,8 @@ public class EntityController : MonoBehaviour {
                     currentWaypointIndex++;
                     if (currentWaypointIndex > waypoints.Count - 1) {
                         currentState = State.Idle;
+                        // TODO: Better solution
+                        //print ("Idling!");
                         anim.Play ("Idle", 0);
                         anim.Play ("Idle", 2);
                         behaviorComplete = true;
@@ -165,6 +167,9 @@ public class EntityController : MonoBehaviour {
                 break;
             case State.Idle:
                 behaviorComplete = true;
+                // TODO: Better solution
+                anim.Play ("Idle", 0);
+                anim.Play ("Idle", 2);
                 break;
         }
 
@@ -213,7 +218,9 @@ public class EntityController : MonoBehaviour {
         visionTarget = newBehavior._visionTarget;
         visionTargetHostile = newBehavior._visionTargetHostile;
 
+        // TODO: More permanent solution to animations
         if (currentState == State.FollowingPath) {
+            //print ("Setting animations!");
             anim.Play ("WalkingForward", 0);
             anim.Play ("WalkingForward", 2);
         }
