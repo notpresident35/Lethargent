@@ -43,6 +43,7 @@ public class PlayerMechanics : MonoBehaviour {
     [Space]
 
     [Header ("Cutscenes")]
+    [SerializeField] GameObject Gateway1;
     [SerializeField] Transform Cutscene2BossGrabber;
     [SerializeField] Transform Cutscene2BossDesk;
 
@@ -232,7 +233,10 @@ public class PlayerMechanics : MonoBehaviour {
                     heldItem.localPosition = Vector3.zero;
                     heldItem.localRotation = Quaternion.identity;
                     cols [closestIndex].enabled = false;
-                    print ("Grabbed");
+                    // TODO: Refactor
+                    if (Gateway1.activeSelf) {
+                        Gateway1.SetActive (false);
+                    }
                 }
             }
         }

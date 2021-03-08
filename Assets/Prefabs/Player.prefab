@@ -62,10 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faacc52bf457d314fba8b60a390a9c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HelpDelay: 0
   AppearSpeed: 5
   HelpBackground: {fileID: 1187613619039104759}
   HelpText: {fileID: 3823142201876416197}
+  obstacleChecker: 0
 --- !u!1 &2124246991241499730
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +169,7 @@ MonoBehaviour:
   itemHeld: 0
   grabber: {fileID: 2027766086168900803}
   heldItem: {fileID: 0}
+  Gateway1: {fileID: 0}
   Cutscene2BossGrabber: {fileID: 0}
   Cutscene2BossDesk: {fileID: 0}
   isWalking: 0
@@ -199,7 +200,10 @@ MonoBehaviour:
     m_Bits: 512
   opaqueMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
+  gatewayMask:
+    serializedVersion: 2
+    m_Bits: 65536
   groundTransform: {fileID: 2124246991241499733}
   visionTransform: {fileID: 7887102397523243011}
 --- !u!95 &6865905904183607184

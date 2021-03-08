@@ -5,12 +5,11 @@ using UnityEngine.UI;
 
 public class HelpUI : MonoBehaviour {
 
-    [SerializeField] float HelpDelay = 2;
     [SerializeField] float AppearSpeed = 2;
     [SerializeField] Transform HelpBackground;
     [SerializeField] Text HelpText;
+    [SerializeField] bool obstacleChecker;
 
-    float helpIterator = 0;
     PlayerCollisions collisions;
     InputManager control;
     bool hasInteracted;
@@ -29,25 +28,28 @@ public class HelpUI : MonoBehaviour {
 
     // TODO: Make this script only check physics every X frames for performance
     private void Update () {
-        if (collisions.CheckInteract ()) {
-            if (hasInteracted) {
-                helpIterator = 0;
-                textCol.a = Mathf.Clamp01 (textCol.a - Time.deltaTime * AppearSpeed);
+        if (obstacleChecker) {
+            if (collisions.CheckGateway ()) {
+                HelpText.text = collisions.GetGatewayText ();
+                textCol.a = Mathf.Clamp01 (textCol.a + Time.deltaTime * AppearSpeed);
             } else {
-                helpIterator += Time.deltaTime;
-                if (helpIterator > HelpDelay) {
-                    textCol.a = Mathf.Clamp01 (textCol.a + Time.deltaTime * AppearSpeed);
-                }
+                textCol.a = Mathf.Clamp01 (textCol.a - Time.deltaTime * AppearSpeed);
             }
         } else {
-            helpIterator = 0;
-            hasInteracted = false;
-            textCol.a = Mathf.Clamp01 (textCol.a - Time.deltaTime * AppearSpeed);
-        }
+            if (collisions.CheckInteract ()) {
+                if (hasInteracted) {
+                    textCol.a = Mathf.Clamp01 (textCol.a - Time.deltaTime * AppearSpeed);
+                } else {
+                    textCol.a = Mathf.Clamp01 (textCol.a + Time.deltaTime * AppearSpeed);
+                }
+            } else {
+                hasInteracted = false;
+                textCol.a = Mathf.Clamp01 (textCol.a - Time.deltaTime * AppearSpeed);
+            }
 
-        if (control.interact) {
-            helpIterator = 0;
-            hasInteracted = true;
+            if (control.interact) {
+                hasInteracted = true;
+            }
         }
 
         HelpText.color = textCol;

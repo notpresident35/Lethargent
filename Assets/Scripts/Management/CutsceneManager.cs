@@ -44,6 +44,7 @@ public class CutsceneManager : MonoBehaviour {
     public KeyCode InteractInput;
     public TimelineAsset[] Cutscenes;
     public bool[] CutscenesHavePlayed;
+    public List<GameObject> Gateways = new List<GameObject> ();
 
     PlayableDirector director;
 
@@ -98,6 +99,9 @@ public class CutsceneManager : MonoBehaviour {
 
     public void SetCutsceneEnd () {
         Active = false;
+        if (Gateways[CutsceneID] != null) {
+            Gateways [CutsceneID].SetActive (false);
+        }
         CutsceneStop ();
         TimeSystem.StartTime ();
     }

@@ -91,11 +91,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartGameInCutscene: 1
-  ContinueInput: 101
+  InteractInput: 0
   Cutscenes:
   - {fileID: 11400000, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
   - {fileID: 11400000, guid: 58cc3e03bee234a448d9144a3ecf5e49, type: 2}
   CutscenesHavePlayed: 
+  Gateways:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &974765701149370790
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class PlayerCollisions : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] LayerMask interactionMask;
     [SerializeField] LayerMask opaqueMask;
+    [SerializeField] LayerMask gatewayMask;
     [SerializeField] Transform groundTransform;
     [SerializeField] Transform visionTransform;
 
@@ -44,6 +45,16 @@ public class PlayerCollisions : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public bool CheckGateway () {
+        Collider [] interactables = Physics.OverlapSphere (visionTransform.position, interactRadius, gatewayMask);
+        return interactables.Length > 0;
+    }
+
+    public string GetGatewayText () {
+        Collider [] interactables = Physics.OverlapSphere (visionTransform.position, interactRadius, gatewayMask);
+        return interactables [0].gameObject.name;
     }
 
     // Returns true if either the interactable is visible to the camera or to the player character
