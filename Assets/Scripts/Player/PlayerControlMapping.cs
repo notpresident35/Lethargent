@@ -71,7 +71,7 @@ public class PlayerControlMapping : MonoBehaviour
         m_freeMouse = Input.GetKeyDown(KeyCode.F);
         m_aiming = Input.GetMouseButton(1) || (Input.GetAxis ("AimAxis") > Mathf.Epsilon);
         m_click = Input.GetKeyDown(KeyCode.Mouse0);
-        m_swapShoulders = Input.GetKeyDown(KeyCode.Tab);
+        m_swapShoulders = Input.GetKeyDown("ShoulderSwap");
         m_interact = Input.GetKeyDown(KeyCode.E);
         m_enter = Input.GetButtonDown("Submit");
         m_pause = Input.GetButtonDown("Pause");
