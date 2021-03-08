@@ -53,12 +53,13 @@ public class EntityController : MonoBehaviour {
     [SerializeField] float preferredAttackRange;
 
     [Header ("Behavior")]
-
     [SerializeField] Behavior nextBehavior;
     [SerializeField] Behavior currentBehavior;
     [SerializeField] bool behaviorComplete = true;
     [SerializeField] List<Vector3> waypoints = new List<Vector3> ();
     [SerializeField] int currentWaypointIndex = 0;
+
+    [SerializeField] List<bool> appearsInCutscenes;
 
     NavMeshAgent agent;
     Animator anim;
@@ -347,15 +348,19 @@ public class EntityController : MonoBehaviour {
     public void StartCutscene () {
         wasActiveBeforeCutscene = active;
         agent.enabled = false;
-        anim.SetLayerWeight (1, 1);
-        anim.applyRootMotion = false;
+        if (appearsInCutscenes [CutsceneManager.CutsceneID]) {
+            anim.SetLayerWeight (1, 1);
+            anim.applyRootMotion = false;
+        }
         active = false;
     }
 
     public void StopCutscene () {
         active = wasActiveBeforeCutscene;
-        anim.applyRootMotion = true;
-        anim.SetLayerWeight (1, 0);
+        if (appearsInCutscenes [CutsceneManager.CutsceneID]) {
+            anim.applyRootMotion = true;
+            anim.SetLayerWeight (1, 0);
+        }
         agent.enabled = true;
     }
 

@@ -40608,6 +40608,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2956899301005987039, guid: 9306f1b8755754a4799e178084df7bbe,
+        type: 3}
+      propertyPath: appearsInCutscenes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956899301005987039, guid: 9306f1b8755754a4799e178084df7bbe,
+        type: 3}
+      propertyPath: appearsInCutscenes.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4652541413166142035, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: m_Events.m_Events.Array.size
@@ -51903,6 +51913,7 @@ MonoBehaviour:
   behaviorComplete: 1
   waypoints: []
   currentWaypointIndex: 0
+  appearsInCutscenes: 0001
 --- !u!33 &3216119455652718822
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -54910,6 +54921,7 @@ MonoBehaviour:
   behaviorComplete: 1
   waypoints: []
   currentWaypointIndex: 0
+  appearsInCutscenes: 
 --- !u!4 &7403902197886709485
 Transform:
   m_ObjectHideFlags: 0

@@ -68,7 +68,7 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     private void Update () {
-        if (ContinueInput () && Active && WaitingForContinue) {
+        if (ContinueInput () && Active && WaitingForContinue && !Statics.GameIsPaused) {
             Continue ();
         }
     }
