@@ -69,7 +69,7 @@ public class PlayerControlMapping : MonoBehaviour
         m_jumpOn = Input.GetButtonDown("Jump");
         m_crouching = Input.GetButton("Crouch");
         m_freeMouse = Input.GetKeyDown(KeyCode.F);
-        m_aiming = Input.GetMouseButton(1);
+        m_aiming = Input.GetMouseButton(1) || (Input.GetAxis ("AimAxis") > Mathf.Epsilon);
         m_click = Input.GetKeyDown(KeyCode.Mouse0);
         m_swapShoulders = Input.GetKeyDown(KeyCode.Tab);
         m_interact = Input.GetKeyDown(KeyCode.E);

@@ -41,7 +41,7 @@ public class CutsceneManager : MonoBehaviour {
     public static event Action CutsceneStop;
 
     // TODO: Refactor to use the interaction button
-    public KeyCode ContinueInput;
+    public KeyCode InteractInput;
     public TimelineAsset[] Cutscenes;
     public bool[] CutscenesHavePlayed;
 
@@ -67,7 +67,7 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     private void Update () {
-        if ((Input.GetKeyDown (ContinueInput) || Input.GetMouseButtonDown (0) || Input.GetMouseButtonDown (1)) && Active && WaitingForContinue) {
+        if (ContinueInput () && Active && WaitingForContinue) {
             Continue ();
         }
     }
@@ -106,5 +106,9 @@ public class CutsceneManager : MonoBehaviour {
         if (CutsceneContinue != null) {
             CutsceneContinue ();
         }
+    }
+
+    public bool ContinueInput () {
+        return Input.GetKeyDown (InteractInput) || Input.GetMouseButtonDown (0) || Input.GetMouseButtonDown (1) || Input.GetButtonDown ("Jump");
     }
 }

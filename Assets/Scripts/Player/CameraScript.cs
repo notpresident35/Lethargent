@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class CameraScript : MonoBehaviour {
 
-    public GameObject SettingsMenu;
+    public static bool mouseReleased = false;
+
     public Toggle Toggle1;
     public Toggle Toggle2;
     public Toggle Toggle3;
@@ -102,7 +103,6 @@ public class CameraScript : MonoBehaviour {
     float freeLookCacheXRotation;
     float freeLookCacheYRotation;
     float distanceCache;
-    bool mouseReleased = false;
     bool playerMovingBackward = false;
 
     float cutsceneTargetInterpolationSpeed;
@@ -125,7 +125,6 @@ public class CameraScript : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         freeLookReturnIterator = freeLookReturnDelay;
-        SettingsMenu.SetActive (false);
 
         ResetCamera ();
     }
@@ -140,13 +139,6 @@ public class CameraScript : MonoBehaviour {
         if (control.freeMouse) {
             mouseReleased = !mouseReleased;
         }
-
-        // TODO: Move to a script that makes more sense
-        if (control.pause) {
-            Statics.GameIsPaused = !Statics.GameIsPaused;
-            Time.timeScale = Statics.GameIsPaused ? 0 : 1;
-        }
-        UpdateCursor ();
     }
 
     // Update is called once per frame
@@ -311,21 +303,6 @@ public class CameraScript : MonoBehaviour {
         shoulderRotation = Quaternion.Lerp (shoulderRotation, Quaternion.LookRotation (cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 50)) - transform.position), aimCameraSensitivityMultiplier);
     }
 
-    void UpdateCursor () {
-        if (Statics.GameIsPaused) {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        } else if (active && (mouseReleased || control.aiming)) {
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-        } else {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-
-        SettingsMenu.SetActive (Statics.GameIsPaused); // TODO: Move this and refactor to allow settings to be changed in cutscenes
-    }
-
     void ApplyTransform () {
         if (control.aiming) {
             transform.position = Vector3.Lerp (transform.position, targetPosition, aimingMovementInterpolationSpeed);
@@ -414,10 +391,6 @@ public class CameraScript : MonoBehaviour {
 
     public void SetSensitivity (float input) {
         cameraMouseSensitivity = Mathf.Pow (input, 2);
-    }
-
-    public void Quit () {
-        Application.Quit ();
     }
 
     // Cutscene methods
