@@ -70,6 +70,7 @@ public class CameraScript : MonoBehaviour {
     [SerializeField] float aimBlendSpeed = 0.5f;
     [SerializeField] float freeLookReturnDelay = 2;
     [SerializeField] float freeLookReturnBlendSpeed = 8;
+    [SerializeField] float obstructedReturnSpeed = 0.7f;
     float freeLookReturnIterator;
     float freeLookBlend = 1;
     [SerializeField] float movementInterpolationSpeed = 0.05f;
@@ -79,6 +80,7 @@ public class CameraScript : MonoBehaviour {
     bool isFreeLooking;
     bool isFreeCam;
     bool wasAiming;
+    bool wasObstructed = false;
     float aimingBlend = 0;
 
     [Header ("Collision")]
@@ -88,11 +90,17 @@ public class CameraScript : MonoBehaviour {
     [SerializeField] float cameraDistanceBuffer = 0.2f;
     [SerializeField] LayerMask collisionMask;
 
+    [Header ("Dither Effect")]
+
+    [SerializeField] List<MeshRenderer> PlayerMeshes;
+
+
     InputManager control;
     Animator anim;
     SceneData sData;
     Camera cam;
     RaycastHit ray;
+    RaycastHit ray2;
 
     Vector3 standardPosition;
     Vector3 shoulderPosition;
@@ -261,28 +269,66 @@ public class CameraScript : MonoBehaviour {
         }
     }
 
+    // TODO: Refactor spaghetti code
     void TargetStandardPosition () {
 
-        Vector3 normPos = target.transform.position + rotation * offset.normalized * -zoom; // An unobstructed camera's position
+        // An unobstructed camera's position
+        Vector3 normPos = target.transform.position + rotation * offset.normalized * -zoom;
         //Debug.DrawRay(target.transform.position, normPos - target.transform.position, Color.red, 2);
-
         // SphereCasts from the vision target back to the camera, to ensure that the first target hit is always the foremost
-        if(Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position, out ray, -zoom, collisionMask)) {
-            // Repositions the camera in front of the obstacle
-            // Places the camera at the distance of the rayuast impact along the original line,
-            // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces
-            standardPosition = (normPos - target.transform.position).normalized *
-                             (ray.point - target.transform.position).magnitude *
-                             (1 - cameraDistanceBuffer) + target.transform.position;
-            //Debug.Log("hit");
-            // When an obstacle is hit, snap to the hit position
-            distanceCache = (ray.point - target.transform.position).magnitude;
-        }
-        else
-        {
-            standardPosition = normPos; //In case no obstruction, use normal position
+        Debug.DrawRay (target.transform.position, (normPos - target.transform.position) * detectionRadius, Color.green);
+        if (Physics.SphereCast (target.transform.position, detectionRadius, normPos - target.transform.position, out ray, -zoom - detectionRadius, collisionMask)) {
+            //print ("Spherecast obstacle detected!");
+            // Checks if there is a wall very close to the player
+            if (Physics.Raycast (target.transform.position, normPos - target.transform.position, out ray2, detectionRadius * 2, collisionMask)) {
+                standardPosition = ray2.point /*+ target.transform.position*/;
+                distanceCache = ray2.distance;
+                if (!wasObstructed) {
+                    foreach (MeshRenderer model in PlayerMeshes) {
+                        model.material.SetFloat ("_Opacity", 0.5f);
+                    }
+                }
+                wasObstructed = true;
+                //print ("Closer obstacle detected!");
+            } else {
+                // Repositions the camera in front of the obstacle
+                // Places the camera at the distance of the rayuast impact along the original line,
+                // to allow us to use a spherecast while keeping the camera from snapping to the edge of surfaces
+                standardPosition = (normPos - target.transform.position).normalized *
+                                 (ray.point - target.transform.position).magnitude *
+                                 (1 - cameraDistanceBuffer) + target.transform.position;
+                //Debug.Log("hit");
+                // When an obstacle is hit, snap to the hit position
+                distanceCache = ray.distance;
+                if (wasObstructed) {
+                    foreach (MeshRenderer model in PlayerMeshes) {
+                        model.material.SetFloat ("_Opacity", 1);
+                    }
+                }
+                wasObstructed = false;
+            }
+        } else if (Physics.Raycast (target.transform.position, normPos - target.transform.position, out ray, -zoom, collisionMask)) {
+            standardPosition = ray.point /*+ target.transform.position*/;
+            distanceCache = ray.distance;
+            if (!wasObstructed) {
+                foreach (MeshRenderer model in PlayerMeshes) {
+                    model.material.SetFloat ("_Opacity", 0.5f);
+                }
+            }
+            wasObstructed = true;
+            //print ("Close obstacle detected");
+        } else {
+            // In case of no obstruction, use normal position
+            standardPosition = normPos; 
             // When an obstacle was hit previously but is not hit now, slowly zoom out instead of snapping out
-            distanceCache = Mathf.Lerp (distanceCache, (normPos - target.transform.position).magnitude, (1 - Mathf.Clamp01 (rotationDelta.magnitude)) * Time.fixedDeltaTime);
+            distanceCache = Mathf.Lerp (distanceCache, (normPos - target.transform.position).magnitude, (1 - Mathf.Clamp01 (rotationDelta.magnitude)) * Time.fixedDeltaTime * obstructedReturnSpeed);
+            if (wasObstructed) {
+                foreach (MeshRenderer model in PlayerMeshes) {
+                    model.material.SetFloat ("_Opacity", 1);
+                }
+            }
+            wasObstructed = false;
+            //print ("No obstacle detected");
         }
     }
 
