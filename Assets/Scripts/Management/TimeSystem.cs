@@ -14,6 +14,7 @@ public class TimeSystem : MonoBehaviour {
     public float DayLength = 120f; // Day/night cycle length, measured in seconds
 
     [SerializeField] float startTime = 0.4f;
+    [SerializeField] Transform clockNeedle;
 
     private bool timeProgressingCache;
 
@@ -48,6 +49,9 @@ public class TimeSystem : MonoBehaviour {
     private void Update () {
         if (IsTimeProgressing) {
             CurrentTime += Time.deltaTime;
+            if (clockNeedle) {
+                clockNeedle.transform.localRotation = Quaternion.Euler (0, 0, -CurrentTime / DayLength * 360f + 180);
+            }
         }
         RenderSettings.fogDensity = FogStrength.Evaluate (CurrentTime / DayLength) / 100f;
 
