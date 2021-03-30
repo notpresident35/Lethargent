@@ -271,6 +271,7 @@ MonoBehaviour:
   aimBlendSpeed: 6
   freeLookReturnDelay: 2
   freeLookReturnBlendSpeed: 6
+  obstructedReturnSpeed: 0.7
   movementInterpolationSpeed: 0.1
   aimingMovementInterpolationSpeed: 0.8
   rotationInterpolationFactor: 0.25
@@ -281,6 +282,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 1280
+  PlayerMeshes: []
 --- !u!114 &9108007058853254206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +303,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8192
   m_VolumeTrigger: {fileID: 3094613405336633581}
   m_RenderPostProcessing: 1
   m_Antialiasing: 0
