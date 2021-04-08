@@ -100,6 +100,7 @@ MonoBehaviour:
   Gateways:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &974765701149370790
 MonoBehaviour:
   m_ObjectHideFlags: 0

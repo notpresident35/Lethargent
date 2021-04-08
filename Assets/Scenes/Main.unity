@@ -1652,6 +1652,7 @@ Transform:
   - {fileID: 1879050933}
   - {fileID: 1200781093}
   - {fileID: 439040764}
+  - {fileID: 955264355}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29831,6 +29832,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954190083}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &955264354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955264355}
+  - component: {fileID: 955264357}
+  - component: {fileID: 955264356}
+  m_Layer: 9
+  m_Name: Kanna Interactable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &955264355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955264354}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -1.034, y: 2.37, z: 20.465}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 52386116}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &955264356
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955264354}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.50000024, z: 0.5000002}
+  m_Center: {x: 0, y: -0.25, z: 0}
+--- !u!114 &955264357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955264354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50d221f3e7f1a7a469094ec688eba122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &960940186
 GameObject:
   m_ObjectHideFlags: 0
@@ -70938,17 +70996,17 @@ PrefabInstance:
     - target: {fileID: 1146869369172021476, guid: a49886dc2a79517448cdd8a1e8e40690,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[10].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Base Layer.Cutscene3 State2
+      value: Base Layer.Cutscene3 Shot2
       objectReference: {fileID: 0}
     - target: {fileID: 1146869369172021476, guid: a49886dc2a79517448cdd8a1e8e40690,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Base Layer.Cutscene3 State3
+      value: Base Layer.Cutscene3 Shot3
       objectReference: {fileID: 0}
     - target: {fileID: 1146869369172021476, guid: a49886dc2a79517448cdd8a1e8e40690,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Base Layer.Cutscene3 State1
+      value: Base Layer.Cutscene3 Shot1
       objectReference: {fileID: 0}
     - target: {fileID: 1146869369172021476, guid: a49886dc2a79517448cdd8a1e8e40690,
         type: 3}
@@ -72914,6 +72972,8 @@ MonoBehaviour:
   inkJSONAssets:
   - {fileID: 4900000, guid: 63b28d418a137774b8c59a3d9483e1b2, type: 3}
   - {fileID: 4900000, guid: aa800aa6ed2ae0346b030b61d016ecb0, type: 3}
+  - {fileID: 4900000, guid: e3914df66e81467438e3da6d257d9bb8, type: 3}
+  - {fileID: 4900000, guid: d12f3ac17a355ef41a8ff400c3eed9e9, type: 3}
   dialogueRoot: {fileID: 1874826592}
   background: {fileID: 1143215712}
   textPrefab: {fileID: 7681418088588475773, guid: 426f988cec82d6644b93d47f09d52287,
@@ -74067,8 +74127,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6151079924912884766}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.007, y: 0, z: -10.875}
+  m_LocalRotation: {x: -0, y: 0.83800787, z: -0, w: 0.54565823}
+  m_LocalPosition: {x: 0.80988353, y: 0.35000002, z: 20.157694}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8968000757694628258}
@@ -74077,7 +74137,7 @@ Transform:
   - {fileID: 1293460857}
   m_Father: {fileID: 55623399}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 113.861, z: 0}
 --- !u!195 &6151079924912884763
 NavMeshAgent:
   m_ObjectHideFlags: 0
