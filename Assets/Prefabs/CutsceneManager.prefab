@@ -95,6 +95,7 @@ MonoBehaviour:
   Cutscenes:
   - {fileID: 11400000, guid: 013c8413e35de8f459f355fcd0e77ce7, type: 2}
   - {fileID: 11400000, guid: 58cc3e03bee234a448d9144a3ecf5e49, type: 2}
+  - {fileID: 11400000, guid: c612002ddd476914b8769d52b7d13877, type: 2}
   CutscenesHavePlayed: 
   Gateways:
   - {fileID: 0}
@@ -120,6 +121,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 974765701149370791}
+          m_TargetAssemblyTypeName: 
           m_MethodName: SetContinueFlag
           m_Mode: 1
           m_Arguments:
@@ -133,6 +135,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 974765701149370791}
+          m_TargetAssemblyTypeName: 
           m_MethodName: SetCutsceneEnd
           m_Mode: 1
           m_Arguments:
@@ -146,6 +149,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 974765701149370791}
+          m_TargetAssemblyTypeName: 
           m_MethodName: TriggerContinue
           m_Mode: 1
           m_Arguments:
