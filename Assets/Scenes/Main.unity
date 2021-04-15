@@ -53037,26 +53037,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ba88541915fbcce4e8c3e439516fcfc1, type: 2}
-    - target: {fileID: 2956899301005987039, guid: 9306f1b8755754a4799e178084df7bbe,
-        type: 3}
-      propertyPath: appearsInCutscenes.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2956899301005987039, guid: 9306f1b8755754a4799e178084df7bbe,
-        type: 3}
-      propertyPath: appearsInCutscenes.Array.data[0]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2956899301005987039, guid: 9306f1b8755754a4799e178084df7bbe,
-        type: 3}
-      propertyPath: appearsInCutscenes.Array.data[2]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2956899301005987039, guid: 9306f1b8755754a4799e178084df7bbe,
-        type: 3}
-      propertyPath: appearsInCutscenes.Array.data[3]
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3189251585454407875, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -57192,7 +57172,7 @@ PrefabInstance:
     - target: {fileID: 2956899301005987039, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
       propertyPath: appearsInCutscenes.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2956899301005987039, guid: 9306f1b8755754a4799e178084df7bbe,
         type: 3}
@@ -71456,6 +71436,16 @@ PrefabInstance:
       propertyPath: Gateways.Array.data[1]
       value: 
       objectReference: {fileID: 5380255}
+    - target: {fileID: 974765701149370791, guid: bf35040a7b043ab48a21680f2242f42a,
+        type: 3}
+      propertyPath: TriggersToEnable.Array.data[1]
+      value: 
+      objectReference: {fileID: 955264354}
+    - target: {fileID: 974765701149370791, guid: bf35040a7b043ab48a21680f2242f42a,
+        type: 3}
+      propertyPath: TriggersToEnable.Array.data[3]
+      value: 
+      objectReference: {fileID: 1193522985}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf35040a7b043ab48a21680f2242f42a, type: 3}
 --- !u!23 &993269975082638077
@@ -73827,7 +73817,7 @@ MonoBehaviour:
   behaviorComplete: 1
   waypoints: []
   currentWaypointIndex: 0
-  appearsInCutscenes: 00010000
+  appearsInCutscenes: 0001000000
 --- !u!33 &3216119455652718822
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -74516,6 +74506,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 63b28d418a137774b8c59a3d9483e1b2, type: 3}
   - {fileID: 4900000, guid: aa800aa6ed2ae0346b030b61d016ecb0, type: 3}
   - {fileID: 4900000, guid: e3914df66e81467438e3da6d257d9bb8, type: 3}
+  - {fileID: 4900000, guid: d12f3ac17a355ef41a8ff400c3eed9e9, type: 3}
   - {fileID: 4900000, guid: d12f3ac17a355ef41a8ff400c3eed9e9, type: 3}
   dialogueRoot: {fileID: 1874826592}
   background: {fileID: 1143215712}
@@ -76793,7 +76784,7 @@ MonoBehaviour:
   behaviorComplete: 1
   waypoints: []
   currentWaypointIndex: 0
-  appearsInCutscenes: 00000100
+  appearsInCutscenes: 0000010000
 --- !u!4 &7403902197886709485
 Transform:
   m_ObjectHideFlags: 0

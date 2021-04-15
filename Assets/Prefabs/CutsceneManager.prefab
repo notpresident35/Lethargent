@@ -164,10 +164,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   TriggersToEnable:
   - {fileID: 4170107196883385356}
   - {fileID: 0}
   - {fileID: 416680509052500508}
+  - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &974765701149370790
 MonoBehaviour:
