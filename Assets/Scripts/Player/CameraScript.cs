@@ -313,16 +313,20 @@ public class CameraScript : MonoBehaviour {
 
     void SetOpacity () {
         if (isObstructed && !wasObstructed) {
+            print ("obstructed");
             foreach (MeshRenderer model in PlayerMeshes) {
                 model.material.SetFloat ("_Opacity", 0.5f);
             }
         } else if (!isObstructed && wasObstructed) {
+            print ("unobstructed");
             foreach (MeshRenderer model in PlayerMeshes) {
                 model.material.SetFloat ("_Opacity", 1);
             }
         }
 
-        isObstructed = wasObstructed;
+        //print (isObstructed + ", " + wasObstructed);
+
+        wasObstructed = isObstructed;
     }
 
     void TargetRotation () {

@@ -1,6 +1,6 @@
 Hey, Matthew!
 SKIP
-*sigh*
+sigh
 Yes, Zack?
 I heard you talking with Kenny again. You really gonna work with her?
 It's Kanna, and yes-

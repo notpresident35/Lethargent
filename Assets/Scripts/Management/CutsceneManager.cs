@@ -47,6 +47,7 @@ public class CutsceneManager : MonoBehaviour {
     public TimelineAsset[] Cutscenes;
     public bool[] CutscenesHavePlayed;
     public List<GameObject> Gateways = new List<GameObject> ();
+    public List<GameObject> TriggersToEnable = new List<GameObject> ();
 
     PlayableDirector director;
 
@@ -107,8 +108,11 @@ public class CutsceneManager : MonoBehaviour {
 
     public void SetCutsceneEnd () {
         Active = false;
-        if (Gateways[CutsceneID] != null) {
+        if (Gateways [CutsceneID] != null) {
             Gateways [CutsceneID].SetActive (false);
+        }
+        if (TriggersToEnable [CutsceneID] != null) {
+            TriggersToEnable [CutsceneID].SetActive (true);
         }
         CutsceneStop ();
     }

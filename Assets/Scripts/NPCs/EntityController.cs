@@ -32,7 +32,7 @@ public class EntityController : MonoBehaviour {
         public Vector3 [] _waypoints;
     }
 
-    public bool active = false;
+    public bool active;
     public bool alerted;/* { get; private set; }*/
     public bool talking;
 
@@ -307,7 +307,7 @@ public class EntityController : MonoBehaviour {
 
     // Ensures that the agent is close to its destination and that it isn't already calculating a new path
     bool NavMeshAgentHasReachedDestination () {
-        return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f);
+        return !agent.pathPending && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) && agent.remainingDistance <= agent.stoppingDistance;
     }
 
     // Raycasts to the target, checking both range and LOS
