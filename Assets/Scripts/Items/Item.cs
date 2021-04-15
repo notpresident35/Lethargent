@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Item : GenericInteractable
 {
+    public AudioClip PickupSFX;
     protected string name;
     protected int id;
     protected bool normal;
@@ -19,6 +20,7 @@ public class Item : GenericInteractable
     public virtual void PickUp()
     {
         //LevelManager.current.playerData.UpdateItem(this, true);
+        AudioManager.Play2DSound (PickupSFX, Statics.SFXMixerGroupName, 1, false);
     }
 
     public virtual void Drop()
