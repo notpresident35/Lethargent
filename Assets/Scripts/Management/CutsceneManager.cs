@@ -7,6 +7,8 @@ using UnityEngine.Timeline;
 
 public class CutsceneManager : MonoBehaviour {
 
+    public static CutsceneManager Singleton;
+
     /* A list of cutscenes and their IDs in order:
      * 
      * Act 1
@@ -49,6 +51,13 @@ public class CutsceneManager : MonoBehaviour {
     PlayableDirector director;
 
     private void Awake () {
+        if (Singleton) {
+            Destroy (gameObject);
+            return;
+        } else {
+            DontDestroyOnLoad (gameObject);
+            Singleton = this;
+        }
         director = GetComponent<PlayableDirector> ();
     }
 
