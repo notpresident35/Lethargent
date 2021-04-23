@@ -197,6 +197,7 @@ MonoBehaviour:
   behaviorComplete: 1
   waypoints: []
   currentWaypointIndex: 0
+  appearsInCutscenes: 0000000100
 --- !u!114 &4652541413166142035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +226,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -236,6 +238,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -249,6 +252,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -260,6 +264,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -273,6 +278,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -284,6 +290,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -297,6 +304,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -308,6 +316,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -321,6 +330,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -334,6 +344,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -345,6 +356,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -358,6 +370,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -371,6 +384,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -384,6 +398,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -395,6 +410,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -408,6 +424,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3015895844052692378}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:

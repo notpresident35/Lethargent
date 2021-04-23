@@ -38,10 +38,11 @@ public class EntityBehavior : MonoBehaviour {
             }
         }
 
-        active = true;
-
-        entity.active = true;
-        entity.SetBehavior (behaviors [currentBehaviorIndex]._behavior);
+        if (!CutsceneManager.Active) {
+            active = true;
+            entity.active = true;
+            entity.SetBehavior (behaviors [currentBehaviorIndex]._behavior);
+        }
     }
 
     private void Start () {

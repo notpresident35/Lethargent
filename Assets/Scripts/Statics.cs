@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Statics {
 
@@ -18,6 +19,9 @@ public class Statics {
     //** Audio
 
     public static float SFXRange;
+    public static string MasterMixerName = "MasterMixer";
+    public static string AmbienceMixerGroupName = "Ambience";
+    public static string SFXMixerGroupName = "SFX";
 
     //** Player Prefs
 

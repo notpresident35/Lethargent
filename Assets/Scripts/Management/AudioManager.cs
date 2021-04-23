@@ -5,12 +5,16 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour {
 
-    public static AudioManager Singleton;
+    public static Dictionary<string, AudioMixerGroup> SoundTypes = new Dictionary<string, AudioMixerGroup> () { { Statics.AmbienceMixerGroupName, null }, { Statics.SFXMixerGroupName, null } };
+
+    public static AudioManager Singleton = null;
     public static Queue<AudioSource> sourcePool = new Queue<AudioSource> ();
     [Range (0, 1)]
     public static float AmbienceVolume = 1f;
     [Range (0, 1)]
     public static float SFXVolume = 1f;
+
+    AudioMixer mixer;
 
     private void Awake () {
         if (!Singleton) {
@@ -18,15 +22,20 @@ public class AudioManager : MonoBehaviour {
             DontDestroyOnLoad (gameObject);
         } else {
             Destroy (gameObject);
+            return;
         }
 
         AmbienceVolume = PlayerPrefs.GetFloat (Statics.AmbienceVolumePlayerPrefName, 1);
         SFXVolume = PlayerPrefs.GetFloat (Statics.SFXVolumePlayerPrefName, 1);
+
+        mixer = Resources.Load (Statics.MasterMixerName) as AudioMixer;
+        SoundTypes [Statics.AmbienceMixerGroupName] = mixer.FindMatchingGroups (Statics.AmbienceMixerGroupName) [0];
+        SoundTypes [Statics.SFXMixerGroupName] = mixer.FindMatchingGroups (Statics.SFXMixerGroupName) [0];
     }
 
     // Uses object pooling to play a sound effect in 2D space
     // Whether the sound is SFX or ambience is determined by its mixerGroup
-    public static void Play2DSound (AudioClip clip, AudioMixerGroup mixerGroup, float volume, bool ignoreGamePause) {
+    public static void Play2DSound (AudioClip clip, string mixerGroup, float volume, bool ignoreGamePause) {
         AudioSource source;
         if (sourcePool.Count > 0) {
             source = sourcePool.Dequeue ();
@@ -37,7 +46,7 @@ public class AudioManager : MonoBehaviour {
         }
         source.clip = clip;
         source.spatialBlend = 0;
-        source.outputAudioMixerGroup = mixerGroup;
+        source.outputAudioMixerGroup = SoundTypes[mixerGroup];
         // SFXVolume controls the mixer volume, and is thus ignored here
         source.volume = volume;
         source.ignoreListenerPause = ignoreGamePause;

@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cutscene2Trigger : MonoBehaviour {
+public class CutsceneTrigger : MonoBehaviour {
+
+    public int ID;
 
     [SerializeField] CutsceneManager manager;
 
     private void OnTriggerEnter (Collider other) {
-        if (!manager.CutscenesHavePlayed [1]) {
-            manager.StartCutscene (1);
-            manager.CutscenesHavePlayed [1] = true;
+        if (!manager.CutscenesHavePlayed [ID]) {
+            manager.StartCutscene (ID);
+            manager.CutscenesHavePlayed [ID] = true;
         }
         Destroy (gameObject);
     }
