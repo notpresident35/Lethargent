@@ -80,7 +80,7 @@ Zack: "Say it!"
 Matthew, talking very quickly: "I'll see what I can do about... *Junky* Kanna!"
 Zack: "That's better. I look forward to your proposed solution by... tomorrow."
 Matthew: "Can I at least have a week?"
-Zack: "Tomorrow."
+Zack: "Tomorrow. And give me the assignment now as... insurance."
 Matthew: "Tomorrow it is!"
 
 The player can now walk to their desk and put the packet down. Once they do so, the clock strikes 5, and all of the workers start to leave the building. There is now nothing for the player to do in the office; they must leave. When they leave, they must follow the other workers back to the barracks. No matter which direction the player starts walking in, once they get far enough away from the  office, generic coworker 2, Edsel, calls them over. 

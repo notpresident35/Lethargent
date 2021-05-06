@@ -92,6 +92,7 @@ Transform:
   m_Children:
   - {fileID: 1649793256733049130}
   - {fileID: 5357171707230560590}
+  - {fileID: 6969688981818222264}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -231,6 +232,138 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!1 &2984464720617293798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 501219363571770842}
+  - component: {fileID: 8519933353299320936}
+  m_Layer: 15
+  m_Name: Cutscene5 Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &501219363571770842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984464720617293798}
+  m_LocalRotation: {x: -0, y: -0.31609476, z: -0, w: 0.9487276}
+  m_LocalPosition: {x: 0.635, y: 0, z: -1.328}
+  m_LocalScale: {x: 1, y: 1, z: 2.269}
+  m_Children: []
+  m_Father: {fileID: 6969688981818222264}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -36.854, z: 0}
+--- !u!65 &8519933353299320936
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984464720617293798}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3043781845919751966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4821220260957907357}
+  - component: {fileID: 5282336697266420645}
+  m_Layer: 15
+  m_Name: Cutscene5 Trigger (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4821220260957907357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3043781845919751966}
+  m_LocalRotation: {x: -0, y: -0.7300218, z: -0, w: 0.683424}
+  m_LocalPosition: {x: 2.02, y: 0, z: -1.7}
+  m_LocalScale: {x: 1, y: 1, z: 2.269}
+  m_Children: []
+  m_Father: {fileID: 6969688981818222264}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: -93.776, z: 0}
+--- !u!65 &5282336697266420645
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3043781845919751966}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4118731893428103532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8368178506312379697}
+  - component: {fileID: 3025501242663170243}
+  m_Layer: 15
+  m_Name: Cutscene5 Trigger (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8368178506312379697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4118731893428103532}
+  m_LocalRotation: {x: -0, y: 0.7171737, z: -0, w: 0.69689447}
+  m_LocalPosition: {x: 2.358, y: 0, z: 2.329}
+  m_LocalScale: {x: 1, y: 1, z: 2.269}
+  m_Children: []
+  m_Father: {fileID: 6969688981818222264}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 91.643, z: 0}
+--- !u!65 &3025501242663170243
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4118731893428103532}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4170107196883385356
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,3 +423,127 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 1
   manager: {fileID: 974765701149370791}
+--- !u!1 &5609393763385166343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2560055389227990667}
+  - component: {fileID: 1809526460941354732}
+  m_Layer: 15
+  m_Name: Cutscene5 Trigger (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2560055389227990667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609393763385166343}
+  m_LocalRotation: {x: -0, y: 0.29837972, z: -0, w: 0.95444727}
+  m_LocalPosition: {x: 0.522, y: 0, z: 1.496}
+  m_LocalScale: {x: 1, y: 1, z: 2.269}
+  m_Children: []
+  m_Father: {fileID: 6969688981818222264}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 34.721, z: 0}
+--- !u!65 &1809526460941354732
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609393763385166343}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8346915522087443833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6969688981818222264}
+  - component: {fileID: 8553821086487871951}
+  - component: {fileID: 7940161292979890872}
+  - component: {fileID: 5981087381615817118}
+  m_Layer: 15
+  m_Name: Cutscene5 Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6969688981818222264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346915522087443833}
+  m_LocalRotation: {x: -0, y: -0.23341997, z: -0, w: 0.97237605}
+  m_LocalPosition: {x: -18.3, y: 2.38, z: -6.09}
+  m_LocalScale: {x: 7.0778627, y: 5.0390015, z: 7.0778627}
+  m_Children:
+  - {fileID: 501219363571770842}
+  - {fileID: 4821220260957907357}
+  - {fileID: 8368178506312379697}
+  - {fileID: 2560055389227990667}
+  m_Father: {fileID: 974765701149370788}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: -26.997002, z: 0}
+--- !u!65 &8553821086487871951
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346915522087443833}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7940161292979890872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346915522087443833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e899299919c60b144bcf5e156729d66b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 4
+  manager: {fileID: 974765701149370791}
+--- !u!54 &5981087381615817118
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346915522087443833}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
