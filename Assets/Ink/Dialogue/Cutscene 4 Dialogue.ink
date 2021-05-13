@@ -28,5 +28,5 @@ Say it!
 I'll see what I can do about... Kenny.
 That's better. I look forward to your proposed solution by... tomorrow.
 Can I at least have a week?
-Tomorrow.
+Tomorrow. And give me the assignment now as... insurance.
 Tomorrow it is!

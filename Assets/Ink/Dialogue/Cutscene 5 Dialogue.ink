@@ -1,4 +1,3 @@
-SKIP
 Oi, Matt!
 Oh. Hi Edsel.
 I go' me hands on a pack o' beer, fresh off the line!
@@ -21,7 +20,8 @@ Hey, I won't complain. More goodies for us!
 SKIP
 Say, Matthew. You're awful quiet. What's biting you?
 Zack.
-...ah.
+SKIP
+ah.
 Got another poster?
 Yup. He knew before I'd even opened the brief.
 Shame. He's too attentive. 
