@@ -17,12 +17,14 @@ public class TimeSystem : MonoBehaviour {
     [SerializeField] Transform clockNeedle;
 
     private bool timeProgressingCache;
+    private float clockNeedleStartRotation;
 
     // Needs to run before other scripts on game start, because other scripts depend on the time
     void StartGame () {
         // TODO: Load time from save
         CurrentTime = startTime * DayLength;
         IsTimeProgressing = IsAct1Complete;
+        clockNeedleStartRotation = clockNeedle.transform.localRotation.eulerAngles.z;
     }
 
     /*
@@ -50,7 +52,7 @@ public class TimeSystem : MonoBehaviour {
         if (IsTimeProgressing) {
             CurrentTime += Time.deltaTime;
             if (clockNeedle) {
-                clockNeedle.transform.localRotation = Quaternion.Euler (0, 0, -CurrentTime / DayLength * 360f + 180);
+                clockNeedle.transform.localRotation = Quaternion.Euler (0, 0, clockNeedleStartRotation - CurrentTime / DayLength * 360f + 180);
             }
         }
         RenderSettings.fogDensity = FogStrength.Evaluate (CurrentTime / DayLength) / 100f;
