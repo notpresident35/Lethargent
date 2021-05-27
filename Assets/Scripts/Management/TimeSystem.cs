@@ -14,6 +14,7 @@ public class TimeSystem : MonoBehaviour {
     public float DayLength = 120f; // Day/night cycle length, measured in seconds
 
     [SerializeField] float startTime = 0.4f;
+    [SerializeField] GameObject clock;
     [SerializeField] Transform clockNeedle;
 
     private bool timeProgressingCache;
@@ -72,6 +73,7 @@ public class TimeSystem : MonoBehaviour {
 
     public static void StartTime () {
         IsTimeProgressing = true;
+
     }
 
     public static void PauseTime (float time) {
@@ -97,6 +99,7 @@ public class TimeSystem : MonoBehaviour {
     void StopCutscene () {
         if (CutsceneManager.CutsceneID == Statics.Act1CompleteCutsceneID) {
             timeProgressingCache = true;
+            clock.SetActive (true);
         }
         IsTimeProgressing = timeProgressingCache;
     }

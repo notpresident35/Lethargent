@@ -14,5 +14,5 @@ They want me to draft it and you to paint it. Not sure why they need me...
 Hey! Your last draft was really inspiring!
 Yes, but we didn't even use it-
 That doesn't matter! They know you're good!
-Yeah, alright. I'll come back when the draft's done.
+Yeah, alright. Have to hand this off to Jeff first. I'll come back when the draft's done.
 Sweet! Can't wait to see it!

@@ -253,6 +253,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -264,6 +265,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -277,6 +279,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -288,6 +291,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -301,6 +305,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -312,6 +317,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -325,6 +331,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -336,6 +343,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -349,6 +357,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -362,6 +371,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -373,6 +383,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -386,6 +397,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -399,6 +411,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -412,6 +425,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -423,6 +437,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -436,6 +451,7 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6865905904183607184}
+          m_TargetAssemblyTypeName: 
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -519,6 +535,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -543,6 +560,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3568416674273565113
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,14 +619,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
+  m_Color: {r: 0.8196079, g: 0.81568635, b: 0.49411768, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 3d87f57938fe5e14ca66dcbff5e07694, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -736,6 +755,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -760,6 +780,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6730031561712668935
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +893,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8930826766015813279
 MonoBehaviour:
   m_ObjectHideFlags: 0
