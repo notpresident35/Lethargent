@@ -19,8 +19,12 @@ public class Item : GenericInteractable
 
     public virtual void PickUp()
     {
+<<<<<<< Updated upstream
         //LevelManager.current.playerData.UpdateItem(this, true);
         AudioManager.Play2DSound (PickupSFX, Statics.SFXMixerGroupName, 1, false);
+=======
+        LevelManager.current.playerData.UpdateItem(this, true);
+>>>>>>> Stashed changes
     }
 
     public virtual void Drop()

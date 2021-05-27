@@ -11,6 +11,7 @@ public class PlayerCollisions : MonoBehaviour
     [Header("Offsets of Player")]
     [SerializeField] Vector3 collisionDetectionBox;
     [SerializeField] float interactRadius = 3f;
+    [SerializeField] float hitRange = 20f;
 
     [Space]
 
@@ -45,6 +46,12 @@ public class PlayerCollisions : MonoBehaviour
             }
         }
         return false;
+    }
+    public Collider CheckAttack()
+    {
+        RaycastHit hit;
+        Physics.Raycast(visionTransform.position, visionTransform.forward, out hit, hitRange);
+        return hit.collider;
     }
 
     public bool CheckGateway () {
