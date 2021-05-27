@@ -357,6 +357,16 @@ public class PlayerMechanics : MonoBehaviour {
         heldItem = null;
     }
 
+    // This PERMANENTLY DELETES the player's currently held item. Only use this if you KNOW FOR SURE what the player is holding (pretty much only for use in cutscenes and certain mission objectives)
+    public void RemoveHeldItem () {
+        if (heldItem) {
+            Destroy (heldItem.gameObject);
+            heldItem = null;
+        } else {
+            Debug.LogError ("Why on earth are you using this if the player isn't holding an item?!?");
+        }
+    }
+
     public void GotHit(int hp)
     {
         LevelManager.current.playerData.health -= hp;

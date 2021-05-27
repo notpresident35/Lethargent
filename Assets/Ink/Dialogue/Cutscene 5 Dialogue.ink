@@ -7,7 +7,9 @@ You mean a magician?
 Yea, tha's the word! A magetian!
 ...sure. Anyway, he's right; it just got shipped in today. Care to join us?
 Sure.
-Sweet! Say, Edsel, what kind of beer is it?
+Sweet! It's back in the barracks.
+SKIP
+Say, Edsel, what kind of beer is it?
 'fraid it's jus' the regular.
 I find the regular is just dandy.
 SKIP
@@ -38,7 +40,7 @@ Connor, you know I can't.
 Not even for a day?
 SKIP
 I'm going to go hit the sack. Y'all shoul-
-Oi, wha' did I tell ya about usin' tha' word? You ain't foreign no more!
+Oi, wha' did I tell ya about usin' tha' westie slang? You ain't foreign no more!
 *Cough* not now *cough*
 ...
 Righ'. Sorry lads.
@@ -50,6 +52,8 @@ If I were still a spry navy boy, he'da got the ol' rat-tat-
 Ok, ok, I get it.
 I think you missed a spot.
 *Grumble grumble*
+SKIP
+?!
 SKIP
 Matthew! Come on!
 Wait, was that about me?

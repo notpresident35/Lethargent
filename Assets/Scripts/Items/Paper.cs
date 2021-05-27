@@ -17,5 +17,6 @@ public class Paper : Item
         foreach (Transform paper in transform.GetChild(0)) {
             paper.GetComponent<Outline> ().enabled = false;
         }
+        transform.GetChild (1).gameObject.SetActive (false);
     }
 }

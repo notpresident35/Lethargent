@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using UnityEngine.UI;
 
 public class CutsceneManager : MonoBehaviour {
 
@@ -48,6 +49,13 @@ public class CutsceneManager : MonoBehaviour {
     public bool[] CutscenesHavePlayed;
     public List<GameObject> Gateways = new List<GameObject> ();
     public List<GameObject> TriggersToEnable = new List<GameObject> ();
+    public Image ContinueButton;
+    public float ContinueBlinkFrequency;
+    public float ContinueBlinkThreshold;
+
+    //Coroutine continueDelayRoutine;
+    float lastContinuedTime;
+    Color continueButtonColor;
 
     PlayableDirector director;
 
@@ -60,6 +68,7 @@ public class CutsceneManager : MonoBehaviour {
             Singleton = this;
         }
         director = GetComponent<PlayableDirector> ();
+        continueButtonColor = ContinueButton.color;
     }
 
     private void Start () {
@@ -81,12 +90,23 @@ public class CutsceneManager : MonoBehaviour {
         if (ContinueInput () && Active && WaitingForContinue && !Statics.GameIsPaused) {
             Continue ();
         }
+
+        if (WaitingForContinue) {
+            continueButtonColor.a = Mathf.Pow (((Mathf.Sin ((Time.time - lastContinuedTime) * ContinueBlinkFrequency) + 1) * 0.25f) + 0.5f, 2);
+        } else {
+            continueButtonColor.a = 0;
+        }
+        ContinueButton.color = continueButtonColor;
     }
 
     public void Continue () {
         director.Resume ();
         //director.playableGraph.GetRootPlayable (0).SetSpeed (1);
-        WaitingForContinue = false;
+        WaitingForContinue = false;/*
+        if (continueDelayRoutine != null) {
+            StopCoroutine (continueDelayRoutine);
+            continueDelayRoutine = null;
+        }*/
         if (CutsceneContinue != null) {
             CutsceneContinue ();
         }
@@ -95,12 +115,17 @@ public class CutsceneManager : MonoBehaviour {
     public void SetContinueFlag () {
         director.Pause ();
         //director.playableGraph.GetRootPlayable (0).SetSpeed (0);
-        WaitingForContinue = true;
+        WaitingForContinue = true;/*
+        continueDelayRoutine = StartCoroutine (PromptContinueAfterDelay ());*/
     }
 
     public void StartCutscene (int ID) {
         Active = true;
-        WaitingForContinue = false;
+        WaitingForContinue = false;/*
+        if (continueDelayRoutine != null) {
+            StopCoroutine (continueDelayRoutine);
+            continueDelayRoutine = null;
+        }*/
         CutsceneID = ID;
         CutsceneStart ();
         director.Play (Cutscenes[ID]);
@@ -126,4 +151,9 @@ public class CutsceneManager : MonoBehaviour {
     public bool ContinueInput () {
         return Input.GetKeyDown (InteractInput) || Input.GetMouseButtonDown (0) || Input.GetMouseButtonDown (1) || Input.GetButtonDown ("Jump");
     }
+    /*
+    IEnumerator PromptContinueAfterDelay () {
+        yield return new WaitForSeconds (0.05f);
+        lastContinuedTime = Time.time;
+    }*/
 }
