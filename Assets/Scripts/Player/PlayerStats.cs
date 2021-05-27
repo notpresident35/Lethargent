@@ -19,6 +19,8 @@ public class PlayerStats
 
     bool m_finishedGame = false;
 
+    Weapon m_currentWeapon = null;
+
     // Collectibles dictionary with {item_id (String) : collected (Bool)}
     private Dictionary<Item, bool> m_normItems = new Dictionary<Item, bool>()
     {
@@ -75,6 +77,11 @@ public class PlayerStats
     {
       get{return m_finishedGame;}
       set{m_finishedGame = value;}
+    }
+    public Weapon currentWeapon
+    {
+        get{return m_currentWeapon;}
+        set{m_currentWeapon = value;}
     }
     public Dictionary<Item, bool> normItems
     {

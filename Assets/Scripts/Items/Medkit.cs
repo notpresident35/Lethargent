@@ -20,7 +20,7 @@ public class Medkit : Item
 
     public override void Action()
     {
-        LevelManager.current.playerData.health += 50;
+        LevelManager.current.playerData.health = 100;
         LevelManager.current.playerData.medkits -= 1;
         if (LevelManager.current.playerData.medkits == 0)
         {

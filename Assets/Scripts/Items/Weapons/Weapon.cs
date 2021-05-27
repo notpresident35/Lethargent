@@ -15,5 +15,8 @@ public class Weapon : Item
         damage = -1;
     }
 
-    public virtual void Attack() {}
+    public virtual int GetDamage()
+    {
+        return damage;
+    }
 }

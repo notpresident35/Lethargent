@@ -37,6 +37,8 @@ public class PlayerMechanics : MonoBehaviour {
 
     [Header ("Items")]
     [SerializeField] bool itemHeld;
+    [SerializeField] float cooldownTimer = 0.0f;
+    [SerializeField] float timeBetweenAttacks = 2.0f;
     [SerializeField] Transform grabber;
     [SerializeField] Transform heldItem;
 
@@ -98,6 +100,7 @@ public class PlayerMechanics : MonoBehaviour {
         Interact ();
         SaveNLoad ();
         Crouch ();
+        Attack();
     }
 
     void FixedUpdate () {
@@ -228,6 +231,7 @@ public class PlayerMechanics : MonoBehaviour {
                 cols[closestIndex].GetComponent<GenericInteractable> ().Interact (); //Trigger interactable
                 if (cols[closestIndex].GetComponent<Item> ()) {
                     itemHeld = true;
+                    cols[closestIndex].GetComponent<Item>().PickUp();
                     heldItem = cols [closestIndex].transform;
                     heldItem.transform.parent = grabber;
                     heldItem.localPosition = Vector3.zero;
@@ -256,7 +260,21 @@ public class PlayerMechanics : MonoBehaviour {
         wasHoldingItem = itemHeld;
     }
 
-    void SaveNLoad ()
+    void Attack()
+    {
+        if(control.clicking && LevelManager.current.playerData.currentWeapon && cooldownTimer >= timeBetweenAttacks)
+        {
+            Collider target = collisions.CheckAttack();
+            if(target != null)
+            {
+                target.GetComponent<Enemy>().Damage(LevelManager.current.playerData.currentWeapon.GetDamage());
+            }
+            cooldownTimer = 0f;
+        }
+        cooldownTimer += Time.deltaTime;
+    }
+
+    void SaveNLoad()
     {
         if (control.save)
         {
@@ -337,5 +355,10 @@ public class PlayerMechanics : MonoBehaviour {
         heldItem.localPosition = Vector3.zero;
         heldItem.localRotation = Quaternion.identity;
         heldItem = null;
+    }
+
+    public void GotHit(int hp)
+    {
+        LevelManager.current.playerData.health -= hp;
     }
 }
