@@ -129,6 +129,7 @@ public class CutsceneManager : MonoBehaviour {
         CutsceneID = ID;
         CutsceneStart ();
         director.Play (Cutscenes[ID]);
+        //print ("starting cutscene");
     }
 
     public void SetCutsceneEnd () {

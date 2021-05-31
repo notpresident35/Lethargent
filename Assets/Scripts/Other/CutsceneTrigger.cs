@@ -9,6 +9,7 @@ public class CutsceneTrigger : MonoBehaviour {
     [SerializeField] CutsceneManager manager;
 
     private void OnTriggerEnter (Collider other) {
+        //print (other.name);
         if (!manager.CutscenesHavePlayed [ID]) {
             manager.StartCutscene (ID);
             manager.CutscenesHavePlayed [ID] = true;

@@ -29,7 +29,7 @@ Yup. He knew before I'd even opened the brief.
 Shame. He's too attentive. 
 Has he been reading *her* again?
 Mhmm...
-Well, maybe if I swiped the book, he'd cool it for a bit.
+Well, maybe if I pinched the book, he'd cool it for a bit.
 Too late for that. He's threatened the stapler again.
 Nay! In my navy days, he'd be ge'in a load o' my fists for tha'!
 Yeah! That's ss-so rough! I-I wissh I was Bosss so I could f-f-fire him.
