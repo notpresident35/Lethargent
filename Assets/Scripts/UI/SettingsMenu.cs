@@ -87,6 +87,7 @@ public class SettingsMenu : MonoBehaviour {
         Statics.GameIsPaused = false;
         PauseMenu.SetActive (false);
         gameObject.SetActive (false);
+        SaveLoad.NewGame (0);
         Destroy (gameObject);
     }
 
@@ -95,6 +96,7 @@ public class SettingsMenu : MonoBehaviour {
         Statics.GameIsPaused = false;
         PauseMenu.SetActive (false);
         gameObject.SetActive (false);
+        SaveLoad.Load (0);
         Destroy (gameObject);
     }
 }

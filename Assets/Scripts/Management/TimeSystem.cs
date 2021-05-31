@@ -100,6 +100,7 @@ public class TimeSystem : MonoBehaviour {
         if (CutsceneManager.CutsceneID == Statics.Act1CompleteCutsceneID) {
             timeProgressingCache = true;
             clock.SetActive (true);
+            LevelManager.current.completionStats.completedTutorial = true;
         }
         IsTimeProgressing = timeProgressingCache;
     }

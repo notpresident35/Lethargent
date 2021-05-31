@@ -140,6 +140,9 @@ public class CutsceneManager : MonoBehaviour {
         if (TriggersToEnable [CutsceneID] != null) {
             TriggersToEnable [CutsceneID].SetActive (true);
         }
+        bool[] segments = LevelManager.current.completionStats.completedTutorialSegments;
+        segments [CutsceneID] = true;
+        LevelManager.current.completionStats.completedTutorialSegments = segments;
         CutsceneStop ();
     }
 
