@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4fecffded85b68479cac02bd518b259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   jumpSpeed: 9
   jumpInputLenience: 0.12
   jumpingGravityMod: 3
@@ -167,6 +167,8 @@ MonoBehaviour:
   standingHeight: 2.15
   crouchingHeight: 1.4
   itemHeld: 0
+  cooldownTimer: 0
+  timeBetweenAttacks: 2
   grabber: {fileID: 2027766086168900803}
   heldItem: {fileID: 0}
   Gateway1: {fileID: 0}
@@ -192,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionDetectionBox: {x: 0.3, y: 0.15, z: 0.3}
   interactRadius: 4
+  hitRange: 20
   groundMask:
     serializedVersion: 2
     m_Bits: 3329

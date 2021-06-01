@@ -7,6 +7,7 @@ public class Statics {
 
     //** UI/Settings
 
+    public static bool GameHasStarted = false;
     public static bool GameIsPaused = false;
 
     //** Layers and Tags
@@ -32,6 +33,9 @@ public class Statics {
     //** Other
     public static float Sqrt2 = 1.4142136f; // Approximation of the square root of 2
     public static int Act1CompleteCutsceneID = 4; // TODO: Replace placeholder value once all Act 1 cutscenes are added
+    public static int SaveFileCount = 1;
+    public static int TotalItemsCount;
+    public static int TotalCutscenesCount = 80;
 
     public static float Interpolate (float start, float target, float interpolation) {
         return (start * interpolation) + (target * (1 - interpolation));

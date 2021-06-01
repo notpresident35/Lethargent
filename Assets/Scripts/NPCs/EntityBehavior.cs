@@ -45,7 +45,7 @@ public class EntityBehavior : MonoBehaviour {
         }
     }
 
-    private void Start () {
+    void StartGame () {
         SetupBehavior ();
     }
 
@@ -63,11 +63,13 @@ public class EntityBehavior : MonoBehaviour {
     private void OnEnable () {
         CutsceneManager.CutsceneStart += StartCutscene;
         CutsceneManager.CutsceneStop += StopCutscene;
+        Menu.GameStart += StartGame;
     }
 
     private void OnDisable () {
         CutsceneManager.CutsceneStart -= StartCutscene;
         CutsceneManager.CutsceneStop -= StopCutscene;
+        Menu.GameStart -= StartGame;
     }
 
     public void StartCutscene () {

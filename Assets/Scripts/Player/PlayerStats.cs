@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 [System.Serializable]
 public class PlayerStats
@@ -19,24 +18,11 @@ public class PlayerStats
 
     bool m_finishedGame = false;
 
-    Weapon m_currentWeapon = null;
+    int m_currentItemID = -1;
 
+    // Dictionary storing <Item ID: item quantity>
     // Collectibles dictionary with {item_id (String) : collected (Bool)}
-    private Dictionary<Item, bool> m_normItems = new Dictionary<Item, bool>()
-    {
-        {new Pistol(), false}, {new Rifle(), false}, {new Shotgun(), false},
-        {new PistolAmmo(), false}, {new RifleAmmo(), false}, {new ShotgunAmmo(), false},
-        {new Grenade(), false}, {new MobileArmory(), false}, {new Medkit(), false},
-        {new Uniform(), false}, {new Orange(), false}, {new Paper(), false},
-        {new SodaCan(), false}, {new Stapler(), false}
-    };
-
-    private Dictionary<Item, bool> m_keyItems = new Dictionary<Item, bool>()
-    {
-      {new MetalKey(), false}, {new BarnKey(), false}, {new BlackKey(), false},
-      {new LabKey(), false}, {new RedKeycard(), false}, {new BlueKeycard(), false},
-      {new GreenKeycard(), false}, {new YellowKeycard(), false}, {new PurpleKeycard(), false}
-    };
+    private Dictionary<int, int> m_itemsCollected = new Dictionary<int, int> ();
 
     public int health
     {
@@ -78,57 +64,73 @@ public class PlayerStats
       get{return m_finishedGame;}
       set{m_finishedGame = value;}
     }
-    public Weapon currentWeapon
+    public int currentItemID
     {
-        get{return m_currentWeapon;}
-        set{m_currentWeapon = value;}
+        get{return m_currentItemID;}
+        set{ m_currentItemID = value;}
     }
-    public Dictionary<Item, bool> normItems
+    public Dictionary<int, int> itemsCollected
     {
-       get{return m_normItems;}
-    }
-    public Dictionary<Item, bool> keyItems
-    {
-       get{return m_keyItems;}
+       get{return m_itemsCollected;}
     }
 
     //Use bool norm to indicate whether to use normal items dict or key items dict
-    public bool ItemRegistered(Item id)
-    {
-        if(m_normItems.ContainsKey(id))
-        {
-            return true;
-        }
-        return m_keyItems.ContainsKey(id);
+    public bool ItemRegistered(int id) {
+
+        return m_itemsCollected.ContainsKey(id);
     }
 
-    public void AddItem(Item id, bool norm, bool value=false)
+    public void CollectItem (int id, int quantity) {
+        if (m_itemsCollected.ContainsKey (id)) {
+            m_itemsCollected [id] += quantity;
+        } else {
+            m_itemsCollected.Add (id, quantity);
+        }
+    }
+
+    public void UpdateItem (int id, int quantity)
     {
-        if(norm)
-        {
-            m_normItems.Add(id, value);
+        if(m_itemsCollected.ContainsKey(id)) {
+            m_itemsCollected[id] = quantity;
+            return;
+        } else {
+            Debug.LogWarning ("Don't use UpdateItem for an item the player hasn't collected yet without a good reason...");
+            CollectItem (id, quantity);
+        }
+    }
+
+    public void DropItem (int id, int quantity) {
+        if (!m_itemsCollected.ContainsKey(id)) {
+            Debug.LogError ("Tried to drop item the player doesn't have. What? Why?");
             return;
         }
-        m_keyItems.Add(id, value);
+        if (m_itemsCollected[id] > quantity) {
+            m_itemsCollected [id] = m_itemsCollected [id] - quantity;
+        } else {
+            m_itemsCollected.Remove (id);
+        }
     }
 
-    public void UpdateItem(Item id, bool new_value)
-    {
-        if(m_normItems.ContainsKey(id))
-        {
-            m_normItems[id] = new_value;
+    // WARNING: This will remove all of the items with this id from the player!
+    // Do not use this for items that have multiple copies or more than one use!
+    public void RemoveItem (int id) {
+        if (!m_itemsCollected.ContainsKey (id)) {
+            Debug.LogError ("Tried to remove item the player doesn't have. What? Why?");
             return;
         }
-        m_keyItems[id] = new_value;
+        m_itemsCollected.Remove (id);
     }
 
-    public bool GetItem(Item id)
+    public int GetItemValue (int id)
     {
-        if(m_normItems.ContainsKey(id))
-        {
-            return m_normItems[id];
+        if (m_itemsCollected.ContainsKey(id)) {
+            return m_itemsCollected[id];
         }
-        return m_keyItems[id];
+        return 0;
+    }
+
+    public bool HasItem (int id) {
+        return m_itemsCollected.ContainsKey (id);
     }
 
     public PlayerStats () {

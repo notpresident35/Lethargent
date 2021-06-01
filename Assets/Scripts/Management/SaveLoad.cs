@@ -6,7 +6,7 @@ using System.IO;
 
 public static class SaveLoad
 {
-    public static List<LevelManager> savedGames = new List<LevelManager>();
+    public static LevelManager[] savedGames = new LevelManager[Statics.SaveFileCount];
 
     // Writes all save data to the disk
     public static void WriteToDisk () {
@@ -17,7 +17,7 @@ public static class SaveLoad
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create (Application.persistentDataPath + "/Saves/savedGames.gd");
-        bf.Serialize(file, SaveLoad.savedGames);
+        bf.Serialize(file, savedGames);
         file.Close();
     }
 
@@ -36,14 +36,14 @@ public static class SaveLoad
         if(File.Exists(Application.persistentDataPath + "/Saves/savedGames.gd")) {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/Saves/savedGames.gd", FileMode.Open);
-            SaveLoad.savedGames = (List<LevelManager>)bf.Deserialize(file);
+            savedGames = (LevelManager[])bf.Deserialize(file);
             file.Close();
         }
     }
 
     public static void Load (int index) {
         LoadFromDisk ();
-        if (savedGames.Count < index) { 
+        if (savedGames.Length < index) { 
             Debug.LogError ("Attempted to load out-of-bounds save file!");
             NewGameNoSave ();
             return; 
@@ -53,7 +53,7 @@ public static class SaveLoad
 
     // Loads a save file from savedGames without reading from the disk first
     public static void QuickLoad (int index) {
-        if (savedGames.Count < index) {
+        if (savedGames.Length < index) {
             Debug.LogError ("Attempted to load out-of-bounds save file!");
             NewGameNoSave ();
             return;

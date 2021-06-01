@@ -41,7 +41,7 @@ Not even for a day?
 SKIP
 I'm going to go hit the sack. Y'all shoul-
 Oi, wha' did I tell ya about usin' tha' westie slang? You ain't foreign no more!
-*Cough* not now *cough*
+... *Cough* not now *cough*
 ...
 Righ'. Sorry lads.
 SKIP
@@ -51,7 +51,7 @@ Good. The man's go' a screw loose.
 If I were still a spry navy boy, he'da got the ol' rat-tat-
 Ok, ok, I get it.
 I think you missed a spot.
-*Grumble grumble*
+'*Grumble grumble*
 SKIP
 ?!
 SKIP

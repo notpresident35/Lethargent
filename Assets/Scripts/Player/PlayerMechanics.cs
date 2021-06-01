@@ -38,9 +38,10 @@ public class PlayerMechanics : MonoBehaviour {
     [Header ("Items")]
     [SerializeField] bool itemHeld;
     [SerializeField] float cooldownTimer = 0.0f;
-    [SerializeField] float timeBetweenAttacks = 2.0f;
+    [SerializeField] float itemUseDelay = 2.0f;
     [SerializeField] Transform grabber;
     [SerializeField] Transform heldItem;
+    [SerializeField] ItemData heldItemData;
 
     [Space]
 
@@ -100,7 +101,7 @@ public class PlayerMechanics : MonoBehaviour {
         Interact ();
         SaveNLoad ();
         Crouch ();
-        Attack();
+        UseItem();
     }
 
     void FixedUpdate () {
@@ -232,6 +233,7 @@ public class PlayerMechanics : MonoBehaviour {
                 if (cols[closestIndex].GetComponent<Item> ()) {
                     itemHeld = true;
                     cols[closestIndex].GetComponent<Item>().PickUp();
+                    heldItemData = cols [closestIndex].GetComponent<Item> ().data;
                     heldItem = cols [closestIndex].transform;
                     heldItem.transform.parent = grabber;
                     heldItem.localPosition = Vector3.zero;
@@ -260,14 +262,17 @@ public class PlayerMechanics : MonoBehaviour {
         wasHoldingItem = itemHeld;
     }
 
-    void Attack()
-    {
-        if(control.clicking && LevelManager.current.playerData.currentWeapon && cooldownTimer >= timeBetweenAttacks)
-        {
-            Collider target = collisions.CheckAttack();
-            if(target != null)
-            {
-                target.GetComponent<Enemy>().Damage(LevelManager.current.playerData.currentWeapon.GetDamage());
+    void UseItem () {
+        //print (LevelManager.current);
+        //print (LevelManager.current.playerData);
+        //print (LevelManager.current.playerData.currentWeapon);
+        if(control.clicking && heldItemData && cooldownTimer >= itemUseDelay) {
+
+            if (heldItemData.type == ItemData.Type.Weapon) {
+                Collider target = collisions.CheckAttack ();
+                if (target != null) {
+                    target.GetComponent<Enemy> ().Damage (((WeaponData) heldItemData).damage);
+                }
             }
             cooldownTimer = 0f;
         }
@@ -328,11 +333,13 @@ public class PlayerMechanics : MonoBehaviour {
     private void OnEnable() {
         CutsceneManager.CutsceneStart += StartCutscene;
         CutsceneManager.CutsceneStop += StopCutscene;
+        Menu.GameStart += StartGame;
     }
 
     private void OnDisable() {
         CutsceneManager.CutsceneStart -= StartCutscene;
         CutsceneManager.CutsceneStop -= StopCutscene;
+        Menu.GameStart -= StartGame;
     }
 
     public void StartCutscene() {
@@ -354,7 +361,9 @@ public class PlayerMechanics : MonoBehaviour {
         heldItem.parent = Cutscene2BossDesk;
         heldItem.localPosition = Vector3.zero;
         heldItem.localRotation = Quaternion.identity;
+        heldItem.GetComponent<Collider> ().enabled = false;
         heldItem = null;
+        heldItemData = null;
     }
 
     // This PERMANENTLY DELETES the player's currently held item. Only use this if you KNOW FOR SURE what the player is holding (pretty much only for use in cutscenes and certain mission objectives)
@@ -370,5 +379,9 @@ public class PlayerMechanics : MonoBehaviour {
     public void GotHit(int hp)
     {
         LevelManager.current.playerData.health -= hp;
+    }
+
+    void StartGame () {
+        active = true;
     }
 }

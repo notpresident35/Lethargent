@@ -1,39 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Item : GenericInteractable
-{
-    public AudioClip PickupSFX;
-    protected string name;
-    protected int id;
-    protected bool normal;
+public class Item : GenericInteractable {
 
-    protected virtual void Awake()
-    {
-        name = "";
-        id = -1;
-        normal = false;
-    }
+    public int ItemQuantity = 1;
+    public ItemData data;
 
     public virtual void PickUp()
     {
-        AudioManager.Play2DSound (PickupSFX, Statics.SFXMixerGroupName, 1, false);
-        LevelManager.current.playerData.UpdateItem(this, true);
+        AudioManager.Play2DSound (data.PickupSFX, Statics.SFXMixerGroupName, 1, false);
+        LevelManager.current.playerData.CollectItem (data.ID, ItemQuantity);
+        ItemPickupEventHandler.Instance.Pickup (data.ID, transform);
     }
 
     public virtual void Drop()
     {
-        if (normal)
+        if (data.usable)
         {
-            LevelManager.current.playerData.UpdateItem(this, false);
+            LevelManager.current.playerData.DropItem (data.ID, ItemQuantity);
         }
     }
 
     public virtual void Use()
     {
-        if (normal)
+        if (data.usable)
         {
             Action();
         }

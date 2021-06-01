@@ -71,14 +71,21 @@ public class CutsceneManager : MonoBehaviour {
         continueButtonColor = ContinueButton.color;
     }
 
-    private void Start () {
-        // TODO: Check if the game was saved in a cutscene, then play it if it was.
-        if (StartGameInCutscene) {
-            StartCutscene (0);
+    private void StartGame () {
+        CutscenesHavePlayed = LevelManager.current.completionStats.cutscenesWatched;
+
+        // Sets CutsceneID to first unplayed cutscene
+        for (int i = 0; i < CutscenesHavePlayed.Length; i++) {
+            if (CutscenesHavePlayed[i]) {
+                CutsceneID = i;
+            } else {
+                break;
+            }
         }
 
-        // TODO: Load these booleans
-        CutscenesHavePlayed = new bool [Cutscenes.Length];
+        if (LevelManager.current.completionStats.cutsceneIsPlaying) {
+            StartCutscene (CutsceneID);
+        }
     }
 
     [ContextMenu ("Start Test Cutscene")]
@@ -140,10 +147,14 @@ public class CutsceneManager : MonoBehaviour {
         if (TriggersToEnable [CutsceneID] != null) {
             TriggersToEnable [CutsceneID].SetActive (true);
         }
-        bool[] segments = LevelManager.current.completionStats.completedTutorialSegments;
-        segments [CutsceneID] = true;
-        LevelManager.current.completionStats.completedTutorialSegments = segments;
-        CutsceneStop ();
+        if (LevelManager.current != null) {
+            bool [] segments = LevelManager.current.completionStats.completedTutorialSegments;
+            segments [CutsceneID] = true;
+            LevelManager.current.completionStats.completedTutorialSegments = segments;
+        }
+        if (CutsceneStop != null) {
+            CutsceneStop ();
+        }
     }
 
     public void TriggerContinue () {
@@ -153,7 +164,15 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     public bool ContinueInput () {
-        return Input.GetKeyDown (InteractInput) || Input.GetMouseButtonDown (0) || Input.GetMouseButtonDown (1) || Input.GetButtonDown ("Jump");
+        return Input.GetKeyDown (InteractInput) || Input.GetMouseButtonDown (0) || Input.GetMouseButtonDown (1) || Input.GetButtonDown ("Jump") || Input.GetKeyDown (KeyCode.Return);
+    }
+
+    private void OnEnable () {
+        Menu.GameStart += StartGame;
+    }
+
+    private void OnDisable () {
+        Menu.GameStart -= StartGame;
     }
     /*
     IEnumerator PromptContinueAfterDelay () {

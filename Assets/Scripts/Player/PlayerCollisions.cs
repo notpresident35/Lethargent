@@ -25,8 +25,7 @@ public class PlayerCollisions : MonoBehaviour
 
     Camera cam;
 
-    void Start()
-    {
+    void Start() {
         groundTransform = transform.Find("GroundTransform");
         visionTransform = transform.Find("VisionTarget");
         interactionMask = LayerMask.GetMask("Interactable");

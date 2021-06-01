@@ -33,6 +33,7 @@ public class CameraScript : MonoBehaviour {
     [SerializeField] bool followIgnoreBackwardsMovement;
     [SerializeField] bool followTurnAfterBackwardsMovement;
     [SerializeField] bool invertYAxis;
+    [SerializeField] bool invertXAxis;
     [SerializeField] float cameraMouseSensitivity = 1f;
     [SerializeField] float freeLookDetectionSensitivity = 0.05f;
     [SerializeField] float verticalRotationMax;
@@ -130,11 +131,12 @@ public class CameraScript : MonoBehaviour {
         sData = FindObjectOfType<SceneData> ();// GameObject.FindGameObjectWithTag("Canvas").GetComponent<SceneData>();
     }
 
-    private void Start () {
+    private void StartGame () {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         freeLookReturnIterator = freeLookReturnDelay;
 
+        active = true;
         ResetCamera ();
     }
 
@@ -187,7 +189,7 @@ public class CameraScript : MonoBehaviour {
 
         // Ignore mouse input if player isn't aiming or freelooking
         if (control.aiming || isFreeLooking) {
-            rotationDelta.y = control.horizontalAim * cameraMouseSensitivity;
+            rotationDelta.y = (invertXAxis ? -1 : 1) * control.horizontalAim * cameraMouseSensitivity;
             rotationDelta.x = (invertYAxis ? -1 : 1) * control.verticalAim * cameraMouseSensitivity;
         } else {
             rotationDelta = Vector3.zero;
@@ -384,11 +386,13 @@ public class CameraScript : MonoBehaviour {
     private void OnEnable () {
         CutsceneManager.CutsceneStart += StartCutscene;
         CutsceneManager.CutsceneStop += StopCutscene;
+        Menu.GameStart += StartGame;
     }
 
     private void OnDisable () {
         CutsceneManager.CutsceneStart -= StartCutscene;
         CutsceneManager.CutsceneStop -= StopCutscene;
+        Menu.GameStart -= StartGame;
     }
 
     void ResetCamera () {
@@ -411,6 +415,10 @@ public class CameraScript : MonoBehaviour {
 
     public void SetYAxisInvert (bool input) {
         invertYAxis = input;
+    }
+
+    public void SetXAxisInvert (bool input) {
+        invertXAxis = input;
     }
 
     public void SetPlayerFollow (bool input) {

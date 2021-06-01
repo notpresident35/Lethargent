@@ -17,6 +17,7 @@ public class LevelManager //Is started by Main Menu or when game is started
 
     public LevelManager () {
         playerData = new PlayerStats();
+        completionStats = new CompletionStats();
         time = 0;
     }
 }
