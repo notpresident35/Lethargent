@@ -16,6 +16,7 @@ public class AmbientSoundManager : MonoBehaviour {
 
     public List<AmbientSound> AmbientSounds = new List<AmbientSound> ();
     public Transform AmbientListener;
+    public AudioSource defaultAmbientSource;
 
     float defaultAmbienceVolume;
 
@@ -26,12 +27,18 @@ public class AmbientSoundManager : MonoBehaviour {
     }
 
     private void Update () {
+
+        defaultAmbienceVolume = 1;
+
         foreach (AmbientSound ambience in AmbientSounds) {
+
             float dist = Vector3.Distance (ambience.sourcePosition.position, AmbientListener.position);
-
             float fader = Mathf.Clamp01 ((ambience.range - dist) / ambience.range * ambience.falloffRate);
-
             ambience.source.volume = ambience.volume * fader;
+
+            defaultAmbienceVolume -= ambience.source.volume;
         }
+
+        defaultAmbientSource.volume = defaultAmbienceVolume;
     }
 }

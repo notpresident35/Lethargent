@@ -17,7 +17,9 @@ public class Menu : MonoBehaviour {
     public Slider resolutionSlider;
     public Text currentResDisplay;
     public GameObject SaveButton;
+    public GameObject LoadButton;
     public GameObject NewGameButton;
+    public GameObject Logo;
     public Sprite ContinueButtonAltTextSprite;
     public Image ContinueButtonImage;
     public float ContinueButtonAltYPosition;
@@ -133,6 +135,7 @@ public class Menu : MonoBehaviour {
         OptionsMenu.SetActive (false);
         SaveButton.SetActive (true);
         NewGameButton.SetActive (false);
+        Logo.SetActive (false);
         ContinueButtonImage.sprite = ContinueButtonAltTextSprite;
         //ContinueButtonImage.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (ContinueButtonImage.GetComponent<RectTransform> ().anchoredPosition.x, ContinueButtonAltYPosition);
     } 
@@ -166,5 +169,25 @@ public class Menu : MonoBehaviour {
 
     public void Quit () {
         Application.Quit ();
+    }
+
+    private void OnEnable () {
+        CutsceneManager.CutsceneStart += StartCutscene;
+        CutsceneManager.CutsceneStop += StopCutscene;
+    }
+
+    private void OnDisable () {
+        CutsceneManager.CutsceneStart -= StartCutscene;
+        CutsceneManager.CutsceneStop -= StopCutscene;
+    }
+
+    public void StartCutscene () {
+        SaveButton.GetComponent<Button> ().interactable = false;
+        LoadButton.GetComponent<Button> ().interactable = false;
+    }
+
+    public void StopCutscene () {
+        SaveButton.GetComponent<Button> ().interactable = true;
+        LoadButton.GetComponent<Button> ().interactable = true;
     }
 }

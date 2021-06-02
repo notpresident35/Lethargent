@@ -10,6 +10,7 @@ public class Item : GenericInteractable {
 
     public int ItemQuantity = 1;
     public ItemData data;
+    public bool disableAfterIDAssignment = false;
 
     public virtual void PickUp()
     {
@@ -54,6 +55,9 @@ public class Item : GenericInteractable {
         UniqueID = transform.position.sqrMagnitude;
         SaveLoad.SyncDataForSave += SyncDataForSave;
         SaveLoad.SyncDataOnLoad += SyncDataOnLoad;
+        if (disableAfterIDAssignment) {
+            gameObject.SetActive (false);
+        }
     }
 
     private void OnDisable () {

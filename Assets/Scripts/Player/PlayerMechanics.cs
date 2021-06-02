@@ -49,6 +49,7 @@ public class PlayerMechanics : MonoBehaviour {
     [SerializeField] GameObject Gateway1;
     [SerializeField] Transform Cutscene2BossGrabber;
     [SerializeField] Transform Cutscene2BossDesk;
+    [SerializeField] GameObject AssigmentItem;
 
     [Space]
 
@@ -363,10 +364,24 @@ public class PlayerMechanics : MonoBehaviour {
         heldItemData = null;
     }
 
-    // This PERMANENTLY DELETES the player's currently held item. Only use this if you KNOW FOR SURE what the player is holding (pretty much only for use in cutscenes and certain mission objectives)
+    public void Cutscene2Event3 () {
+        AssigmentItem.SetActive (true);
+    }
+
+    public void Cutscene3Event1 () {
+        heldItem.GetChild (0).gameObject.SetActive (true);
+        heldItem.GetChild (1).gameObject.SetActive (false);
+    }
+
+    // This PERMANENTLY DELETES the player's currently held item (by moving it 1000 units away to avoid breaking the save/load system)
+    // Only use this if you KNOW FOR SURE what the player is holding (pretty much only for use in cutscenes and certain mission objectives)
     public void RemoveHeldItem () {
         if (heldItem) {
-            Destroy (heldItem.gameObject);
+            itemHeld = false;
+            heldItem.parent = null;
+            heldItem.position = new Vector3 (0, 1000, 0);
+            heldItem.rotation = Quaternion.identity;
+            heldItemData = null;
             heldItem = null;
         } else {
             Debug.LogError ("Why on earth are you using this if the player isn't holding an item?!?");
@@ -411,7 +426,7 @@ public class PlayerMechanics : MonoBehaviour {
         }
 
         if (LevelManager.current.playerData.heldItemUniqueID > 0) {
-            foreach (Item item in FindObjectsOfType<Item> ()) {
+            foreach (Item item in Resources.FindObjectsOfTypeAll (typeof (Item))) {
                 if (Mathf.Abs (LevelManager.current.playerData.heldItemUniqueID - item.UniqueID) < Mathf.Epsilon) {
                     itemHeld = true;
                     heldItemData = item.data;
@@ -423,6 +438,9 @@ public class PlayerMechanics : MonoBehaviour {
                     item.SetHeld ();
                     break;
                 }
+            }
+            if (!heldItem) {
+                Debug.LogError ("Couldn't find item with saved ID!");
             }
             LevelManager.current.playerData.heldItemUniqueID = heldItem.GetComponent<Item> ().UniqueID;
         }

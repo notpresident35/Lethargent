@@ -6,5 +6,6 @@ public class Kanna : GenericInteractable {
 
     public override void Interact () {
         CutsceneManager.Singleton.StartCutscene (2);
+        gameObject.SetActive (false);
     }
 }

@@ -7,6 +7,7 @@ public class ItemPickupEventHandler : MonoBehaviour {
     public static ItemPickupEventHandler Instance;
 
     public GameObject Gateway0;
+    public GameObject KannaInteractable;
 
     private void Awake () {
         Instance = this;
@@ -19,6 +20,12 @@ public class ItemPickupEventHandler : MonoBehaviour {
             }
             itemTransform.GetChild (1).gameObject.SetActive (false);
             Gateway0.SetActive (false);
+        } else if (ID == 45) {
+            foreach (Transform paper in itemTransform.GetChild (1)) {
+                paper.GetComponent<Outline> ().enabled = false;
+            }
+            itemTransform.GetChild (2).gameObject.SetActive (false);
+            KannaInteractable.SetActive (true);
         }
     }
 
@@ -33,6 +40,12 @@ public class ItemPickupEventHandler : MonoBehaviour {
             }
             itemTransform.GetChild (1).gameObject.SetActive (false);
             Gateway0.SetActive (false);
+        } else if (ID == 45) {
+            foreach (Transform paper in itemTransform.GetChild (1)) {
+                paper.GetComponent<Outline> ().enabled = false;
+            }
+            itemTransform.GetChild (2).gameObject.SetActive (false);
+            KannaInteractable.SetActive (true);
         }
     }
 
@@ -49,6 +62,12 @@ public class ItemPickupEventHandler : MonoBehaviour {
             }
             itemTransform.GetChild (1).gameObject.SetActive (true);
             Gateway0.SetActive (!LevelManager.current.completionStats.cutscenesWatched[1]);
+        } else if (ID == 45) {
+            foreach (Transform paper in itemTransform.GetChild (1)) {
+                paper.GetComponent<Outline> ().enabled = true;
+            }
+            itemTransform.GetChild (2).gameObject.SetActive (LevelManager.current.completionStats.cutscenesWatched [1] && !LevelManager.current.completionStats.cutscenesWatched [2]);
+            KannaInteractable.SetActive (false);
         }
     }
 }
