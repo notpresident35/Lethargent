@@ -22,7 +22,6 @@ public class TimeSystem : MonoBehaviour {
 
     // Needs to run before other scripts on game start, because other scripts depend on the time
     void StartGame () {
-        // TODO: Load time from save
         CurrentTime = startTime * DayLength;
         IsTimeProgressing = IsAct1Complete;
         clockNeedleStartRotation = clockNeedle.transform.localRotation.eulerAngles.z;
@@ -103,6 +102,26 @@ public class TimeSystem : MonoBehaviour {
             LevelManager.current.completionStats.completedTutorial = true;
         }
         IsTimeProgressing = timeProgressingCache;
+    }
+
+    private void OnEnable () {
+        SaveLoad.SyncDataForSave += SyncDataForSave;
+        SaveLoad.SyncDataOnLoad += SyncDataOnLoad;
+    }
+
+    private void OnDisable () {
+        SaveLoad.SyncDataForSave -= SyncDataForSave;
+        SaveLoad.SyncDataOnLoad -= SyncDataOnLoad;
+    }
+
+    void SyncDataForSave () {
+        LevelManager.current.time = CurrentTime;
+        LevelManager.current.timeProgressing = IsTimeProgressing;
+    }
+
+    void SyncDataOnLoad () {
+        CurrentTime = LevelManager.current.time;
+        IsTimeProgressing = LevelManager.current.timeProgressing;
     }
 }
 

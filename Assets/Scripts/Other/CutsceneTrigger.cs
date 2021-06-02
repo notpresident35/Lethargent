@@ -10,10 +10,9 @@ public class CutsceneTrigger : MonoBehaviour {
 
     private void OnTriggerEnter (Collider other) {
         //print (other.name);
-        if (!manager.CutscenesHavePlayed [ID]) {
+        if (!LevelManager.current.completionStats.cutscenesWatched [ID]) {
             manager.StartCutscene (ID);
-            manager.CutscenesHavePlayed [ID] = true;
         }
-        Destroy (gameObject);
+        gameObject.SetActive (false);
     }
 }

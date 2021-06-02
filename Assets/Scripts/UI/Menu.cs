@@ -17,6 +17,7 @@ public class Menu : MonoBehaviour {
     public Slider resolutionSlider;
     public Text currentResDisplay;
     public GameObject SaveButton;
+    public GameObject NewGameButton;
     public Sprite ContinueButtonAltTextSprite;
     public Image ContinueButtonImage;
     public float ContinueButtonAltYPosition;
@@ -122,6 +123,7 @@ public class Menu : MonoBehaviour {
     void StartGame () {
         Statics.GameIsPaused = false;
         Statics.GameHasStarted = true;
+        Time.timeScale = 1;
 
         if (GameStart != null) {
             GameStart ();
@@ -130,8 +132,9 @@ public class Menu : MonoBehaviour {
         PrimaryMenu.SetActive (false);
         OptionsMenu.SetActive (false);
         SaveButton.SetActive (true);
+        NewGameButton.SetActive (false);
         ContinueButtonImage.sprite = ContinueButtonAltTextSprite;
-        ContinueButtonImage.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (ContinueButtonImage.GetComponent<RectTransform> ().anchoredPosition.x, ContinueButtonAltYPosition);
+        //ContinueButtonImage.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (ContinueButtonImage.GetComponent<RectTransform> ().anchoredPosition.x, ContinueButtonAltYPosition);
     } 
 
     public void SaveGame () {

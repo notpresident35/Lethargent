@@ -99,7 +99,7 @@ public class PlayerMechanics : MonoBehaviour {
         if (!active) { return; }
         Grab ();
         Interact ();
-        SaveNLoad ();
+        //SaveNLoad ();
         Crouch ();
         UseItem();
     }
@@ -232,7 +232,6 @@ public class PlayerMechanics : MonoBehaviour {
                 cols[closestIndex].GetComponent<GenericInteractable> ().Interact (); //Trigger interactable
                 if (cols[closestIndex].GetComponent<Item> ()) {
                     itemHeld = true;
-                    cols[closestIndex].GetComponent<Item>().PickUp();
                     heldItemData = cols [closestIndex].GetComponent<Item> ().data;
                     heldItem = cols [closestIndex].transform;
                     heldItem.transform.parent = grabber;
@@ -263,9 +262,6 @@ public class PlayerMechanics : MonoBehaviour {
     }
 
     void UseItem () {
-        //print (LevelManager.current);
-        //print (LevelManager.current.playerData);
-        //print (LevelManager.current.playerData.currentWeapon);
         if(control.clicking && heldItemData && cooldownTimer >= itemUseDelay) {
 
             if (heldItemData.type == ItemData.Type.Weapon) {
@@ -279,23 +275,20 @@ public class PlayerMechanics : MonoBehaviour {
         cooldownTimer += Time.deltaTime;
     }
 
+    // Not needed anymore; just debug code
+    /*
     void SaveNLoad()
     {
         if (control.save)
         {
-            Scene scene = SceneManager.GetActiveScene();
-            LevelManager.current.playerData.sceneID = scene.buildIndex;
-            LevelManager.current.playerData.playerPosX = transform.position.x;
-            LevelManager.current.playerData.playerPosY = transform.position.y;
-            LevelManager.current.playerData.playerPosZ = transform.position.z;
-            SaveLoad.WriteToDisk();
+            SaveLoad.Save (0);
         }
 
         //-----------------------------------------------------------------
 
         if (control.load)
         {
-            SaveLoad.LoadFromDisk();
+            SaveLoad.Load (0);
             if (LevelManager.current.playerData.finishedGame)
             {
                 //restartText.gameObject.SetActive(true);
@@ -319,7 +312,7 @@ public class PlayerMechanics : MonoBehaviour {
 
                 transform.position = new Vector3(t_x, t_y, t_z);
         }
-    }
+    }*/
 
     void SetAnim (string animState) {
         if (currentAnimState == animState) { return; }
@@ -334,12 +327,16 @@ public class PlayerMechanics : MonoBehaviour {
         CutsceneManager.CutsceneStart += StartCutscene;
         CutsceneManager.CutsceneStop += StopCutscene;
         Menu.GameStart += StartGame;
+        SaveLoad.SyncDataForSave += SyncDataForSave;
+        SaveLoad.SyncDataOnLoad += SyncDataOnLoad;
     }
 
     private void OnDisable() {
         CutsceneManager.CutsceneStart -= StartCutscene;
         CutsceneManager.CutsceneStop -= StopCutscene;
         Menu.GameStart -= StartGame;
+        SaveLoad.SyncDataForSave -= SyncDataForSave;
+        SaveLoad.SyncDataOnLoad -= SyncDataOnLoad;
     }
 
     public void StartCutscene() {
@@ -383,5 +380,51 @@ public class PlayerMechanics : MonoBehaviour {
 
     void StartGame () {
         active = true;
+    }
+
+    void SyncDataForSave () {
+        LevelManager.current.playerData.sceneID = SceneManager.GetActiveScene ().buildIndex;
+        LevelManager.current.playerData.playerPos = transform.position;
+        LevelManager.current.playerData.playerRot = transform.rotation;
+        if (heldItem) {
+            LevelManager.current.playerData.heldItemUniqueID = heldItem.GetComponent<Item> ().UniqueID;
+        } else {
+            LevelManager.current.playerData.heldItemUniqueID = -1;
+        }
+    }
+
+    // TODO: Maybe optimize so that SetUnHeld doesn't have to be called on *every* item? 
+    void SyncDataOnLoad () {
+        transform.position = LevelManager.current.playerData.playerPos;
+        transform.rotation = LevelManager.current.playerData.playerRot;
+
+        // Drop and reset currently held item
+        if (itemHeld) {
+            itemHeld = false;
+            heldItem.position = LevelManager.current.playerData.itemsPositions [heldItem.GetComponent<Item> ().UniqueID];
+            heldItem.rotation = LevelManager.current.playerData.itemsRotations [heldItem.GetComponent<Item> ().UniqueID];
+            heldItem.GetComponent<Collider> ().enabled = true;
+            heldItem.GetComponent<Item> ().SetUnHeld ();
+            heldItem.transform.parent = null;
+            heldItemData = null;
+            heldItem = null;
+        }
+
+        if (LevelManager.current.playerData.heldItemUniqueID > 0) {
+            foreach (Item item in FindObjectsOfType<Item> ()) {
+                if (Mathf.Abs (LevelManager.current.playerData.heldItemUniqueID - item.UniqueID) < Mathf.Epsilon) {
+                    itemHeld = true;
+                    heldItemData = item.data;
+                    heldItem = item.transform;
+                    heldItem.transform.parent = grabber;
+                    heldItem.localPosition = Vector3.zero;
+                    heldItem.localRotation = Quaternion.identity;
+                    heldItem.GetComponent<Collider> ().enabled = false;
+                    item.SetHeld ();
+                    break;
+                }
+            }
+            LevelManager.current.playerData.heldItemUniqueID = heldItem.GetComponent<Item> ().UniqueID;
+        }
     }
 }

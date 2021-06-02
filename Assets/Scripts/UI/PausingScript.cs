@@ -59,9 +59,7 @@ public class PausingScript : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         LevelManager.current.playerData.sceneID = scene.buildIndex;
-        LevelManager.current.playerData.playerPosX = player.transform.position.x;
-        LevelManager.current.playerData.playerPosY = player.transform.position.y;
-        LevelManager.current.playerData.playerPosZ = player.transform.position.z;
+        LevelManager.current.playerData.playerPos = player.transform.position;
         SaveLoad.WriteToDisk();
     }
 
@@ -85,10 +83,7 @@ public class PausingScript : MonoBehaviour
             int whichScene = LevelManager.current.playerData.sceneID;
             SceneManager.LoadScene(whichScene);
 
-            float t_x = LevelManager.current.playerData.playerPosX;
-            float t_y = LevelManager.current.playerData.playerPosY;
-            float t_z = LevelManager.current.playerData.playerPosZ;
-            player.transform.position = new Vector3(t_x, t_y, t_z);
+        player.transform.position = LevelManager.current.playerData.playerPos;
     }
 
     public void OpenOptions()

@@ -10,19 +10,25 @@ public class PlayerStats
     int m_medkits = 0;
 
     //Default position of player in scene
-    float m_playerPosX = 0f;
-    float m_playerPosY = 0f;
-    float m_playerPosZ = 0f;
+    Vector3 m_playerPos = Vector3.zero;
+    Quaternion m_playerRot = Quaternion.identity;
+    Vector3 m_cameraPos = Vector3.zero;
+    Quaternion m_cameraRot = Quaternion.identity;
 
     int m_sceneID = 0; //Default scene
 
     bool m_finishedGame = false;
 
+    float m_heldItemUniqueID = -1;
     int m_currentItemID = -1;
 
     // Dictionary storing <Item ID: item quantity>
     // Collectibles dictionary with {item_id (String) : collected (Bool)}
     private Dictionary<int, int> m_itemsCollected = new Dictionary<int, int> ();
+    private Dictionary<float, bool> m_itemsHeld = new Dictionary<float, bool> ();
+
+    private Dictionary<float, Vector3> m_itemsPositions = new Dictionary<float, Vector3> ();
+    private Dictionary<float, Quaternion> m_itemsRotations = new Dictionary<float, Quaternion> ();
 
     public int health
     {
@@ -39,20 +45,22 @@ public class PlayerStats
       get{return m_medkits;}
       set{m_medkits = value;}
     }
-    public float playerPosX
+    public Vector3 playerPos
     {
-      get{return m_playerPosX;}
-      set{m_playerPosX = value;}
+      get{return m_playerPos;}
+      set{m_playerPos = value;}
     }
-    public float playerPosY
-    {
-      get{return m_playerPosY;}
-      set{m_playerPosY = value;}
+    public Quaternion playerRot {
+        get { return m_playerRot; }
+        set { m_playerRot = value; }
     }
-    public float playerPosZ
-    {
-      get{return m_playerPosZ;}
-      set{m_playerPosZ = value;}
+    public Vector3 cameraPos {
+        get { return m_cameraPos; }
+        set { m_cameraPos = value; }
+    }
+    public Quaternion cameraRot {
+        get { return m_cameraRot; }
+        set { m_cameraRot = value; }
     }
     public int sceneID
     {
@@ -69,9 +77,22 @@ public class PlayerStats
         get{return m_currentItemID;}
         set{ m_currentItemID = value;}
     }
+    public float heldItemUniqueID {
+        get { return m_heldItemUniqueID; }
+        set { m_heldItemUniqueID = value; }
+    }
     public Dictionary<int, int> itemsCollected
     {
        get{return m_itemsCollected;}
+    }
+    public Dictionary<float, bool> itemsHeld {
+        get { return m_itemsHeld; }
+    }
+    public Dictionary<float, Vector3> itemsPositions {
+        get { return m_itemsPositions; }
+    }
+    public Dictionary<float, Quaternion> itemsRotations {
+        get { return m_itemsRotations; }
     }
 
     //Use bool norm to indicate whether to use normal items dict or key items dict

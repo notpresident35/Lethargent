@@ -46,7 +46,6 @@ public class CutsceneManager : MonoBehaviour {
     // TODO: Refactor to use the interaction button
     public KeyCode InteractInput;
     public TimelineAsset[] Cutscenes;
-    public bool[] CutscenesHavePlayed;
     public List<GameObject> Gateways = new List<GameObject> ();
     public List<GameObject> TriggersToEnable = new List<GameObject> ();
     public Image ContinueButton;
@@ -72,11 +71,9 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     private void StartGame () {
-        CutscenesHavePlayed = LevelManager.current.completionStats.cutscenesWatched;
-
         // Sets CutsceneID to first unplayed cutscene
-        for (int i = 0; i < CutscenesHavePlayed.Length; i++) {
-            if (CutscenesHavePlayed[i]) {
+        for (int i = 0; i < LevelManager.current.completionStats.cutscenesWatched.Length; i++) {
+            if (LevelManager.current.completionStats.cutscenesWatched [i]) {
                 CutsceneID = i;
             } else {
                 break;
@@ -137,6 +134,7 @@ public class CutsceneManager : MonoBehaviour {
         CutsceneStart ();
         director.Play (Cutscenes[ID]);
         //print ("starting cutscene");
+        LevelManager.current.completionStats.cutsceneIsPlaying = true;
     }
 
     public void SetCutsceneEnd () {
@@ -155,6 +153,8 @@ public class CutsceneManager : MonoBehaviour {
         if (CutsceneStop != null) {
             CutsceneStop ();
         }
+        LevelManager.current.completionStats.cutsceneIsPlaying = false;
+        LevelManager.current.completionStats.cutscenesWatched [CutsceneID] = true;
     }
 
     public void TriggerContinue () {
@@ -169,14 +169,32 @@ public class CutsceneManager : MonoBehaviour {
 
     private void OnEnable () {
         Menu.GameStart += StartGame;
+        SaveLoad.SyncDataOnLoad += SyncDataOnLoad;
     }
 
     private void OnDisable () {
         Menu.GameStart -= StartGame;
+        SaveLoad.SyncDataOnLoad -= SyncDataOnLoad;
     }
     /*
     IEnumerator PromptContinueAfterDelay () {
         yield return new WaitForSeconds (0.05f);
         lastContinuedTime = Time.time;
     }*/
-}
+
+    void SyncDataOnLoad () {
+        bool [] progress = LevelManager.current.completionStats.cutscenesWatched;
+        int lastWatched = 0;
+        for (int i = 0; i < Gateways.Count - 1; i++) {
+            if (Gateways [i]) {
+                Gateways [i].SetActive (!progress [i]);
+            }
+            if (progress[i]) {
+                lastWatched = i;
+            }
+        }
+        if (TriggersToEnable [lastWatched]) {
+            TriggersToEnable [lastWatched].SetActive (true);
+        }
+    }
+} 

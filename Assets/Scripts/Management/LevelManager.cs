@@ -12,6 +12,7 @@ public class LevelManager //Is started by Main Menu or when game is started
     public CompletionStats completionStats; //Holds the current player's progression
 
     public float time; // Stores TimeSystem.currentTime 
+    public bool timeProgressing; // Stores TimeSystem.IsTimeProgressing 
 
     public bool isSceneBeingLoaded = false; //Checks if a scene is being loaded
 

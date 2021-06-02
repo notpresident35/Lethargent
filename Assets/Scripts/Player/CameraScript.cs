@@ -387,12 +387,16 @@ public class CameraScript : MonoBehaviour {
         CutsceneManager.CutsceneStart += StartCutscene;
         CutsceneManager.CutsceneStop += StopCutscene;
         Menu.GameStart += StartGame;
+        SaveLoad.SyncDataForSave += SyncDataForSave;
+        SaveLoad.SyncDataOnLoad += SyncDataOnLoad;
     }
 
     private void OnDisable () {
         CutsceneManager.CutsceneStart -= StartCutscene;
         CutsceneManager.CutsceneStop -= StopCutscene;
         Menu.GameStart -= StartGame;
+        SaveLoad.SyncDataForSave -= SyncDataForSave;
+        SaveLoad.SyncDataOnLoad -= SyncDataOnLoad;
     }
 
     void ResetCamera () {
@@ -463,5 +467,15 @@ public class CameraScript : MonoBehaviour {
         transform.parent.position = Vector3.zero;
         transform.parent.rotation = Quaternion.identity;
         ResetCamera ();
+    }
+
+    void SyncDataOnLoad () {
+        transform.position = LevelManager.current.playerData.cameraPos;
+        transform.rotation = LevelManager.current.playerData.cameraRot;
+    }
+
+    void SyncDataForSave () {
+        LevelManager.current.playerData.cameraPos = transform.position;
+        LevelManager.current.playerData.cameraRot = transform.rotation;
     }
 }
