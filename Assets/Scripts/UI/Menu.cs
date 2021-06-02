@@ -10,9 +10,10 @@ public class Menu : MonoBehaviour {
 
     public static event Action GameStart;
 
-    public GameObject PrimaryMenuAutoSelection, OptionsMenuAutoSelection;
+    public GameObject PrimaryMenuAutoSelection, OptionsMenuAutoSelection, CreditsAutoSelection;
     public GameObject PrimaryMenu;
     public GameObject OptionsMenu;
+    public GameObject Credits;
     public Slider volumeSlider;
     public Slider resolutionSlider;
     public Text currentResDisplay;
@@ -27,12 +28,14 @@ public class Menu : MonoBehaviour {
     int resolutionIndex = 0;
     float volume = 0.8f;
     bool optionsMenuOpen = false;
+    bool creditsOpen = false;
     InputManager control;
     Resolution [] resolutions; // List of all compatible resolutions
 
     private void Awake () {
         PrimaryMenu.SetActive (false);
         OptionsMenu.SetActive (false);
+        Credits.SetActive (false);
         control = FindObjectOfType<InputManager> ();
     }
 
@@ -59,6 +62,7 @@ public class Menu : MonoBehaviour {
         Statics.GameIsPaused = true;
         PrimaryMenu.SetActive (true);
         OptionsMenu.SetActive (false);
+        Credits.SetActive (false);
         EventSystem.current.SetSelectedGameObject (PrimaryMenuAutoSelection);
     }
 
@@ -86,10 +90,19 @@ public class Menu : MonoBehaviour {
         optionsMenuOpen = !optionsMenuOpen;
         PrimaryMenu.SetActive (!optionsMenuOpen);
         OptionsMenu.SetActive (optionsMenuOpen);
+        Logo.SetActive (!optionsMenuOpen);
         EventSystem.current.SetSelectedGameObject (optionsMenuOpen ? OptionsMenuAutoSelection : PrimaryMenuAutoSelection);
         if (!optionsMenuOpen) {
             ApplySettings ();
         }
+    }
+
+    public void ToggleCredits () {
+        creditsOpen = !creditsOpen;
+        PrimaryMenu.SetActive (!creditsOpen);
+        Credits.SetActive (creditsOpen);
+        Logo.SetActive (!creditsOpen);
+        EventSystem.current.SetSelectedGameObject (creditsOpen ? CreditsAutoSelection : PrimaryMenuAutoSelection);
     }
 
     void UpdateCursor () {
