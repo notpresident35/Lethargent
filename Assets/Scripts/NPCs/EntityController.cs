@@ -233,6 +233,7 @@ public class EntityController : MonoBehaviour {
 
         // Start pathfinding
         if (waypoints.Count > 0) {
+            //print (gameObject.name);
             agent.destination = waypoints [currentWaypointIndex];
         }
     }

@@ -185,7 +185,7 @@ public class CutsceneManager : MonoBehaviour {
     void SyncDataOnLoad () {
         bool [] progress = LevelManager.current.completionStats.cutscenesWatched;
         int lastWatched = 0;
-        for (int i = 0; i < Gateways.Count - 1; i++) {
+        for (int i = 0; i < Gateways.Count; i++) {
             if (Gateways [i]) {
                 Gateways [i].SetActive (!progress [i]);
             }

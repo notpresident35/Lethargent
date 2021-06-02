@@ -253,7 +253,7 @@ public class PlayerMechanics : MonoBehaviour {
             heldItem.rotation = hand.rotation;
         }*/
         if (itemHeld && !wasHoldingItem) {
-            anim.Play ("ItemHeld", 2);
+            anim.Play ("ItemHeld" + (heldItemData.oneHanded ? "OneHand" : ""), 2);
         }
         if (!itemHeld && wasHoldingItem) {
             anim.Play (currentAnimState, 2);

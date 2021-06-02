@@ -11,13 +11,11 @@ public class Item : GenericInteractable {
     public int ItemQuantity = 1;
     public ItemData data;
 
-    private void Awake () {
-        UniqueID = transform.position.sqrMagnitude;
-    }
-
     public virtual void PickUp()
     {
-        AudioManager.Play2DSound (data.PickupSFX, Statics.SFXMixerGroupName, 1, false);
+        if (data.PickupSFX != null) {
+            AudioManager.Play2DSound (data.PickupSFX, Statics.SFXMixerGroupName, 1, false);
+        }
         LevelManager.current.playerData.CollectItem (data.ID, ItemQuantity);
         ItemPickupEventHandler.Instance.Pickup (data.ID, transform);
     }
@@ -53,6 +51,7 @@ public class Item : GenericInteractable {
     }
 
     private void OnEnable () {
+        UniqueID = transform.position.sqrMagnitude;
         SaveLoad.SyncDataForSave += SyncDataForSave;
         SaveLoad.SyncDataOnLoad += SyncDataOnLoad;
     }

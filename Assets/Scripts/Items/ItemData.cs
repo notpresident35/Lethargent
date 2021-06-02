@@ -20,5 +20,6 @@ public class ItemData : ScriptableObject {
     public int ID;
     public int quantity = 1;
     public bool usable;
+    public bool oneHanded = false;
     public Type type;
 }
