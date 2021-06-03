@@ -12,6 +12,8 @@ public class Item : GenericInteractable {
     public ItemData data;
     public bool disableAfterIDAssignment = false;
 
+    bool hasBeenDisabled = false;
+
     public virtual void PickUp()
     {
         if (data.PickupSFX != null) {
@@ -55,8 +57,9 @@ public class Item : GenericInteractable {
         UniqueID = transform.position.sqrMagnitude;
         SaveLoad.SyncDataForSave += SyncDataForSave;
         SaveLoad.SyncDataOnLoad += SyncDataOnLoad;
-        if (disableAfterIDAssignment) {
+        if (disableAfterIDAssignment && !hasBeenDisabled) {
             gameObject.SetActive (false);
+            hasBeenDisabled = true;
         }
     }
 
