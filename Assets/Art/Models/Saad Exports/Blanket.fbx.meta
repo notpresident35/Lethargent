@@ -3,7 +3,12 @@ guid: 63eb56fca03c622439a6fe580df719e3
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blanket
+    second: {fileID: 2100000, guid: 95c811f177bfeb749a5f200d5050fec7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

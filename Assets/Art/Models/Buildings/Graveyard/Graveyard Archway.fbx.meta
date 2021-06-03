@@ -3,7 +3,12 @@ guid: 31171612195e5634aa9c54d0bfb94b89
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Archway
+    second: {fileID: 2100000, guid: a3cd8ce1ca8fab946b2092daf601107c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

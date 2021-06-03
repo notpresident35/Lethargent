@@ -3,7 +3,12 @@ guid: 1ba5e0f804566614ab738f24b97a60a5
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Graveyard Block
+    second: {fileID: 2100000, guid: fc1d8a6e38916de4bb84e8ac6d5e1d28, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
