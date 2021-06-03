@@ -468,6 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StepSFX: {fileID: 8300000, guid: 8b1b661c13862e840a1277c121f84472, type: 3}
+  volume: 0.2
 --- !u!1001 &3741935814730554069
 PrefabInstance:
   m_ObjectHideFlags: 0

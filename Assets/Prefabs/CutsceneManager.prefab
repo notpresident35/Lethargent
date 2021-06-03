@@ -169,7 +169,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c612002ddd476914b8769d52b7d13877, type: 2}
   - {fileID: 11400000, guid: a987b41d895a66441ba36057ee8c77b1, type: 2}
   - {fileID: 11400000, guid: 076dc1c59d0ca2b4eb236e89a9dbc0e6, type: 2}
-  CutscenesHavePlayed: 
   Gateways:
   - {fileID: 0}
   - {fileID: 0}

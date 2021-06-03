@@ -79,7 +79,7 @@ public class AudioManager : MonoBehaviour {
     // Uses object pooling to play a sound effect at a position in 3D space
     // Whether the sound is SFX or ambience is determined by its mixerGroup
     // Do NOT use this for player gunfire, or it will sound strange if the player moves side to side while shooting
-    public static void Play3DSound (AudioClip clip, AudioMixerGroup mixerGroup, Vector3 position, float volume, bool ignoreGamePause) {
+    public static void Play3DSound (AudioClip clip, string mixerGroup, Vector3 position, float volume, bool ignoreGamePause) {
         AudioSource source;
         if (sourcePool.Count > 0) {
             source = sourcePool.Dequeue ();
@@ -92,9 +92,34 @@ public class AudioManager : MonoBehaviour {
         source.spatialBlend = 1;
         source.maxDistance = Statics.SFXRange;
         source.transform.position = position;
-        source.outputAudioMixerGroup = mixerGroup;
+        source.outputAudioMixerGroup = SoundTypes [mixerGroup];
         // SFXVolume controls the mixer volume, and is thus ignored here
         source.volume = volume;
+        source.ignoreListenerPause = ignoreGamePause;
+        source.Play ();
+        Singleton.StartCoroutine (EnqueueSource (source));
+    }
+
+    // Uses object pooling to play a sound effect at a position in 3D space
+    // Whether the sound is SFX or ambience is determined by its mixerGroup
+    // Do NOT use this for player gunfire, or it will sound strange if the player moves side to side while shooting
+    public static void Play3DSound (AudioClip clip, string mixerGroup, Vector3 position, float volume, bool ignoreGamePause, float pitch) {
+        AudioSource source;
+        if (sourcePool.Count > 0) {
+            source = sourcePool.Dequeue ();
+            source.gameObject.SetActive (true);
+        } else {
+            source = new GameObject ("Audio Source", typeof (AudioSource)).GetComponent<AudioSource> ();
+            source.transform.parent = Singleton.transform;
+        }
+        source.clip = clip;
+        source.spatialBlend = 1;
+        source.maxDistance = Statics.SFXRange;
+        source.transform.position = position;
+        source.outputAudioMixerGroup = SoundTypes [mixerGroup];
+        // SFXVolume controls the mixer volume, and is thus ignored here
+        source.volume = volume;
+        source.pitch = pitch;
         source.ignoreListenerPause = ignoreGamePause;
         source.Play ();
         Singleton.StartCoroutine (EnqueueSource (source));

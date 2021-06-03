@@ -54,7 +54,6 @@ public class PlayerMechanics : MonoBehaviour {
     [Space]
 
     [Header ("SFX")]
-    [SerializeField] AudioClip StepSFX;
     [SerializeField] AudioClip JumpSFX;
 
     [Space]

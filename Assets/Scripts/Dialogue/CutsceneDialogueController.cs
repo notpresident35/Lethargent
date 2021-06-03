@@ -11,6 +11,8 @@ public class CutsceneDialogueController : MonoBehaviour {
 
 	public List<TextAsset> inkJSONAssets;
 
+	public AudioClip NewTextSFX;
+	public float Volume;
 
 	[SerializeField]
 	private Transform dialogueRoot = null;
@@ -62,7 +64,8 @@ public class CutsceneDialogueController : MonoBehaviour {
 		if (story.canContinue) {
 			RefreshView ();
 		}
-    }
+		AudioManager.Play2DSound (NewTextSFX, Statics.SFXMixerGroupName, Volume, false, UnityEngine.Random.Range (0.95f, 1.05f));
+	}
 
 	// Creates a textbox showing the the line of text
 	void CreateContentView (string text) {

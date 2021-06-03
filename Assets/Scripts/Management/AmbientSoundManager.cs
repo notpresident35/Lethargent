@@ -24,11 +24,12 @@ public class AmbientSoundManager : MonoBehaviour {
         for (int i = 0; i < AmbientSounds.Count; i++) {
             AmbientSounds [i].volume = AmbientSounds [i].source.volume;
         }
+        defaultAmbienceVolume = defaultAmbientSource.volume;
     }
 
     private void Update () {
 
-        defaultAmbienceVolume = 1;
+        float ambienceVolume = 1;
 
         foreach (AmbientSound ambience in AmbientSounds) {
 
@@ -36,9 +37,9 @@ public class AmbientSoundManager : MonoBehaviour {
             float fader = Mathf.Clamp01 ((ambience.range - dist) / ambience.range * ambience.falloffRate);
             ambience.source.volume = ambience.volume * fader;
 
-            defaultAmbienceVolume -= ambience.source.volume;
+            ambienceVolume -= fader;
         }
 
-        defaultAmbientSource.volume = defaultAmbienceVolume;
+        defaultAmbientSource.volume = ambienceVolume * defaultAmbienceVolume;
     }
 }
