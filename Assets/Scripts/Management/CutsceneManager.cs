@@ -47,6 +47,7 @@ public class CutsceneManager : MonoBehaviour {
     public KeyCode InteractInput;
     public TimelineAsset[] Cutscenes;
     public List<GameObject> Gateways = new List<GameObject> ();
+    public List<GameObject> GatewaysUnref = new List<GameObject> ();
     public List<GameObject> TriggersToEnable = new List<GameObject> ();
     public Image ContinueButton;
     public float ContinueBlinkFrequency;
@@ -186,8 +187,9 @@ public class CutsceneManager : MonoBehaviour {
         bool [] progress = LevelManager.current.completionStats.cutscenesWatched;
         int lastWatched = 0;
         for (int i = 0; i < Gateways.Count; i++) {
-            if (Gateways [i]) {
-                Gateways [i].SetActive (!progress [i]);
+            //print (!progress [i]);
+            if (GatewaysUnref [i]) {
+                GatewaysUnref [i].SetActive (!progress [i]);
             }
             if (progress[i]) {
                 lastWatched = i;

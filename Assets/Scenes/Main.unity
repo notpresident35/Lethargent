@@ -1646,6 +1646,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 48
+  m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 224.866}
 --- !u!1 &45190476
 GameObject:
@@ -7280,11 +7281,10 @@ Transform:
   m_LocalRotation: {x: -0.14341372, y: 0.6924107, z: 0.69241065, w: 0.1434137}
   m_LocalPosition: {x: -34.42, y: -0.03, z: -0.85}
   m_LocalScale: {x: 1.1292181, y: 1.1292181, z: 1.1292182}
+  m_LocalScale: {x: 1.1292182, y: 1.1292182, z: 1.1292185}
   m_Children:
   - {fileID: 410856137}
   - {fileID: 634214876}
-  m_Father: {fileID: 270748600}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &212807438
 MonoBehaviour:
@@ -9064,10 +9064,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 212807437}
   m_Father: {fileID: 0}
   m_RootOrder: 47
+  m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &270748601
 MonoBehaviour:
@@ -9085,6 +9084,8 @@ MonoBehaviour:
     m_Signals:
     - {fileID: 11400000, guid: bcfe7e27de1e33342811aee6940fff2e, type: 2}
     - {fileID: 11400000, guid: a9c9f7e49772fed43ada0367724453d0, type: 2}
+    - {fileID: 11400000, guid: e16bded64a5ab4040a89abd7e70b38e6, type: 2}
+    - {fileID: 11400000, guid: 3a8b386541802394494aed63e140f2d1, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -9114,6 +9115,34 @@ MonoBehaviour:
             m_StringArgument: Bluezone_BC0270_heaven_synth_texture_melodic_phrase_soft_01_03
             m_BoolArgument: 0
           m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 270748602}
+          m_TargetAssemblyTypeName: CutsceneSFXPlayer, Assembly-CSharp
+          m_MethodName: EndGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 270748602}
+          m_TargetAssemblyTypeName: CutsceneSFXPlayer, Assembly-CSharp
+          m_MethodName: AppearLogo
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &270748602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9129,6 +9158,7 @@ MonoBehaviour:
   SFX:
   - {fileID: 8300000, guid: b6021be5fbed70b4592f5cb6d67ad39b, type: 3}
   - {fileID: 8300000, guid: 8235955efca783343b53fab52e6fcabb, type: 3}
+  Logo: {fileID: 1336291083}
 --- !u!1 &274592558
 GameObject:
   m_ObjectHideFlags: 0
@@ -13161,6 +13191,7 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407035105}
   m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -13179,6 +13210,7 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407035106}
   m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -13196,7 +13228,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407035107}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -13214,7 +13246,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407035108}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -13232,7 +13264,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407035109}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -63341,6 +63373,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 49
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 655731297204405961, guid: 7b27be990fe91574591bbd9498ba0219,
         type: 3}
@@ -83784,6 +83817,26 @@ PrefabInstance:
       propertyPath: Gateways.Array.data[3]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 974765701149370791, guid: bf35040a7b043ab48a21680f2242f42a,
+        type: 3}
+      propertyPath: GatewaysUnref.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 974765701149370791, guid: bf35040a7b043ab48a21680f2242f42a,
+        type: 3}
+      propertyPath: GatewaysUnref.Array.data[0]
+      value: 
+      objectReference: {fileID: 437204706}
+    - target: {fileID: 974765701149370791, guid: bf35040a7b043ab48a21680f2242f42a,
+        type: 3}
+      propertyPath: GatewaysUnref.Array.data[1]
+      value: 
+      objectReference: {fileID: 5380255}
+    - target: {fileID: 974765701149370791, guid: bf35040a7b043ab48a21680f2242f42a,
+        type: 3}
+      propertyPath: GatewaysUnref.Array.data[3]
+      value: 
+      objectReference: {fileID: 1282441982}
     - target: {fileID: 974765701149370791, guid: bf35040a7b043ab48a21680f2242f42a,
         type: 3}
       propertyPath: TriggersToEnable.Array.data[3]

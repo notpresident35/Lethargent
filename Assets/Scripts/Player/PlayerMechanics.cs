@@ -266,6 +266,9 @@ public class PlayerMechanics : MonoBehaviour {
             anim.Play (currentAnimState, 2);
         }
         wasHoldingItem = itemHeld;
+        if (heldItem && !heldItem.gameObject.activeInHierarchy) {
+            heldItem.gameObject.SetActive (true);
+        }
     }
 
     void UseItem () {

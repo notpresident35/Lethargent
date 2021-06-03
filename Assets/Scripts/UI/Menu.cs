@@ -159,8 +159,9 @@ public class Menu : MonoBehaviour {
 
     public void UpdateVolume (float value) {
         volume = value;
-        AudioManager.AmbienceVolume = volume;
-        AudioManager.SFXVolume = volume;
+        AudioListener.volume = volume;
+        //AudioManager.AmbienceVolume = volume;
+        //AudioManager.SFXVolume = volume;
     }
 
     // Takes a float as input because sliders only support floats as dynamic values
