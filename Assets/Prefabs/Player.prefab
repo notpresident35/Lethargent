@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 6865905904183607184}
   - component: {fileID: 1616094223562396504}
   - component: {fileID: 1654365656751208432}
+  - component: {fileID: 5561158482090856238}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -168,12 +169,16 @@ MonoBehaviour:
   crouchingHeight: 1.4
   itemHeld: 0
   cooldownTimer: 0
-  timeBetweenAttacks: 2
+  itemUseDelay: 2
   grabber: {fileID: 2027766086168900803}
   heldItem: {fileID: 0}
+  heldItemData: {fileID: 0}
   Gateway1: {fileID: 0}
   Cutscene2BossGrabber: {fileID: 0}
   Cutscene2BossDesk: {fileID: 0}
+  AssigmentItem: {fileID: 0}
+  StepSFX: {fileID: 0}
+  JumpSFX: {fileID: 0}
   isWalking: 0
   isCrouching: 0
   isJumping: 0
@@ -483,6 +488,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.075, z: 0}
+--- !u!114 &5561158482090856238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124246991558546147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206979fcc47a8974d9df451029535862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StepSFX: {fileID: 8300000, guid: 8b1b661c13862e840a1277c121f84472, type: 3}
 --- !u!1 &2713531861171116359
 GameObject:
   m_ObjectHideFlags: 0

@@ -54,6 +54,28 @@ public class AudioManager : MonoBehaviour {
         Singleton.StartCoroutine (EnqueueSource (source));
     }
 
+    // Uses object pooling to play a sound effect in 2D space
+    // Whether the sound is SFX or ambience is determined by its mixerGroup
+    public static void Play2DSound (AudioClip clip, string mixerGroup, float volume, bool ignoreGamePause, float pitch) {
+        AudioSource source;
+        if (sourcePool.Count > 0) {
+            source = sourcePool.Dequeue ();
+            source.gameObject.SetActive (true);
+        } else {
+            source = new GameObject ("Audio Source", typeof (AudioSource)).GetComponent<AudioSource> ();
+            source.transform.parent = Singleton.transform;
+        }
+        source.clip = clip;
+        source.spatialBlend = 0;
+        source.outputAudioMixerGroup = SoundTypes [mixerGroup];
+        // SFXVolume controls the mixer volume, and is thus ignored here
+        source.volume = volume;
+        source.pitch = pitch;
+        source.ignoreListenerPause = ignoreGamePause;
+        source.Play ();
+        Singleton.StartCoroutine (EnqueueSource (source));
+    }
+
     // Uses object pooling to play a sound effect at a position in 3D space
     // Whether the sound is SFX or ambience is determined by its mixerGroup
     // Do NOT use this for player gunfire, or it will sound strange if the player moves side to side while shooting

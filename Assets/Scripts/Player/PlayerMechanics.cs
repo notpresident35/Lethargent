@@ -199,7 +199,7 @@ public class PlayerMechanics : MonoBehaviour {
             jumpInputCache = 0;
             isJumping = true;
             jumpCount++;
-            AudioManager.Play2DSound (JumpSFX, Statics.SFXMixerGroupName, 1, false);
+            AudioManager.Play2DSound (JumpSFX, Statics.SFXMixerGroupName, 1, false, Random.Range (0.95f, 1.05f));
         }
 
         if (jumpVelocity.y > Mathf.Epsilon) // Player is jumping up; fall slower if still holding the jump button
@@ -393,10 +393,6 @@ public class PlayerMechanics : MonoBehaviour {
         } else {
             Debug.LogError ("Why on earth are you using this if the player isn't holding an item?!?");
         }
-    }
-
-    public void PlayStepSFX () {
-        AudioManager.Play2DSound (StepSFX, Statics.SFXMixerGroupName, 1, false);
     }
 
     public void GotHit(int hp)
