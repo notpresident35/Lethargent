@@ -80,8 +80,9 @@ public class Menu : MonoBehaviour {
     public void TogglePauseMenu () {
         Statics.GameIsPaused = !Statics.GameIsPaused;
         PrimaryMenu.SetActive (Statics.GameIsPaused);
+        Logo.SetActive (Statics.GameIsPaused);
         Time.timeScale = Statics.GameIsPaused ? 0 : 1;
-        if (Statics.GameIsPaused) {
+        if (Statics.GameIsPaused) { 
             EventSystem.current.SetSelectedGameObject (PrimaryMenuAutoSelection);
         }
     }

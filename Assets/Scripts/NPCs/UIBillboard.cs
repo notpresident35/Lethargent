@@ -8,10 +8,14 @@ public class UIBillboard : MonoBehaviour {
     [SerializeField] bool useScaling = true;
     [SerializeField] float maxScale;
     [SerializeField] float minScale;
+    [SerializeField] float maxScaleRange;
+    [SerializeField] float easingSpeed;
+    [SerializeField] AnimationCurve easingCurve;
 
     Transform camTransform;
     Quaternion originalRotation;
     Vector3 originalScale;
+    float easing;
 
     void Start () {
         originalRotation = transform.rotation;
@@ -22,7 +26,13 @@ public class UIBillboard : MonoBehaviour {
     void Update () {
         transform.rotation = camTransform.rotation/* * originalRotation*/;
         if (useScaling) {
-            transform.localScale = Mathf.Clamp ((camTransform.position - transform.position).magnitude * scaleFactor, minScale, maxScale) * originalScale;
+            float scale = (camTransform.position - transform.position).magnitude * scaleFactor;
+            if (scale < maxScale * maxScaleRange) {
+                easing = Mathf.Min (easing + Time.deltaTime * easingSpeed, 1);
+            } else {
+                easing = Mathf.Max (easing - Time.deltaTime * easingSpeed, 0);
+            }
+            transform.localScale = Mathf.Clamp (scale, minScale, maxScale) * originalScale * easingCurve.Evaluate (easing);
         }
     }
 }

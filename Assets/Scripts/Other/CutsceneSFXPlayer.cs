@@ -8,6 +8,7 @@ public class CutsceneSFXPlayer : MonoBehaviour {
     public List<AudioClip> SFX = new List<AudioClip> ();
 
     public GameObject Logo;
+    public GameObject BossDialogue;
 
     public void PlayClip (string name) {
         int targetSoundID = 0;
@@ -26,7 +27,25 @@ public class CutsceneSFXPlayer : MonoBehaviour {
         Logo.SetActive (true);
     }
 
+    public void DisappearLogo () {
+        Logo.SetActive (false);
+    }
+
     public void EndGame () {
-        
+        BossDialogue.SetActive (true);
+    }
+
+    private void OnEnable () {
+        SaveLoad.SyncDataOnLoad += SyncDataOnLoad;
+    }
+
+    private void OnDisable () {
+        SaveLoad.SyncDataOnLoad -= SyncDataOnLoad;
+    }
+
+    void SyncDataOnLoad () {
+        if (LevelManager.current.completionStats.completedTutorial) {
+            EndGame ();
+        }
     }
 }
